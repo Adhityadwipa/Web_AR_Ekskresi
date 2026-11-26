@@ -60,7 +60,7 @@ export class Viewer extends EventTarget {
     this.camera = new THREE.PerspectiveCamera(36, 1, 0.01, 200);
     this.camera.position.set(0, 0.6, 9);
 
-    const hemi = new THREE.HemisphereLight('#fff6ee', '#d9c9c0', 0.9);
+    const hemi = (this.hemi = new THREE.HemisphereLight('#fff6ee', '#d9c9c0', 0.9));
     const key = (this.key = new THREE.DirectionalLight('#fff4e8', 2.2));
     key.position.set(3.5, 6, 5);
     key.castShadow = true;
@@ -327,6 +327,14 @@ export class Viewer extends EventTarget {
       text.style.transform = `translate(${ox.toFixed(1)}px, ${oy.toFixed(1)}px) translate(${it.side < 0 ? '-100%' : '0'}, -50%)`;
       e.classList.toggle('left', it.side < 0);
     }
+  }
+
+  /** Sesuaikan pencahayaan & bayangan dengan tema terang/gelap. */
+  setTheme(dark) {
+    this.shadow.material.opacity = dark ? 0.38 : 0.16;
+    this.hemi.groundColor.set(dark ? '#4a3f3a' : '#d9c9c0');
+    this.hemi.intensity = dark ? 1.0 : 0.9;
+    this.scene.environmentIntensity = dark ? 0.75 : 0.85;
   }
 
   // ---------- Kontrol tampilan ----------

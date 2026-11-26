@@ -1,4 +1,4 @@
-# Ekskresia — Atlas AR Sistem Ekskresi
+# ExAR — AR 3D Sistem Ekskresi
 
 Web chatbot dengan **Augmented Reality 3D** tentang sistem ekskresi manusia untuk siswa **SMP & SMA**.
 Organ 3D yang detail (paru-paru, ginjal + saluran kemih, nefron, hati, kulit) dapat diputar, dipotong,

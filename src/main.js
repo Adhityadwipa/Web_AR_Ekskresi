@@ -241,6 +241,36 @@ $('#arAsk').addEventListener('click', () => {
   chat.send(observedPart() ? 'Ini bagian apa dan apa fungsinya?' : 'Jelaskan organ ini');
 });
 
+// ---------- Tema terang / gelap ----------
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+function applyTheme(t, save) {
+  document.documentElement.dataset.theme = t;
+  viewer.setTheme(t === 'dark');
+  themeMeta?.setAttribute('content', t === 'dark' ? '#121316' : '#f4f1ec');
+  if (save) { try { localStorage.setItem('exar.theme', t); } catch { /* abaikan */ } }
+}
+applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+$('#themeToggle').addEventListener('click', () => {
+  const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+  applyTheme(next, true);
+  toast(next === 'dark' ? 'Tema gelap aktif 🌙' : 'Tema terang aktif ☀️', 1800);
+});
+
+// ---------- Panduan kontrol (bisa disembunyikan) ----------
+const navHint = $('#navHint');
+const setHint = (collapsed) => {
+  navHint.classList.toggle('collapsed', collapsed);
+  $('#navHintToggle').setAttribute('aria-expanded', String(!collapsed));
+};
+let hintCollapsed = isMobile();
+try { const v = localStorage.getItem('exar.hint'); if (v !== null) hintCollapsed = v === '1'; } catch { /* abaikan */ }
+setHint(hintCollapsed);
+$('#navHintToggle').addEventListener('click', () => {
+  const c = !navHint.classList.contains('collapsed');
+  setHint(c);
+  try { localStorage.setItem('exar.hint', c ? '1' : '0'); } catch { /* abaikan */ }
+});
+
 // ---------- Mulai ----------
 if (isMobile()) { // layar sempit: label disembunyikan dulu agar tidak menumpuk
   $('#toolLabels').classList.remove('is-on');

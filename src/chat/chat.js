@@ -1,6 +1,6 @@
 import { ORGANS, PARTS } from '../data/knowledge.js';
 import { ctx, observedPart } from '../state.js';
-import { LocalEngine, resolve, contextLabel, detectPart, detectOrgans, norm, has } from './engine.js';
+import { LocalEngine, resolve, contextLabel, detectPart, detectOrgans, has, fixQuery } from './engine.js';
 import { checkLLM, describeContext, streamLLM } from './llm.js';
 
 const escapeHtml = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -60,7 +60,7 @@ export class Chat {
   }
 
   welcome() {
-    this.add('bot', `Halo! 👋 Aku **Asisten Ekskresi**.\n\nPutar dan ketuk organ 3D di sebelah, lalu tanyakan apa saja. Kamu **tidak perlu menyebut nama organnya** — aku tahu objek apa yang sedang kamu amati. 🔍`, { meta: false });
+    this.add('bot', `Haii! 👋 Aku **ExAR**, teman belajarmu soal sistem ekskresi.\n\nPutar dan ketuk organ 3D di sebelah, terus tanya apa aja ke aku. Nggak perlu sebut nama organnya — aku tahu kok kamu lagi ngamatin yang mana 😉🔍\n\nSalah ketik juga santai, aku ngerti kok 😄`, { meta: false });
   }
 
   /** Perbarui chip konteks & saran pertanyaan. */
@@ -143,7 +143,7 @@ export class Chat {
     this.$input.value = '';
     this.add('user', text);
     const c = { ...ctx, trail: [...ctx.trail] };
-    const q = norm(text);
+    const q = fixQuery(text).text;
     const local = () => this.engine.answer(text, c);
     // Kuis selalu ditangani lokal (butuh state & tombol jawaban)
     const quizLike = this.engine.quiz || /(^|\s)(kuis|quiz|soal|latihan)/.test(q);
@@ -156,7 +156,7 @@ export class Chat {
       return;
     }
     this.busy = true;
-    const r = resolve(text, c);
+    const r = resolve(q, c);
     const context = { ...r.target, label: contextLabel(r.target) };
     const typing = this._typing();
     let msg = null;
@@ -187,7 +187,7 @@ export class Chat {
 
   /** Tombol aksi kontekstual untuk jawaban AI (tunjukkan bagian / buka model). */
   _suggestActions(text, c) {
-    const q = norm(text);
+    const q = fixQuery(text).text;
     const part = detectPart(q);
     if (part && PARTS[part]) {
       const mdl = PARTS[part].model || PARTS[part].organ;

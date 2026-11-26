@@ -13,7 +13,7 @@ export const ctx = {
   part: null,
   gaze: null,
   mode: '3d',
-  level: localStorageGet('ekskresia.level') || 'smp',
+  level: localStorageGet('exar.level') || 'smp',
   trail: [], // jejak organ/bagian yang baru diamati (terbaru di depan)
 };
 
@@ -30,7 +30,7 @@ export function setCtx(patch) {
     ctx.trail.unshift(key);
     ctx.trail.length = Math.min(ctx.trail.length, 8);
   }
-  if (patch.level) { try { localStorage.setItem('ekskresia.level', patch.level); } catch { /* abaikan */ } }
+  if (patch.level) { try { localStorage.setItem('exar.level', patch.level); } catch { /* abaikan */ } }
   listeners.forEach((f) => f(ctx, prev));
 }
 
