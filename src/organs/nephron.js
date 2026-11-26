@@ -3,8 +3,11 @@ import { Section } from '../scene/section.js';
 import { organic, curve, taperTube, mesh, merge, gradientAlong } from '../scene/helpers.js';
 import { seeded } from '../scene/noise.js';
 
-/** Buat jalur berkelok-kelok (convoluted) mengikuti kurva dasar. */
-function convolute(base, { amp = 0.12, freq = 6, n = 140, rnd, phase = 0 }) {
+// Tata letak (satuan bebas): korteks di atas (y > 0.25), medula di bawah.
+const BORDER_Y = 0.25;
+
+/** Jalur berkelok (convoluted) di sekitar kurva dasar. */
+function convolute(base, { amp = 0.12, freq = 6, n = 160, rnd, phase = 0, zAmp = 0.6 }) {
   const pts = [];
   const up = new THREE.Vector3(0, 0, 1);
   const p1 = rnd() * 6, p2 = rnd() * 6;
@@ -13,122 +16,179 @@ function convolute(base, { amp = 0.12, freq = 6, n = 140, rnd, phase = 0 }) {
     const p = base.getPointAt(t);
     const tan = base.getTangentAt(t);
     const a = new THREE.Vector3().crossVectors(tan, up).normalize();
-    if (a.lengthSq() < 0.01) a.set(1, 0, 0);
-    const b = new THREE.Vector3().crossVectors(tan, a).normalize();
-    const env = Math.sin(Math.PI * t) ** 0.4; // ujung tetap di jalur
+    const env = Math.sin(Math.PI * t) ** 0.4; // ujung tetap pada jalurnya
     const w = t * freq * Math.PI * 2 + phase;
-    p.addScaledVector(a, Math.sin(w + p1) * amp * env).addScaledVector(b, Math.cos(w * 0.7 + p2) * amp * env);
+    p.addScaledVector(a, Math.sin(w + p1) * amp * env);
+    p.z += Math.cos(w * 0.8 + p2) * amp * zAmp * env;
     pts.push(p);
   }
   return curve(pts, false, 0.5);
 }
 
+/** Kapiler yang melilit sebuah kurva (heliks). */
+function helixAround(base, r, turns, phase, { from = 0, to = 1, n = 200 } = {}) {
+  const pts = [];
+  for (let i = 0; i <= n; i++) {
+    const t = from + (to - from) * (i / n);
+    const p = base.getPointAt(t);
+    const tan = base.getTangentAt(t);
+    const a = new THREE.Vector3().crossVectors(tan, new THREE.Vector3(0, 0, 1)).normalize();
+    const b = new THREE.Vector3().crossVectors(tan, a).normalize();
+    const w = (i / n) * turns * Math.PI * 2 + phase;
+    pts.push(p.addScaledVector(a, Math.cos(w) * r).addScaledVector(b, Math.sin(w) * r));
+  }
+  return curve(pts);
+}
+
+/** Partikel yang bergerak pelan di sepanjang lintasan, warnanya berubah sesuai posisi. */
+function flowParticles(path, n, size, c0, c1, speed) {
+  const inst = new THREE.InstancedMesh(new THREE.SphereGeometry(size, 10, 8), new THREE.MeshStandardMaterial({ roughness: 0.3, emissive: '#222', emissiveIntensity: 0.4 }), n);
+  inst.userData.noPick = true;
+  const a = new THREE.Color(c0), b = new THREE.Color(c1), col = new THREE.Color();
+  for (let i = 0; i < n; i++) inst.setColorAt(i, a);
+  const m4 = new THREE.Matrix4();
+  return {
+    mesh: inst,
+    update(t) {
+      for (let i = 0; i < n; i++) {
+        const u = (t * speed + i / n) % 1;
+        const p = path.getPointAt(u);
+        m4.makeTranslation(p.x, p.y, p.z);
+        inst.setMatrixAt(i, m4);
+        inst.setColorAt(i, col.copy(a).lerp(b, u));
+      }
+      inst.instanceMatrix.needsUpdate = true;
+      inst.instanceColor.needsUpdate = true;
+    },
+  };
+}
+
 export function buildNephron() {
   const rnd = seeded(77);
   const group = new THREE.Group();
-  const G = new THREE.Vector3(-0.7, 1.0, 0);
+  const vesselMat = (c) => organic(c, { rough: 0.3, clearcoat: 0.85, bump: 0.5 });
+  const red = '#c9303a', blue = '#3d5fbf';
 
-  // ---- Glomerulus: gulungan kapiler ----
-  const gp = [new THREE.Vector3(-1.05, 1.22, 0)];
-  let cur = G.clone().add(new THREE.Vector3(-0.15, 0.1, 0));
-  for (let i = 0; i < 46; i++) {
-    const step = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize().multiplyScalar(0.14);
-    const nxt = cur.clone().add(step);
-    if (nxt.distanceTo(G) > 0.26) nxt.lerp(G, 0.45);
-    gp.push(nxt);
-    cur = nxt;
+  // ---------- Pembuluh besar: arteri/vena arkuata & interlobularis ----------
+  const arcA = curve([[-3.0, BORDER_Y + 0.05, -0.55], [0, BORDER_Y, -0.6], [3.0, BORDER_Y + 0.05, -0.55]]);
+  const arcV = curve([[-3.0, BORDER_Y - 0.18, -0.35], [0, BORDER_Y - 0.2, -0.4], [3.0, BORDER_Y - 0.18, -0.35]]);
+  const iA = curve([[-2.0, BORDER_Y, -0.58], [-2.02, 1.2, -0.4], [-2.0, 2.5, -0.3]]);
+  const iV = curve([[-2.5, 2.5, -0.15], [-2.48, 1.2, -0.2], [-2.5, BORDER_Y - 0.19, -0.37]]);
+  group.add(mesh(merge([taperTube(arcA, 0.11, 0.11, 60, 16), taperTube(iA, 0.08, 0.06, 40, 14)]), vesselMat(red), 'arteri-interlobularis'));
+  group.add(mesh(merge([taperTube(arcV, 0.13, 0.13, 60, 16), taperTube(iV, 0.07, 0.09, 40, 14)]), vesselMat(blue), 'vena-interlobularis'));
+
+  // ---------- Korpuskel ginjal: glomerulus + kapsul Bowman ----------
+  const G = new THREE.Vector3(-0.95, 1.65, 0);
+  const aff = curve([iA.getPointAt(0.78), [-1.7, 1.95, -0.15], [-1.4, 1.82, -0.02], [-1.22, 1.74, 0]]);
+  const affMesh = mesh(taperTube(aff, 0.075, 0.065, 50, 16), vesselMat(red), 'arteriol-aferen');
+  group.add(affMesh);
+  // glomerulus: beberapa lengkung kapiler yang membentuk bola
+  const gPaths = [];
+  const loops = [];
+  for (let l = 0; l < 7; l++) {
+    const pts = [new THREE.Vector3(-1.22, 1.74, 0)];
+    let cur = G.clone().add(new THREE.Vector3(-0.12, 0.05, 0));
+    for (let i = 0; i < 14; i++) {
+      const step = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize().multiplyScalar(0.11);
+      const nxt = cur.clone().add(step);
+      if (nxt.distanceTo(G) > 0.25) nxt.lerp(G, 0.45);
+      pts.push(nxt);
+      cur = nxt;
+    }
+    pts.push(new THREE.Vector3(-1.22, 1.56, 0.04));
+    const c = curve(pts);
+    loops.push(c);
+    gPaths.push(gradientAlong(taperTube(c, 0.032, 0.03, 120, 8), '#d8343d', '#b62c45'));
   }
-  gp.push(new THREE.Vector3(-1.05, 0.88, 0.06));
-  const gCurve = curve(gp, false, 0.5);
-  const glom = mesh(gradientAlong(taperTube(gCurve, 0.045, 0.04, 420, 8), '#e0343e', '#b8283a'), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.8, bump: 0 }), 'glomerulus');
-  group.add(glom);
-
-  // ---- Kapsul Bowman: mangkuk terbuka ke kutub vaskular ----
-  const cupGeo = new THREE.SphereGeometry(0.46, 64, 40, 0, Math.PI * 2, 0.62, Math.PI - 0.62);
-  const cup = mesh(cupGeo, organic('#f1cf9c', { rough: 0.3, clearcoat: 0.9, side: THREE.DoubleSide, bump: 0.8, bumpKind: 'cells' }), 'kapsul-bowman');
+  group.add(mesh(merge(gPaths), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.85, bump: 0 }), 'glomerulus'));
+  const eff = curve([[-1.22, 1.56, 0.04], [-1.45, 1.42, 0.12], [-1.55, 1.2, 0.2], [-1.4, 1.0, 0.25]]);
+  group.add(mesh(gradientAlong(taperTube(eff, 0.05, 0.045, 40, 14), '#b8304a', '#a33a5c'), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.85, bump: 0.4 }), 'arteriol-eferen'));
+  // kapsul Bowman: mangkuk berdinding ganda, terbuka ke kutub vaskular (kiri)
+  const capsuleMat = organic('#efd2a4', { rough: 0.35, clearcoat: 0.8, side: THREE.DoubleSide, bump: 1, bumpKind: 'cells' });
+  const outer = new THREE.SphereGeometry(0.42, 64, 40, 0, Math.PI * 2, 0.55, Math.PI - 0.55);
+  const cup = mesh(outer, capsuleMat, 'kapsul-bowman');
   cup.position.copy(G);
-  cup.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-1, 0.25, 0).normalize());
-  group.add(cup);
+  cup.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-1, 0.15, 0).normalize());
+  const rim = mesh(new THREE.TorusGeometry(0.42 * Math.sin(0.55), 0.03, 10, 48), capsuleMat, 'kapsul-bowman');
+  rim.position.copy(G).add(new THREE.Vector3(-1, 0.15, 0).normalize().multiplyScalar(0.42 * Math.cos(0.55)));
+  rim.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), new THREE.Vector3(-1, 0.15, 0).normalize());
+  group.add(cup, rim);
 
-  // ---- Arteriol aferen (besar) & eferen (kecil) ----
-  const aff = curve([[-2.2, 1.55, -0.1], [-1.7, 1.35, 0], [-1.25, 1.25, 0], [-1.05, 1.22, 0]]);
-  const eff = curve([[-1.05, 0.88, 0.06], [-1.3, 0.7, 0.1], [-1.65, 0.45, 0.2], [-1.8, 0.0, 0.25]]);
-  group.add(mesh(taperTube(aff, 0.085, 0.06, 40, 16), organic('#d3313b', { rough: 0.3, clearcoat: 0.8, bump: 0.4 }), 'arteriol-aferen'));
-  group.add(mesh(gradientAlong(taperTube(eff, 0.05, 0.045, 40, 14), '#c42c3c', '#a53358'), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.8, bump: 0.4 }), 'arteriol-eferen'));
-
-  // ---- Tubulus ----
-  const pctBase = curve([[-0.25, 0.95, 0], [0.2, 1.25, 0.1], [0.8, 1.15, 0.0], [1.25, 0.85, 0.05], [1.35, 0.4, 0]]);
-  const pct = convolute(pctBase, { amp: 0.17, freq: 5, rnd });
-  const henle = curve([[1.35, 0.4, 0], [1.38, -0.5, 0], [1.36, -1.6, 0], [1.22, -2.15, 0], [1.02, -2.2, 0], [0.92, -1.8, 0], [0.88, -0.6, 0], [0.82, 0.45, 0]], false, 0.4);
-  const dctBase = curve([[0.82, 0.45, 0], [0.25, 0.5, 0.25], [-0.35, 0.55, 0.32], [0.05, 1.2, 0.35], [0.7, 1.75, 0.2], [1.5, 1.85, 0.05], [2.15, 1.65, 0]]);
-  const dct = convolute(dctBase, { amp: 0.12, freq: 4, rnd, phase: 1.3 });
-  const cd = curve([[2.15, 2.3, 0], [2.15, 1.65, 0], [2.18, 0, 0], [2.2, -1.6, 0], [2.22, -2.6, 0]]);
-
-  const tubMat = (c) => organic(c, { rough: 0.3, clearcoat: 0.85, sheen: 0.6, bump: 0.6, bumpKind: 'fine' });
+  // ---------- Tubulus ----------
+  const tubMat = (c) => organic(c, { rough: 0.32, clearcoat: 0.85, sheen: 0.5, bump: 0.8, bumpKind: 'fine' });
   const tubules = [];
   const addT = (m) => { tubules.push(m); group.add(m); return m; };
-  addT(mesh(taperTube(pct, 0.075, 0.07, 360, 12), tubMat('#ee9147'), 'tubulus-proksimal'));
-  addT(mesh(taperTube(henle, (t) => (t < 0.55 ? 0.045 : 0.045 + (t - 0.55) * 0.07), 0, 160, 12), tubMat('#eec043'), 'lengkung-henle'));
-  addT(mesh(taperTube(dct, 0.065, 0.065, 300, 12), tubMat('#4fb27f'), 'tubulus-distal'));
-  addT(mesh(taperTube(cd, 0.12, 0.14, 80, 18), tubMat('#9479d6'), 'tubulus-kolektivus'));
-  // nefron lain yang bermuara ke tubulus kolektivus
+  const pctBase = curve([[-0.55, 1.62, 0], [0.0, 2.05, 0.05], [0.75, 1.95, 0], [1.2, 1.5, 0.05], [1.05, 1.05, 0], [1.4, 0.75, 0]]);
+  const pct = convolute(pctBase, { amp: 0.17, freq: 5.5, rnd, zAmp: 0.4 });
+  const henle = curve([[1.4, 0.75, 0], [1.42, -0.4, 0], [1.42, -1.9, 0], [1.3, -2.45, 0], [1.08, -2.5, 0], [0.96, -2.1, 0], [0.92, -0.9, 0], [0.9, 0.2, 0], [0.88, 0.85, 0]], false, 0.4);
+  const dctBase = curve([[0.88, 0.85, 0], [0.2, 1.05, 0.04], [-0.6, 1.2, 0.04], [-0.25, 1.5, 0.04], [0.5, 2.3, 0.02], [1.4, 2.4, 0], [2.25, 2.15, 0]]);
+  const dct = convolute(dctBase, { amp: 0.12, freq: 4, rnd, phase: 1.3, zAmp: 0.25 });
+  const cd = curve([[2.3, 2.7, 0], [2.3, 2.15, 0], [2.33, 0.3, 0], [2.36, -1.6, 0], [2.4, -2.9, 0]]);
+  addT(mesh(taperTube(pct, 0.08, 0.075, 420, 14), tubMat('#e5975a'), 'tubulus-proksimal'));
+  // lengkung Henle: bagian turun tipis, bagian naik menebal
+  addT(mesh(taperTube(henle, (t) => (t < 0.62 ? 0.045 : 0.045 + Math.min(1, (t - 0.62) / 0.12) * 0.025), 0, 200, 12), tubMat('#e8bf4e'), 'lengkung-henle'));
+  addT(mesh(taperTube(dct, 0.068, 0.068, 340, 12), tubMat('#6db38a'), 'tubulus-distal'));
+  addT(mesh(taperTube(cd, 0.12, 0.16, 100, 18), tubMat('#a68fd8'), 'tubulus-kolektivus'));
   const others = [];
-  for (const y of [0.9, -0.3]) others.push(taperTube(curve([[2.9, y + 0.5, -0.2], [2.6, y + 0.25, -0.1], [2.25, y, 0]]), 0.05, 0.06, 20, 10));
-  addT(mesh(merge(others), tubMat('#4fb27f'), 'tubulus-distal'));
+  for (const y of [1.2, -0.2, -1.4]) others.push(taperTube(curve([[3.0, y + 0.45, -0.15], [2.7, y + 0.2, -0.05], [2.38, y, 0]]), 0.05, 0.065, 20, 10));
+  addT(mesh(merge(others), tubMat('#6db38a'), 'tubulus-distal'));
 
-  // ---- Kapiler peritubulus & vasa recta ----
+  // ---------- Kapiler peritubulus & vasa recta (darah: merah → ungu → biru) ----------
   const capGeos = [];
-  const helix = (base, r, turns, off) => {
-    const pts = [];
-    for (let i = 0; i <= 120; i++) {
-      const t = i / 120;
-      const p = base.getPointAt(t);
-      const tan = base.getTangentAt(t);
-      const a = new THREE.Vector3().crossVectors(tan, new THREE.Vector3(0, 0, 1)).normalize();
-      const b = new THREE.Vector3().crossVectors(tan, a).normalize();
-      const w = t * turns * Math.PI * 2 + off;
-      pts.push(p.addScaledVector(a, Math.cos(w) * r).addScaledVector(b, Math.sin(w) * r));
-    }
-    return curve(pts);
-  };
-  const vr1 = curve([[-1.8, 0.0, 0.25], [-0.6, -0.1, 0.3], [1.15, -0.2, 0.22], [1.2, -1.9, 0.2], [1.1, -2.45, 0.18]]);
-  const vr2 = curve([[1.1, -2.45, 0.18], [0.75, -2.2, 0.22], [0.68, -0.6, 0.25], [0.2, -0.2, 0.3], [-0.8, 0.15, 0.4], [-2.3, 0.2, 0.3]]);
-  capGeos.push(gradientAlong(taperTube(vr1, 0.03, 0.025, 120, 8), '#b03447', '#7b3f8f'));
-  capGeos.push(gradientAlong(taperTube(vr2, 0.025, 0.035, 120, 8), '#7b3f8f', '#3c5fc1'));
-  capGeos.push(gradientAlong(taperTube(helix(pctBase, 0.24, 6, 0), 0.016, 0.016, 260, 6), '#b8304a', '#5a4aa8'));
-  capGeos.push(gradientAlong(taperTube(helix(dctBase, 0.2, 5, 1.5), 0.016, 0.016, 220, 6), '#9a3a6a', '#3c5fc1'));
-  group.add(mesh(merge(capGeos), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.7, bump: 0 }), 'kapiler-peritubulus'));
+  const capPCT = helixAround(pctBase, 0.26, 7, 0);
+  const capPCT2 = helixAround(pctBase, 0.26, 7, Math.PI);
+  const capDCT = helixAround(dctBase, 0.22, 6, 1.2);
+  capGeos.push(gradientAlong(taperTube(curve([eff.getPointAt(1), [-1.0, 1.3, 0.3], capPCT.getPointAt(0)]), 0.022, 0.02, 30, 6), '#a33a5c', '#9b3c63'));
+  for (const c of [capPCT, capPCT2]) capGeos.push(gradientAlong(taperTube(c, 0.018, 0.018, 360, 6), '#a93a58', '#6b4a9c'));
+  capGeos.push(gradientAlong(taperTube(capDCT, 0.018, 0.018, 300, 6), '#8a4280', '#4a5bb5'));
+  // jembatan antar-lilitan → tampak seperti jaring
+  for (let i = 1; i < 14; i++) {
+    const t = i / 14;
+    const a = capPCT.getPointAt(t), b = capPCT2.getPointAt(t);
+    capGeos.push(gradientAlong(taperTube(curve([a, a.clone().lerp(b, 0.5).add(new THREE.Vector3(0, 0, 0.12)), b]), 0.012, 0.012, 12, 5), '#a03c5e', '#7a4690'));
+  }
+  // kapiler mengalir ke vena interlobularis
+  const toVein = curve([capDCT.getPointAt(1), [-0.5, 2.6, 0.1], [-1.6, 2.55, -0.1], iV.getPointAt(0.08)]);
+  capGeos.push(gradientAlong(taperTube(toVein, 0.024, 0.03, 60, 8), '#4a5bb5', blue));
+  // vasa recta: lengkung jepit rambut di samping lengkung Henle
+  const vrDown = curve([[-1.4, 1.0, 0.25], [0.0, 0.7, 0.3], [1.18, 0.4, 0.28], [1.2, -1.6, 0.28], [1.18, -2.55, 0.25]]);
+  const vrUp = curve([[1.18, -2.55, 0.25], [0.78, -2.45, 0.28], [0.72, -0.9, 0.3], [0.65, BORDER_Y - 0.1, 0.1], [0.2, BORDER_Y - 0.19, -0.3]]);
+  capGeos.push(gradientAlong(taperTube(vrDown, 0.026, 0.024, 120, 8), '#a83a5a', '#7a4690'));
+  capGeos.push(gradientAlong(taperTube(vrUp, 0.024, 0.03, 120, 8), '#7a4690', blue));
+  group.add(mesh(merge(capGeos), organic('#ffffff', { vertexColors: true, rough: 0.3, clearcoat: 0.8, bump: 0 }), 'kapiler-peritubulus'));
 
-  // ---- Partikel filtrat: aliran urine primer → sekunder → sesungguhnya ----
-  const path = [];
-  const sample = (c, n, from = 0, to = 1) => { for (let i = 0; i <= n; i++) path.push(c.getPointAt(from + (to - from) * (i / n))); };
-  path.push(G.clone().add(new THREE.Vector3(0.1, 0, 0)));
-  sample(pct, 90); sample(henle, 50); sample(dct, 80); sample(cd, 40, 0.2, 1);
-  const flow = new THREE.CatmullRomCurve3(path);
-  const N = 70;
-  const parts = new THREE.InstancedMesh(new THREE.SphereGeometry(0.042, 12, 10), new THREE.MeshStandardMaterial({ roughness: 0.25, emissive: '#6b4a00', emissiveIntensity: 0.8 }), N);
-  parts.userData.noPick = true;
-  const cA = new THREE.Color('#fff6cf'), cB = new THREE.Color('#f5b301'), col = new THREE.Color();
-  for (let i = 0; i < N; i++) parts.setColorAt(i, cA);
-  group.add(parts);
+  // ---------- Aliran (pelan, arah benar) ----------
+  // Filtrat: kapsul Bowman → tubulus proksimal → Henle (turun lalu naik) → tubulus distal → tubulus kolektivus (turun)
+  const fPts = [G.clone().add(new THREE.Vector3(0.25, 0, 0))];
+  const sample = (c, n, a = 0, b = 1) => { for (let i = 0; i <= n; i++) fPts.push(c.getPointAt(a + (b - a) * (i / n))); };
+  sample(pct, 120); sample(henle, 70); sample(dct, 110); sample(cd, 50, 0.12, 1);
+  const filtrate = flowParticles(new THREE.CatmullRomCurve3(fPts), 60, 0.038, '#fff4c2', '#f0a500', 0.012);
+  // Darah: arteri interlobularis → arteriol aferen → glomerulus → arteriol eferen → kapiler peritubulus → vena
+  const bPts = [];
+  const sb = (c, n, a = 0, b = 1) => { for (let i = 0; i <= n; i++) bPts.push(c.getPointAt(a + (b - a) * (i / n))); };
+  sb(iA, 10, 0.4, 0.78); sb(aff, 12); sb(loops[0], 30); sb(eff, 12); sb(capPCT, 120); sb(capDCT, 80); sb(toVein, 20);
+  const blood = flowParticles(new THREE.CatmullRomCurve3(bPts), 45, 0.03, '#e0303a', '#3d5fbf', 0.01);
+  group.add(filtrate.mesh, blood.mesh);
 
-  // Penampang: tubulus & kapsul Bowman dibelah (z = 0) → rongga & aliran filtrat terlihat
+  // ---------- Penampang: kapsul & tubulus dibelah (z = 0) ----------
   const section = new Section(group, new THREE.Plane(new THREE.Vector3(0, 0, -1), 0), { size: 8 });
-  section.clip(cup, tubules);
+  section.clip(cup, rim, tubules);
   let inner = true;
   const setInner = (on) => { inner = on; section.setEnabled(on); };
   setInner(true);
 
   const anchors = {
-    glomerulus: G.clone().add(new THREE.Vector3(-0.1, 0.42, 0.2)),
-    'kapsul-bowman': G.clone().add(new THREE.Vector3(-0.25, -0.42, 0.2)),
-    'arteriol-aferen': aff.getPointAt(0.35),
-    'arteriol-eferen': eff.getPointAt(0.7),
-    'tubulus-proksimal': pct.getPointAt(0.55).add(new THREE.Vector3(0, 0.12, 0.1)),
-    'lengkung-henle': henle.getPointAt(0.5).add(new THREE.Vector3(0, 0.05, 0.1)),
-    'tubulus-distal': dct.getPointAt(0.62).add(new THREE.Vector3(0, 0.1, 0.12)),
-    'tubulus-kolektivus': cd.getPointAt(0.65).add(new THREE.Vector3(0.1, 0, 0.1)),
-    'kapiler-peritubulus': vr2.getPointAt(0.25).add(new THREE.Vector3(0, 0, 0.05)),
+    glomerulus: G.clone().add(new THREE.Vector3(0, 0.05, 0)),
+    'kapsul-bowman': G.clone().add(new THREE.Vector3(0.15, -0.38, 0.05)),
+    'arteriol-aferen': aff.getPointAt(0.45),
+    'arteriol-eferen': eff.getPointAt(0.6),
+    'tubulus-proksimal': pct.getPointAt(0.5),
+    'lengkung-henle': henle.getPointAt(0.42),
+    'tubulus-distal': dct.getPointAt(0.66),
+    'tubulus-kolektivus': cd.getPointAt(0.6),
+    'kapiler-peritubulus': vrDown.getPointAt(0.62),
+    'arteri-interlobularis': iA.getPointAt(0.45),
+    'vena-interlobularis': iV.getPointAt(0.3),
   };
 
   return {
@@ -138,19 +198,10 @@ export function buildNephron() {
     innerLabel: ['Penampang', 'Utuh'],
     setInner,
     getInner: () => inner,
-    frame: { center: new THREE.Vector3(0.3, -0.15, 0), radius: 3.2 },
+    frame: { center: new THREE.Vector3(0.1, 0.3, 0), radius: 4.0 },
     update(t) {
-      const m4 = new THREE.Matrix4();
-      for (let i = 0; i < N; i++) {
-        const u = (t * 0.045 + i / N) % 1;
-        const p = flow.getPointAt(u);
-        m4.makeTranslation(p.x, p.y, p.z);
-        parts.setMatrixAt(i, m4);
-        col.copy(cA).lerp(cB, Math.min(1, u * 1.3));
-        parts.setColorAt(i, col);
-      }
-      parts.instanceMatrix.needsUpdate = true;
-      parts.instanceColor.needsUpdate = true;
+      filtrate.update(t);
+      blood.update(t);
     },
   };
 }

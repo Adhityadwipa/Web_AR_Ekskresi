@@ -302,7 +302,7 @@ export function buildKidneys() {
       const m4 = new THREE.Matrix4();
       for (let i = 0; i < 12; i++) {
         const c = ureters[i % 2];
-        const u = ((t * 0.12 + (i >> 1) / 6) % 1);
+        const u = ((t * 0.04 + (i >> 1) / 6) % 1); // ginjal → ureter → kandung kemih (pelan)
         const p = c.getPointAt(u);
         m4.makeTranslation(p.x, p.y, p.z + 0.01);
         drops.setMatrixAt(i, m4);

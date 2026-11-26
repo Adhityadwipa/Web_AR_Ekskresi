@@ -92,7 +92,7 @@ export class Viewer extends EventTarget {
     c.zoomSpeed = 1.1;
     c.panSpeed = 0.9;
     c.autoRotate = true;
-    c.autoRotateSpeed = 0.6;
+    c.autoRotateSpeed = 0.35;
     c.addEventListener('start', () => { this.dispatchEvent(new Event('interact')); });
 
     this.raycaster = new THREE.Raycaster();
@@ -337,7 +337,8 @@ export class Viewer extends EventTarget {
         const minor = m.minorPins?.includes(pid);
         const inner = m.getInner?.();
         const hidden = (m.innerOnly?.includes(pid) && !inner) || (m.outerOnly?.includes(pid) && inner);
-        obj.visible = m === this.current && !hidden && ((this.showLabels && !minor) || pid === this.selectedId);
+        const pinOk = m.pinVisible ? m.pinVisible(pid) : true;
+        obj.visible = m === this.current && !hidden && pinOk && ((this.showLabels && !minor) || pid === this.selectedId);
         obj.element.classList.toggle('is-active', pid === this.selectedId);
       }
     }
@@ -434,7 +435,11 @@ export class Viewer extends EventTarget {
 
   select(pid, { source = 'api', focus = false } = {}) {
     this.selectedId = pid;
+    // organ dapat bereaksi terhadap pilihan (mis. paru menampilkan perbesaran alveolus)
+    const r = this.current?.onSelect?.(pid);
     this._applyLabels();
+    if (r?.focusPin) { this.focusPart(r.focusPin); focus = false; }
+    else if (r?.reframe && this.mode === '3d') this.frame(true);
     if (pid && focus) this.focusPart(pid);
     this.dispatchEvent(new CustomEvent('select', { detail: { partId: pid, source } }));
   }

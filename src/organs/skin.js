@@ -268,7 +268,7 @@ export function buildSkin() {
     frame: { center: new THREE.Vector3(0, 0.15, 0), radius: 2.6, dir: new THREE.Vector3(0.62, 0.48, 1) },
     update(t) {
       drops.forEach((d, i) => {
-        const u = (t * 0.25 + i * 0.21) % 1; // tumbuh lalu menguap
+        const u = (t * 0.08 + i * 0.21) % 1; // keringat keluar dari pori, membesar, lalu menguap (pelan)
         const k = u < 0.7 ? 0.3 + u : 1 - (u - 0.7) * 3.2;
         d.scale.set(k, k * 0.7, k);
         d.material.opacity = 0.9 * Math.min(1, k * 1.5);

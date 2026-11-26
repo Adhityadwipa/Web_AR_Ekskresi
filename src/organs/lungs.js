@@ -139,15 +139,24 @@ function buildAirways(rnd) {
     [1, hilumL, [new THREE.Vector3(0.4, 0.9, 0.02), new THREE.Vector3(0.2, -1, -0.02)]],
   ]) {
     const segs = [];
-    for (const d of dirs) branchTree({ start: hil, dir: d, len: 0.38, radius: 0.07, depth: 1, maxDepth: 6, rnd, inside: flat(side), spread: 0.5, shrink: 0.8, rshrink: 0.72, out: segs, planar: true });
+    const tips = [];
+    for (const d of dirs) branchTree({ tips, start: hil, dir: d, len: 0.38, radius: 0.07, depth: 1, maxDepth: 6, rnd, inside: flat(side), spread: 0.5, shrink: 0.8, rshrink: 0.72, out: segs, planar: true });
     // ratakan ke bidang z = 0 (cabang berada di bidang irisan)
     for (const sg of segs) for (const k of ['v0', 'v1', 'v2']) if (sg.curve[k]) sg.curve[k].z = 0;
     const big = mesh(treeGeometry(segs, (x) => x.depth <= 2, 14), bronchiMat.clone(), 'bronkus');
     const small = mesh(treeGeometry(segs, (x) => x.depth > 2, 8), bronchioleMat.clone(), 'bronkiolus');
     big.visible = small.visible = false; // hanya tampak saat penampang
     g.add(big, small);
+    // kantong alveolus kecil di ujung bronkiolus (tampak pada irisan, bisa diklik)
+    const alv = new THREE.InstancedMesh(new THREE.SphereGeometry(0.028, 12, 10), organic('#f2a3a6', { rough: 0.35, clearcoat: 0.7, bump: 0 }), tips.length * 5);
+    const m4 = new THREE.Matrix4();
+    let k = 0;
+    for (const tp of tips) for (let i = 0; i < 5; i++) { const a = (i / 5) * Math.PI * 2; m4.makeTranslation(tp.p.x + tp.d.x * 0.03 + Math.cos(a) * 0.03, tp.p.y + tp.d.y * 0.03 + Math.sin(a) * 0.03, 0); alv.setMatrixAt(k++, m4); }
+    part(alv, 'alveolus');
+    alv.visible = false;
+    g.add(alv);
     const deep = segs.filter((x) => x.depth >= 3).map((x) => x.curve.getPoint(0.5)).sort((u, v) => Math.abs(u.z) - Math.abs(v.z) || Math.abs(v.x) - Math.abs(u.x))[0];
-    trees[side] = { big, small, deep };
+    trees[side] = { big, small, deep, alv, tip: tips[Math.floor(tips.length / 2)]?.p };
   }
   return { group: g, trachea: [rings, tube, larynx], main: mainMesh, trees, carina, hilumR, hilumL };
 }
@@ -236,23 +245,6 @@ function buildAlveolusInset(rnd) {
     s.position.set(Math.cos(a) * rr, Math.sin(a) * rr - 0.05, -0.3 - rnd() * 0.2);
     g.add(s);
   }
-  // panah O₂ (masuk ke darah) & CO₂ (keluar ke alveolus)
-  const arrow = (from, to, color) => {
-    const d = to.clone().sub(from), len = d.length();
-    const a = new THREE.Group();
-    const m = new THREE.MeshStandardMaterial({ color, roughness: 0.35, emissive: color, emissiveIntensity: 0.25 });
-    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, len * 0.75, 16), m);
-    shaft.position.y = len * 0.375;
-    const head = new THREE.Mesh(new THREE.ConeGeometry(0.055, len * 0.25, 20), m);
-    head.position.y = len * 0.875;
-    a.add(shaft, head);
-    a.position.copy(from);
-    a.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
-    a.traverse((o) => { o.userData.noPick = true; });
-    g.add(a);
-  };
-  arrow(new THREE.Vector3(-0.32, 0.1, 0.12), new THREE.Vector3(0.36, 0.26, 0.12), '#e2453b');
-  arrow(new THREE.Vector3(0.36, 0.06, 0.16), new THREE.Vector3(-0.32, -0.1, 0.16), '#3b8be2');
   // bronkiolus terminal
   const br = curve([[0, 0.25, 0], [0.05, 0.6, 0.05], [0.0, 0.95, -0.02]]);
   g.add(mesh(taperTube(br, 0.11, 0.13, 24, 16), organic('#f3ddd0', { rough: 0.4, clearcoat: 0.6 }), 'bronkiolus'));
@@ -267,7 +259,7 @@ function buildAlveolusInset(rnd) {
       const out = p.clone().sub(C).normalize();
       p.addScaledVector(out, 0.2 + 0.03 * Math.sin(k * 2 + i));
       p.add(new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).multiplyScalar(0.08));
-      p.z = Math.min(p.z, -0.04) - 0.05; // kapiler melilit di sisi belakang, rongga depan tetap terlihat
+      p.z = Math.min(p.z, -0.26) - 0.03; // kapiler melilit di sisi luar-belakang kantong, rongga depan tetap terlihat
       pts.push(p);
     }
     capGeos.push(gradientAlong(taperTube(curve(pts), 0.016, 0.016, 40, 6), '#3f5fc4', '#d7343f'));
@@ -285,14 +277,14 @@ function buildAlveolusInset(rnd) {
   const m4 = new THREE.Matrix4(), p = new THREE.Vector3();
   const update = (t) => {
     seeds.forEach((s, i) => {
-      const u = (t * 0.18 + s.o) % 1;
+      const u = (t * 0.05 + s.o) % 1; // CO₂: kapiler → alveolus → bronkiolus (dihembuskan)
       // CO₂: dari luar (kapiler) → pusat alveolus → naik ke bronkiolus
       if (u < 0.5) p.copy(s.c).addScaledVector(s.dir, 0.32 * (1 - u * 2));
       else p.copy(s.c).lerp(new THREE.Vector3(0, 1.0, 0), (u - 0.5) * 2);
       m4.makeTranslation(p.x, p.y, p.z);
       co2.setMatrixAt(i, m4);
       // O₂: arah sebaliknya
-      const w = (t * 0.18 + s.o + 0.5) % 1;
+      const w = (t * 0.05 + s.o + 0.5) % 1; // O₂: bronkiolus → alveolus → kapiler
       if (w < 0.5) p.set(0, 1.0, 0).lerp(s.c, w * 2);
       else p.copy(s.c).addScaledVector(s.dir, 0.32 * (w - 0.5) * 2);
       m4.makeTranslation(p.x, p.y, p.z);
@@ -322,7 +314,8 @@ export function buildLungs() {
   chest.add(air.group, vessels, lungR, lungL, diaphragm);
 
   const inset = buildAlveolusInset(rnd);
-  inset.group.position.set(2.6, 0.35, 0.2);
+  inset.group.position.set(2.45, 0.35, 0.2);
+  inset.group.visible = false; // perbesaran hanya muncul saat alveolus dipilih
   inset.group.scale.setScalar(0.95);
   group.add(inset.group);
 
@@ -336,7 +329,7 @@ export function buildLungs() {
   let inner = true;
   const setInner = (on) => {
     inner = on;
-    for (const t of Object.values(air.trees)) t.big.visible = t.small.visible = on;
+    for (const t of Object.values(air.trees)) t.big.visible = t.small.visible = t.alv.visible = on;
     section.setEnabled(on);
   };
   setInner(true);
@@ -355,25 +348,33 @@ export function buildLungs() {
     diafragma: new THREE.Vector3(0, -1.32, 0.95),
     'arteri-pulmonalis': new THREE.Vector3(0.12, 0.45, 0),
     'vena-pulmonalis': new THREE.Vector3(-0.3, 0.27, 0),
-    alveolus: new THREE.Vector3(2.6, 0.75, 0.55),
-    'kapiler-alveolus': new THREE.Vector3(3.0, 0.05, 0.45),
+    alveolus: (air.trees[1].tip || new THREE.Vector3(1.2, -0.3, 0)).clone(),
+    'kapiler-alveolus': new THREE.Vector3(2.85, 0.05, 0.45),
   };
   // anchor yang ikut bernapas
-  const chestAnchors = new Set(Object.keys(anchors).filter((k) => !['alveolus', 'kapiler-alveolus'].includes(k)));
+  const chestAnchors = new Set(Object.keys(anchors).filter((k) => k !== 'kapiler-alveolus'));
 
   return {
     group,
     anchors,
     section,
-    innerOnly: ['bronkiolus'],
+    innerOnly: ['bronkiolus', 'alveolus'],
+    pinVisible: (id) => id !== 'kapiler-alveolus' || inset.group.visible,
+    onSelect(pid) {
+      const show = pid === 'alveolus' || pid === 'kapiler-alveolus';
+      const was = inset.group.visible;
+      inset.group.visible = show;
+      if (show) return { focusPin: 'kapiler-alveolus' };
+      return was ? { reframe: true } : null;
+    },
     anchorParent: (id) => (chestAnchors.has(id) ? chest : group),
     innerLabel: ['Penampang', 'Utuh'],
     setInner,
     getInner: () => inner,
-    frame: { center: new THREE.Vector3(0.7, 0.3, 0), radius: 3.15 },
+    frame: { center: new THREE.Vector3(0.05, 0.3, 0), radius: 2.75 },
     insetBillboard: inset.ring,
     update(t) {
-      const s = Math.sin(t * 1.25);
+      const s = Math.sin(t * 0.6); // ±10 detik per napas: mengembang = diafragma turun (inspirasi)
       const k = 1 + 0.022 * s;
       lungR.scale.set(k, 1 + 0.03 * s, k);
       lungL.scale.copy(lungR.scale);
