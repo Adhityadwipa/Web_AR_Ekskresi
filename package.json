@@ -1,0 +1,33 @@
+{
+  "name": "ekskresia-ar",
+  "version": "1.0.0",
+  "description": "Web chatbot AR 3D sistem ekskresi manusia (SMP/SMA) dengan context-aware system",
+  "scripts": {
+    "dev": "vite --host",
+    "dev:server": "node --env-file-if-exists=.env server/index.js",
+    "build": "vite build",
+    "start": "node --env-file-if-exists=.env server/index.js",
+    "preview": "vite preview --host",
+    "dev:https": "HTTPS=1 vite --host"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adhityadwipa/Web_AR_Ekskresi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adhityadwipa/Web_AR_Ekskresi/issues"
+  },
+  "homepage": "https://github.com/Adhityadwipa/Web_AR_Ekskresi#readme",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^2.3.0",
+    "vite": "^8.4.0"
+  },
+  "type": "module"
+}

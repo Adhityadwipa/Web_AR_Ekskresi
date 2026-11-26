@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f4f1ec" />
+    <meta name="description" content="Atlas AR 3D sistem ekskresi manusia (paru-paru, ginjal, hati, kulit) dengan chatbot yang sadar konteks untuk siswa SMP & SMA." />
+    <title>Ekskresia — Atlas AR Sistem Ekskresi</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <header class="topbar" data-xr-ui>
+        <a class="brand" href="./" aria-label="Ekskresia">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3c6 4 9 8 9 13a9 9 0 0 1-18 0c0-5 3-9 9-13Z" /><path d="M16 11v14M16 17l-4-3M16 21l4-3" /></svg>
+          <span class="brand-name">Ekskresia</span>
+          <span class="brand-sub">Atlas AR · Sistem Ekskresi</span>
+        </a>
+        <div class="mode-switch" role="group" aria-label="Mode tampilan">
+          <button type="button" data-mode="3d" class="is-on">3D</button>
+          <button type="button" data-mode="ar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" /><path d="m12 7 4.5 2.5v5L12 17l-4.5-2.5v-5Z" /></svg>
+            AR
+          </button>
+        </div>
+        <button type="button" class="chat-fab" id="chatToggle" aria-label="Buka chat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z" /></svg>
+          <span>Tanya</span>
+        </button>
+      </header>
+
+      <main class="stage" id="stage">
+        <video id="camFeed" class="cam-feed" playsinline muted></video>
+        <div class="stage-bg" aria-hidden="true"></div>
+        <div id="canvasHost" class="canvas-host"></div>
+
+        <section class="organ-head" id="organHead" aria-live="polite">
+          <p class="eyebrow"><span id="organIndex">01</span> · Organ ekskresi</p>
+          <h1 class="organ-name" id="organName">Paru-paru</h1>
+          <p class="organ-latin" id="organLatin">Pulmo</p>
+          <p class="organ-tag" id="organTag"></p>
+        </section>
+
+        <div class="tools" id="tools" data-xr-ui>
+          <button type="button" class="tool is-on" id="toolLabels" title="Label bagian">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10l4 5-4 5H4Z" /><circle cx="8" cy="12" r="1.2" /></svg><span>Label</span>
+          </button>
+          <button type="button" class="tool is-on" id="toolInner" title="Tampilan dalam">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" /><path d="M12 4v16" /><path d="M12 4a8 8 0 0 1 0 16" fill="currentColor" opacity=".25" stroke="none" /></svg><span id="toolInnerText">Transparan</span>
+          </button>
+          <button type="button" class="tool is-on" id="toolRotate" title="Putar otomatis">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v4h-4" /></svg><span>Putar</span>
+          </button>
+          <button type="button" class="tool" id="toolReset" title="Atur ulang tampilan">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" /><circle cx="12" cy="12" r="3" /></svg><span>Pusatkan</span>
+          </button>
+        </div>
+
+        <article class="part-card" id="partCard" hidden data-xr-ui>
+          <header>
+            <span class="part-dot" id="partDot"></span>
+            <div>
+              <h3 id="partName"></h3>
+              <p class="part-latin" id="partLatin"></p>
+            </div>
+            <button type="button" class="icon-btn" id="partClose" aria-label="Tutup">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+            </button>
+          </header>
+          <div class="part-desc" id="partDesc"></div>
+          <div class="part-actions">
+            <button type="button" class="pill" id="partAsk">Tanyakan ke asisten →</button>
+          </div>
+        </article>
+
+        <div class="hover-tip" id="hoverTip" aria-hidden="true"></div>
+        <div class="loading" id="loading"><span class="spinner"></span><span>Menyiapkan model 3D…</span></div>
+
+        <nav class="dock" id="dock" aria-label="Pilih organ" data-xr-ui></nav>
+
+        <div class="ar-hud" id="arHud" aria-live="polite">
+          <div class="crosshair" aria-hidden="true"><span></span></div>
+          <div class="gaze-chip" id="gazeChip" data-xr-ui><span class="gaze-dot"></span><span id="gazeText">Arahkan titik tengah ke organ</span></div>
+          <p class="ar-hint" id="arHint">Gerakkan ponsel perlahan untuk mendeteksi permukaan, lalu ketuk untuk menaruh organ.</p>
+          <div class="ar-bar" data-xr-ui>
+            <button type="button" class="ar-btn" id="arExit" aria-label="Keluar AR"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg></button>
+            <button type="button" class="ar-btn" id="arSmaller" aria-label="Perkecil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14" /></svg></button>
+            <button type="button" class="ar-btn" id="arBigger" aria-label="Perbesar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14" /></svg></button>
+            <button type="button" class="ar-btn wide" id="arAsk"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4Z" /></svg>Tanya ini</button>
+          </div>
+        </div>
+        <div class="toast" id="toast" role="status"></div>
+      </main>
+
+      <aside class="chat" id="chat" aria-label="Asisten Ekskresi" data-xr-ui>
+        <div class="sheet-handle" id="sheetHandle"></div>
+        <header class="chat-head">
+          <div class="bot-avatar" aria-hidden="true">
+            <svg viewBox="0 0 32 32"><path d="M16 4c5 3.5 8 7 8 11.5a8 8 0 0 1-16 0C8 11 11 7.5 16 4Z" /></svg>
+          </div>
+          <div class="chat-title">
+            <h2>Asisten Ekskresi</h2>
+            <p class="status"><span class="status-dot"></span><span id="aiStatus">Menghubungkan…</span></p>
+          </div>
+          <div class="level" role="group" aria-label="Jenjang">
+            <button type="button" data-level="smp">SMP</button>
+            <button type="button" data-level="sma">SMA</button>
+          </div>
+          <button type="button" class="icon-btn chat-close" id="chatClose" aria-label="Tutup chat">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+          </button>
+        </header>
+        <div class="ctx-bar">
+          <span class="ctx-label">Sedang diamati</span>
+          <span class="ctx-chip" id="ctxChip"></span>
+        </div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="suggest" id="suggest"></div>
+        <form class="composer" id="composer" autocomplete="off">
+          <button type="button" class="icon-btn" id="micBtn" aria-label="Bicara">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" /><path d="M5 11a7 7 0 0 0 14 0M12 18v3" /></svg>
+          </button>
+          <input id="chatInput" type="text" placeholder="Tanya tentang yang kamu amati…" aria-label="Pertanyaan" maxlength="500" />
+          <button type="submit" class="send" aria-label="Kirim">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </button>
+        </form>
+      </aside>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
