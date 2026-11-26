@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Section } from '../scene/section.js';
 import { organic, deform, curve, taperTube, mesh, merge, stripeTexture, speckleTexture } from '../scene/helpers.js';
 import { fbm, smoothstep } from '../scene/noise.js';
 
@@ -219,13 +220,16 @@ export function buildKidneys() {
   const vR = vesselsFor(R, -1);
 
   // ureter, kandung kemih, uretra
-  const B = new THREE.Vector3(0, -2.02, 0.15);
-  const ureterMat = organic('#d9a866', { rough: 0.3, clearcoat: 0.75, bump: 0.6, bumpKind: 'fine', opacity: 0.85 });
+  const B = new THREE.Vector3(0, -2.02, 0.05);
+  const ureterMat = organic('#d9a866', { rough: 0.3, clearcoat: 0.75, bump: 0.6, bumpKind: 'fine' });
+  const ureterMeshes = [];
   const ureters = [L, R].map((K, i) => {
     const sd = i === 0 ? 1 : -1;
     const p0 = W(K, K.pelvisOut);
     const c = curve([p0, p0.clone().add(new THREE.Vector3(sd * -0.08, -0.35, 0.02)), new THREE.Vector3(sd * 0.75, -0.85, 0.08), new THREE.Vector3(sd * 0.55, -1.5, 0.08), new THREE.Vector3(sd * 0.28, -1.88, 0.05)]);
-    group.add(mesh(taperTube(c, 0.058, 0.048, 64, 12), ureterMat, 'ureter'));
+    const um0 = mesh(taperTube(c, 0.062, 0.05, 64, 14), ureterMat, 'ureter');
+    ureterMeshes.push(um0);
+    group.add(um0);
     return c;
   });
 
@@ -235,18 +239,23 @@ export function buildKidneys() {
     v.z *= 0.95 - 0.2 * smoothstep(0, -0.46, y);
     if (y > 0.12) v.y = 0.12 + (y - 0.12) * 0.55;
   });
-  const bladder = mesh(bladderGeo, organic('#e7a59c', { rough: 0.4, clearcoat: 0.8, sheen: 0.7, opacity: 0.5, side: THREE.DoubleSide, bump: 1.6 }), 'kandung-kemih', { shell: true });
+  const bladder = mesh(bladderGeo, organic('#d98f86', { rough: 0.4, clearcoat: 0.8, sheen: 0.5, bump: 1.6 }), 'kandung-kemih');
   bladder.position.copy(B);
-  const urine = new THREE.Group();
+  // isi urine: bangun tertutup (bagian bola + permukaan cairan) → bisa diberi tutup irisan
   const ug = new THREE.SphereGeometry(0.38, 48, 32, 0, Math.PI * 2, Math.PI * 0.42, Math.PI * 0.58);
-  const um = new THREE.MeshPhysicalMaterial({ color: '#f2c94c', roughness: 0.1, transmission: 0.3, thickness: 0.4, clearcoat: 1, transparent: true, opacity: 0.85 });
-  const cap = new THREE.CircleGeometry(0.38 * Math.sin(Math.PI * 0.42), 48).rotateX(-Math.PI / 2).translate(0, 0.38 * Math.cos(Math.PI * 0.42), 0);
-  urine.add(mesh(ug, um, 'kandung-kemih', { shadow: false }), mesh(cap, um, 'kandung-kemih', { shadow: false }));
+  const capG = new THREE.CircleGeometry(0.38 * Math.sin(Math.PI * 0.42), 48).rotateX(-Math.PI / 2).translate(0, 0.38 * Math.cos(Math.PI * 0.42), 0);
+  const urine = mesh(merge([ug, capG]), new THREE.MeshPhysicalMaterial({ color: '#f2c94c', roughness: 0.15, clearcoat: 1 }), 'kandung-kemih', { shadow: false });
   urine.position.copy(B).add(new THREE.Vector3(0, -0.02, 0));
   urine.scale.set(1.05, 1, 0.9);
+  urine.visible = false;
   group.add(bladder, urine);
-  const urethra = curve([[0, -2.42, 0.18], [0, -2.7, 0.25], [0, -3.0, 0.3]]);
-  group.add(mesh(taperTube(urethra, 0.055, 0.04, 24, 12), ureterMat, 'uretra'));
+  const urethra = curve([[0, -2.42, 0.06], [0, -2.7, 0.05], [0, -3.0, 0.05]]);
+  const urethraMesh = mesh(taperTube(urethra, 0.055, 0.04, 24, 12), ureterMat, 'uretra');
+  group.add(urethraMesh);
+  // Penampang saluran kemih: kandung kemih, ureter & uretra dibelah pada z = 0.04
+  const section = new Section(group, new THREE.Plane(new THREE.Vector3(0, 0, -1), 0.04), { size: 8 });
+  section.cap(urine, new THREE.MeshStandardMaterial({ color: '#f0c440', roughness: 0.3 }));
+  section.clip(bladder, ureterMeshes, urethraMesh);
 
   // tetesan urine bergerak di ureter
   const drops = new THREE.InstancedMesh(new THREE.SphereGeometry(0.03, 10, 8), new THREE.MeshStandardMaterial({ color: '#ffd84d', emissive: '#a07a00', emissiveIntensity: 0.5, roughness: 0.2 }), 12);
@@ -260,6 +269,8 @@ export function buildKidneys() {
       K.front.visible = !on;
       K.section.visible = on;
     }
+    urine.visible = drops.visible = on;
+    section.setEnabled(on);
   };
   setInner(true);
 
@@ -281,6 +292,8 @@ export function buildKidneys() {
   return {
     group,
     anchors,
+    section,
+    innerOnly: ['korteks', 'medula', 'pelvis-renalis'],
     innerLabel: ['Penampang', 'Utuh'],
     setInner,
     getInner: () => inner,

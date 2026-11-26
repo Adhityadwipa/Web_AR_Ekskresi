@@ -33,7 +33,7 @@ export class Viewer extends EventTarget {
   }
 
   _initRenderer() {
-    const r = (this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' }));
+    const r = (this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, stencil: true, powerPreference: 'high-performance' }));
     r.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     r.outputColorSpace = THREE.SRGBColorSpace;
     r.toneMapping = THREE.ACESFilmicToneMapping;
@@ -41,6 +41,7 @@ export class Viewer extends EventTarget {
     r.shadowMap.enabled = true;
     r.shadowMap.type = THREE.PCFShadowMap;
     r.xr.enabled = true;
+    r.localClippingEnabled = true; // dipakai untuk penampang organ
     r.setClearColor(0x000000, 0);
     r.domElement.className = 'gl';
     this.container.appendChild(r.domElement);
@@ -158,6 +159,9 @@ export class Viewer extends EventTarget {
       }
       if (!o.material.userData.baseEmissive && o.material.emissive) o.material.userData.baseEmissive = o.material.emissive.clone();
     });
+    // terapkan ulang mode (penampang) setelah material di-clone
+    m.section?.remember();
+    m.setInner?.(m.getInner?.() ?? true);
     // bounding & label
     const box = new THREE.Box3().setFromObject(m.group);
     m.floorY = box.min.y;
@@ -210,7 +214,7 @@ export class Viewer extends EventTarget {
 
   _setOpacity(m, k) {
     m.group.traverse((o) => {
-      if (o.isMesh && o.material && o.material.userData) {
+      if (o.isMesh && o.material && o.material.userData && !o.userData.sectionHelper) {
         const base = o.material.userData.baseOpacity ?? 1;
         o.material.transparent = k < 1 || base < 1;
         o.material.opacity = base * k;
@@ -331,12 +335,14 @@ export class Viewer extends EventTarget {
     for (const m of this.models.values()) {
       for (const [pid, obj] of m.pins) {
         const minor = m.minorPins?.includes(pid);
-        obj.visible = m === this.current && ((this.showLabels && !minor) || pid === this.selectedId);
+        const inner = m.getInner?.();
+        const hidden = (m.innerOnly?.includes(pid) && !inner) || (m.outerOnly?.includes(pid) && inner);
+        obj.visible = m === this.current && !hidden && ((this.showLabels && !minor) || pid === this.selectedId);
         obj.element.classList.toggle('is-active', pid === this.selectedId);
       }
     }
   }
-  setInner(on) { this.current?.setInner(on); }
+  setInner(on) { this.current?.setInner(on); this._applyLabels(); }
   getInner() { return this.current?.getInner(); }
   setAutoRotate(on) { this.controls.autoRotate = on; }
   reset() { this._userMoved = false; this.select(null); this.frame(true); }
@@ -373,6 +379,7 @@ export class Viewer extends EventTarget {
       const o = h.object;
       const transparent = o.material && o.material.opacity < 0.95;
       if (o.userData.shell && transparent) { if (!fallback) fallback = h; continue; }
+      if (o.material?.clippingPlanes && this.current.section?.isClipped(h.point)) continue; // bagian yang terpotong
       return this._hitToPart(h);
     }
     return fallback ? this._hitToPart(fallback) : null;
@@ -487,6 +494,7 @@ export class Viewer extends EventTarget {
       return true;
     });
     if (this.current) {
+      this.current.section?.update();
       this.current.update?.(t, dt);
       const cam = this.renderer.xr.isPresenting ? this.renderer.xr.getCamera() : this.camera;
       if (this.current.insetBillboard) {

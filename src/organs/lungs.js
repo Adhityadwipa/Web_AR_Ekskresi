@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { Section } from '../scene/section.js';
+import { spongeTexture } from '../scene/helpers.js';
 import { organic, deform, curve, taperTube, mesh, part, branchTree, treeGeometry, gradientAlong, merge, stripeTexture } from '../scene/helpers.js';
 import { fbm, seeded, smoothstep, worley3 } from '../scene/noise.js';
 
@@ -110,66 +112,67 @@ function buildAirways(rnd) {
 
   // Bronkus utama: kanan lebih pendek & tegak, kiri lebih panjang & mendatar
   const carina = new THREE.Vector3(0, 1.18, 0);
-  const hilumR = new THREE.Vector3(-0.58, 0.62, -0.02);
-  const hilumL = new THREE.Vector3(0.7, 0.74, -0.02);
-  const segs = [];
-  segs.push({ curve: new THREE.QuadraticBezierCurve3(carina, new THREE.Vector3(-0.22, 0.98, 0), hilumR), r0: 0.12, r1: 0.1, depth: 0 });
-  segs.push({ curve: new THREE.QuadraticBezierCurve3(carina, new THREE.Vector3(0.32, 1.08, 0), hilumL), r0: 0.115, r1: 0.095, depth: 0 });
-  const lobar = [
-    [hilumR, new THREE.Vector3(-0.35, 1, 0.05)],
-    [hilumR, new THREE.Vector3(-0.35, -0.25, 0.9)],
-    [hilumR, new THREE.Vector3(-0.15, -1, -0.35)],
-    [hilumL, new THREE.Vector3(0.35, 0.9, 0.25)],
-    [hilumL, new THREE.Vector3(0.2, -1, -0.3)],
+  const hilumR = new THREE.Vector3(-0.58, 0.62, 0);
+  const hilumL = new THREE.Vector3(0.7, 0.74, 0);
+  const main = [
+    { curve: new THREE.QuadraticBezierCurve3(carina, new THREE.Vector3(-0.22, 0.98, 0), hilumR), r0: 0.12, r1: 0.1, depth: 0 },
+    { curve: new THREE.QuadraticBezierCurve3(carina, new THREE.Vector3(0.32, 1.08, 0), hilumL), r0: 0.115, r1: 0.095, depth: 0 },
   ];
-  const tips = [];
-  for (const [s, d] of lobar) {
-    branchTree({ start: s, dir: d, len: 0.42, radius: 0.075, depth: 1, maxDepth: 5, rnd, inside: insideLung, spread: 0.5, shrink: 0.8, rshrink: 0.72, out: segs, tips });
-  }
   const bronchiMat = organic('#efe0cf', { rough: 0.42, clearcoat: 0.5, bump: 0.5, bumpKind: 'fine' });
-  g.add(mesh(treeGeometry(segs, (s) => s.depth <= 1, 14), bronchiMat, 'bronkus'));
-  g.add(mesh(treeGeometry(segs, (s) => s.depth > 1, 7), organic('#f3d3c2', { rough: 0.4, clearcoat: 0.5, bump: 0.4, bumpKind: 'fine' }), 'bronkiolus'));
+  const bronchioleMat = organic('#f3cfc0', { rough: 0.4, clearcoat: 0.5, bump: 0.4, bumpKind: 'fine' });
+  const mainMesh = mesh(treeGeometry(main, () => true, 16), bronchiMat, 'bronkus');
+  g.add(mainMesh);
 
-  // Kantong alveolus di setiap ujung bronkiolus
-  const sph = new THREE.SphereGeometry(0.03, 10, 8);
-  const per = 7;
-  const inst = new THREE.InstancedMesh(sph, organic('#ff9fa8', { rough: 0.35, clearcoat: 0.7, sheen: 0.8, bump: 0 }), tips.length * per);
-  const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), sc = new THREE.Vector3();
-  let k = 0;
-  for (const t of tips) {
-    for (let i = 0; i < per; i++) {
-      const off = new THREE.Vector3(rnd() - 0.5, rnd() - 0.5, rnd() - 0.5).normalize().multiplyScalar(0.035).addScaledVector(t.d, 0.03);
-      const s = 0.75 + rnd() * 0.6;
-      m4.compose(t.p.clone().add(off), q, sc.set(s, s, s));
-      inst.setMatrixAt(k++, m4);
-    }
+  // Pohon bronkus per paru, tepat di bidang potong (z = 0) agar terlihat utuh pada penampang.
+  // Batas paru diambil dari garis tepi irisan paru (bukan elips kasar) → cabang tidak keluar dari paru.
+  const outline = (side) => {
+    const pts = [];
+    for (let i = 0; i < 96; i++) { const a = (i / 96) * Math.PI * 2; const v = new THREE.Vector3(Math.cos(a), Math.sin(a), 0); lungPoint(v, side); pts.push(new THREE.Vector2(v.x * 0.84 + side * LUNG_X, v.y * 0.9 - 0.02)); }
+    return pts;
+  };
+  const inPoly = (poly, x, y) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) c = !c; } return c; };
+  const polys = { [-1]: outline(-1), 1: outline(1) };
+  const flat = (side) => (p) => inPoly(polys[side], p.x, p.y);
+  const trees = {};
+  for (const [side, hil, dirs] of [
+    [-1, hilumR, [new THREE.Vector3(-0.35, 1, 0.02), new THREE.Vector3(-1, -0.15, 0.02), new THREE.Vector3(-0.15, -1, -0.02)]],
+    [1, hilumL, [new THREE.Vector3(0.4, 0.9, 0.02), new THREE.Vector3(0.2, -1, -0.02)]],
+  ]) {
+    const segs = [];
+    for (const d of dirs) branchTree({ start: hil, dir: d, len: 0.38, radius: 0.07, depth: 1, maxDepth: 6, rnd, inside: flat(side), spread: 0.5, shrink: 0.8, rshrink: 0.72, out: segs, planar: true });
+    // ratakan ke bidang z = 0 (cabang berada di bidang irisan)
+    for (const sg of segs) for (const k of ['v0', 'v1', 'v2']) if (sg.curve[k]) sg.curve[k].z = 0;
+    const big = mesh(treeGeometry(segs, (x) => x.depth <= 2, 14), bronchiMat.clone(), 'bronkus');
+    const small = mesh(treeGeometry(segs, (x) => x.depth > 2, 8), bronchioleMat.clone(), 'bronkiolus');
+    big.visible = small.visible = false; // hanya tampak saat penampang
+    g.add(big, small);
+    const deep = segs.filter((x) => x.depth >= 3).map((x) => x.curve.getPoint(0.5)).sort((u, v) => Math.abs(u.z) - Math.abs(v.z) || Math.abs(v.x) - Math.abs(u.x))[0];
+    trees[side] = { big, small, deep };
   }
-  part(inst, 'alveolus');
-  g.add(inst);
-  return g;
+  return { group: g, trachea: [rings, tube, larynx], main: mainMesh, trees, carina, hilumR, hilumL };
 }
 
 function buildVessels() {
   const g = new THREE.Group();
   const blue = organic('#4f74c9', { rough: 0.35, clearcoat: 0.7, bump: 0.4 });
   const red = organic('#c8363f', { rough: 0.35, clearcoat: 0.7, bump: 0.4 });
-  const trunk = curve([[0.1, 0.3, 0.42], [0.1, 0.75, 0.3], [0.05, 0.95, 0.12]]);
+  // Arteri pulmonalis (darah kaya CO₂) & vena pulmonalis (kaya O₂) menuju hilus paru
+  const trunk = curve([[0.12, 0.1, 0.02], [0.12, 0.6, 0.02], [0.06, 0.9, 0.0]]);
   g.add(mesh(taperTube(trunk, 0.12, 0.11, 24, 16), blue, 'arteri-pulmonalis'));
   const arts = [
-    curve([[0.05, 0.95, 0.12], [-0.25, 0.86, 0.12], [-0.46, 0.66, 0.08], [-0.62, 0.45, 0.05]]),
-    curve([[0.05, 0.95, 0.12], [0.35, 0.9, 0.05], [0.6, 0.72, 0.06], [0.74, 0.5, 0.0]]),
+    curve([[0.06, 0.9, 0.0], [-0.25, 0.84, 0.0], [-0.45, 0.72, 0.0], [-0.62, 0.55, 0.0]]),
+    curve([[0.06, 0.9, 0.0], [0.35, 0.88, 0.0], [0.58, 0.8, 0.0], [0.74, 0.62, 0.0]]),
   ];
-  for (const c of arts) g.add(mesh(taperTube(c, 0.085, 0.05, 32, 14), blue, 'arteri-pulmonalis'));
+  for (const c of arts) g.add(mesh(taperTube(c, 0.085, 0.06, 32, 14), blue, 'arteri-pulmonalis'));
   const veins = [
-    [[-0.58, 0.48, 0.12], [-0.35, 0.36, 0.16], [-0.08, 0.3, 0.12]],
-    [[-0.6, 0.18, 0.08], [-0.35, 0.22, 0.12], [-0.08, 0.27, 0.1]],
-    [[0.62, 0.52, 0.1], [0.38, 0.38, 0.14], [0.1, 0.3, 0.12]],
-    [[0.62, 0.22, 0.06], [0.38, 0.24, 0.1], [0.1, 0.27, 0.1]],
+    [[-0.6, 0.42, 0.0], [-0.38, 0.32, 0.0], [-0.1, 0.24, 0.0]],
+    [[-0.6, 0.16, 0.0], [-0.38, 0.18, 0.0], [-0.1, 0.2, 0.0]],
+    [[0.66, 0.5, 0.0], [0.42, 0.36, 0.0], [0.14, 0.26, 0.0]],
+    [[0.66, 0.24, 0.0], [0.42, 0.22, 0.0], [0.14, 0.2, 0.0]],
   ];
-  for (const p of veins) g.add(mesh(taperTube(curve(p), 0.05, 0.07, 24, 12), red, 'vena-pulmonalis'));
+  for (const p of veins) g.add(mesh(taperTube(curve(p), 0.055, 0.07, 24, 12), red, 'vena-pulmonalis'));
   return g;
 }
-
 
 function buildDiaphragm() {
   const geo = new THREE.RingGeometry(0.001, 1, 120, 40);
@@ -313,42 +316,45 @@ export function buildLungs() {
 
   const lungR = buildLung(-1);
   const lungL = buildLung(1);
-  const airways = buildAirways(rnd);
+  const air = buildAirways(rnd);
   const vessels = buildVessels();
   const diaphragm = buildDiaphragm();
-  chest.add(airways, vessels, lungR, lungL, diaphragm);
+  chest.add(air.group, vessels, lungR, lungL, diaphragm);
 
   const inset = buildAlveolusInset(rnd);
   inset.group.position.set(2.6, 0.35, 0.2);
   inset.group.scale.setScalar(0.95);
   group.add(inset.group);
 
-  const lungMats = [lungR.material, lungL.material];
+  // ---- Penampang: paru dibelah pada bidang frontal (z = 0), separuh depan dibuang ----
+  const section = new Section(chest, new THREE.Plane(new THREE.Vector3(0, 0, -1), 0), { size: 6 });
+  const sponge = () => new THREE.MeshStandardMaterial({ map: spongeTexture(), roughness: 0.75, bumpMap: spongeTexture(), bumpScale: 2 });
+  section.cap(lungR, sponge(), [air.trees[-1].big, air.trees[-1].small]);
+  section.cap(lungL, sponge(), [air.trees[1].big, air.trees[1].small]);
+  section.clip(air.trachea, air.main, vessels);
+
   let inner = true;
   const setInner = (on) => {
     inner = on;
-    for (const m of lungMats) {
-      m.opacity = on ? 0.33 : 1;
-      m.transparent = on;
-      m.depthWrite = !on;
-      m.userData.baseOpacity = m.opacity;
-      m.needsUpdate = true;
-    }
+    for (const t of Object.values(air.trees)) t.big.visible = t.small.visible = on;
+    section.setEnabled(on);
   };
-  setInner(false);
+  setInner(true);
 
+  // titik label di tepi lateral (bidang z = 0) → tepat di permukaan pada kedua mode
+  const edge = (side, y) => { const v = new THREE.Vector3(side, y, 0).normalize(); lungPoint(v, side); return v.multiplyScalar(1.01).add(new THREE.Vector3(side * LUNG_X, 0, 0)); };
   const anchors = {
-    trakea: new THREE.Vector3(0, 2.0, 0.17),
-    bronkus: new THREE.Vector3(-0.32, 0.85, 0.12),
-    bronkiolus: new THREE.Vector3(1.05, -0.35, 0.3),
-    'lobus-atas-kanan': new THREE.Vector3(-1.4, 0.75, 0.5),
-    'lobus-tengah-kanan': new THREE.Vector3(-1.4, -0.3, 0.62),
-    'lobus-bawah-kanan': new THREE.Vector3(-1.55, -0.75, -0.35),
-    'lobus-atas-kiri': new THREE.Vector3(1.4, 0.7, 0.5),
-    'lobus-bawah-kiri': new THREE.Vector3(1.58, -0.8, -0.3),
+    trakea: new THREE.Vector3(0.16, 1.85, 0),
+    bronkus: new THREE.QuadraticBezierCurve3(air.carina, new THREE.Vector3(0.32, 1.08, 0), air.hilumL).getPoint(0.55),
+    bronkiolus: air.trees[-1].deep.clone(),
+    'lobus-atas-kanan': edge(-1, 0.8),
+    'lobus-tengah-kanan': edge(-1, 0.02),
+    'lobus-bawah-kanan': edge(-1, -0.6),
+    'lobus-atas-kiri': edge(1, 0.6),
+    'lobus-bawah-kiri': edge(1, -0.6),
     diafragma: new THREE.Vector3(0, -1.32, 0.95),
-    'arteri-pulmonalis': new THREE.Vector3(0.12, 0.6, 0.45),
-    'vena-pulmonalis': new THREE.Vector3(-0.3, 0.3, 0.22),
+    'arteri-pulmonalis': new THREE.Vector3(0.12, 0.45, 0),
+    'vena-pulmonalis': new THREE.Vector3(-0.3, 0.27, 0),
     alveolus: new THREE.Vector3(2.6, 0.75, 0.55),
     'kapiler-alveolus': new THREE.Vector3(3.0, 0.05, 0.45),
   };
@@ -358,8 +364,10 @@ export function buildLungs() {
   return {
     group,
     anchors,
+    section,
+    innerOnly: ['bronkiolus'],
     anchorParent: (id) => (chestAnchors.has(id) ? chest : group),
-    innerLabel: ['Transparan', 'Utuh'],
+    innerLabel: ['Penampang', 'Utuh'],
     setInner,
     getInner: () => inner,
     frame: { center: new THREE.Vector3(0.7, 0.3, 0), radius: 3.15 },

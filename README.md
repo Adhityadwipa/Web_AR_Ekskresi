@@ -14,6 +14,11 @@ pertanyaan seperti *"apa fungsinya?"* langsung dijawab sesuai organ/bagian yang 
 - **Hati**: lobus kanan/kiri, ligamen falsiformis, kantong & saluran empedu, vena porta, arteri hepatika, vena kava, percabangan pembuluh di dalam hati (mode transparan), dan **perbesaran lobulus hati**.
 - **Kulit**: 5 lapisan epidermis, dermis, hipodermis berlemak, folikel & batang rambut, kelenjar minyak, otot penegak rambut, kelenjar keringat bergulung + saluran spiral ke pori, tetes keringat beranimasi, pembuluh darah, saraf, dan reseptor Pacini/Meissner.
 
+**Mode Utuh & Penampang (tanpa transparansi)**
+- Tombol **Penampang** membelah organ sungguhan (clipping + tutup irisan dengan stencil): permukaan potongan bertekstur jaringan, dan saluran di dalamnya (bronkus, pembuluh hati, saluran empedu, ureter, tubulus nefron) tampak terbelah.
+- Label bagian dalam ditempatkan tepat di bidang irisan dan hanya muncul pada mode penampang. Label memakai garis penanda; klik label untuk menyorot & memperbesar bagian.
+- Kamera: seret untuk memutar, klik kanan/dua jari untuk menggeser, scroll/cubit untuk zoom, klik ganda untuk memperbesar bagian, serta tombol Perbesar/Perkecil/Geser.
+
 **Context-aware system**
 - Konteks = model yang tampil + bagian yang **diketuk/dipilih** (mode 3D) atau yang **dibidik titik tengah kamera** (mode AR, raycast dari tengah layar).
 - Chip *"Sedang diamati"* di panel chat menampilkan konteks secara langsung; setiap jawaban yang disimpulkan dari konteks diberi label *"Berdasarkan objek yang kamu amati: …"*.

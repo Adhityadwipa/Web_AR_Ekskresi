@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { Section } from '../scene/section.js';
 import { organic, curve, taperTube, mesh, merge, gradientAlong } from '../scene/helpers.js';
 import { seeded } from '../scene/noise.js';
 
@@ -44,7 +45,7 @@ export function buildNephron() {
 
   // ---- Kapsul Bowman: mangkuk terbuka ke kutub vaskular ----
   const cupGeo = new THREE.SphereGeometry(0.46, 64, 40, 0, Math.PI * 2, 0.62, Math.PI - 0.62);
-  const cup = mesh(cupGeo, organic('#f1cf9c', { rough: 0.3, clearcoat: 0.9, opacity: 0.3, side: THREE.DoubleSide, bump: 0.8, bumpKind: 'cells' }), 'kapsul-bowman', { shell: true });
+  const cup = mesh(cupGeo, organic('#f1cf9c', { rough: 0.3, clearcoat: 0.9, side: THREE.DoubleSide, bump: 0.8, bumpKind: 'cells' }), 'kapsul-bowman');
   cup.position.copy(G);
   cup.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), new THREE.Vector3(-1, 0.25, 0).normalize());
   group.add(cup);
@@ -63,15 +64,17 @@ export function buildNephron() {
   const dct = convolute(dctBase, { amp: 0.12, freq: 4, rnd, phase: 1.3 });
   const cd = curve([[2.15, 2.3, 0], [2.15, 1.65, 0], [2.18, 0, 0], [2.2, -1.6, 0], [2.22, -2.6, 0]]);
 
-  const tubMat = (c) => organic(c, { rough: 0.3, clearcoat: 0.85, sheen: 0.6, opacity: 0.78, bump: 0.6, bumpKind: 'fine' });
-  group.add(mesh(taperTube(pct, 0.075, 0.07, 360, 12), tubMat('#ee9147'), 'tubulus-proksimal'));
-  group.add(mesh(taperTube(henle, (t) => (t < 0.55 ? 0.045 : 0.045 + (t - 0.55) * 0.07), 0, 160, 12), tubMat('#eec043'), 'lengkung-henle'));
-  group.add(mesh(taperTube(dct, 0.065, 0.065, 300, 12), tubMat('#4fb27f'), 'tubulus-distal'));
-  group.add(mesh(taperTube(cd, 0.12, 0.14, 80, 18), tubMat('#9479d6'), 'tubulus-kolektivus'));
+  const tubMat = (c) => organic(c, { rough: 0.3, clearcoat: 0.85, sheen: 0.6, bump: 0.6, bumpKind: 'fine' });
+  const tubules = [];
+  const addT = (m) => { tubules.push(m); group.add(m); return m; };
+  addT(mesh(taperTube(pct, 0.075, 0.07, 360, 12), tubMat('#ee9147'), 'tubulus-proksimal'));
+  addT(mesh(taperTube(henle, (t) => (t < 0.55 ? 0.045 : 0.045 + (t - 0.55) * 0.07), 0, 160, 12), tubMat('#eec043'), 'lengkung-henle'));
+  addT(mesh(taperTube(dct, 0.065, 0.065, 300, 12), tubMat('#4fb27f'), 'tubulus-distal'));
+  addT(mesh(taperTube(cd, 0.12, 0.14, 80, 18), tubMat('#9479d6'), 'tubulus-kolektivus'));
   // nefron lain yang bermuara ke tubulus kolektivus
   const others = [];
   for (const y of [0.9, -0.3]) others.push(taperTube(curve([[2.9, y + 0.5, -0.2], [2.6, y + 0.25, -0.1], [2.25, y, 0]]), 0.05, 0.06, 20, 10));
-  group.add(mesh(merge(others), tubMat('#4fb27f'), 'tubulus-distal'));
+  addT(mesh(merge(others), tubMat('#4fb27f'), 'tubulus-distal'));
 
   // ---- Kapiler peritubulus & vasa recta ----
   const capGeos = [];
@@ -109,6 +112,13 @@ export function buildNephron() {
   for (let i = 0; i < N; i++) parts.setColorAt(i, cA);
   group.add(parts);
 
+  // Penampang: tubulus & kapsul Bowman dibelah (z = 0) → rongga & aliran filtrat terlihat
+  const section = new Section(group, new THREE.Plane(new THREE.Vector3(0, 0, -1), 0), { size: 8 });
+  section.clip(cup, tubules);
+  let inner = true;
+  const setInner = (on) => { inner = on; section.setEnabled(on); };
+  setInner(true);
+
   const anchors = {
     glomerulus: G.clone().add(new THREE.Vector3(-0.1, 0.42, 0.2)),
     'kapsul-bowman': G.clone().add(new THREE.Vector3(-0.25, -0.42, 0.2)),
@@ -124,10 +134,11 @@ export function buildNephron() {
   return {
     group,
     anchors,
-    innerLabel: null,
-    setInner() {},
-    getInner: () => true,
-    frame: { center: new THREE.Vector3(0.1, -0.15, 0), radius: 3.15 },
+    section,
+    innerLabel: ['Penampang', 'Utuh'],
+    setInner,
+    getInner: () => inner,
+    frame: { center: new THREE.Vector3(0.3, -0.15, 0), radius: 3.2 },
     update(t) {
       const m4 = new THREE.Matrix4();
       for (let i = 0; i < N; i++) {

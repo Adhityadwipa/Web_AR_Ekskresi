@@ -29,7 +29,7 @@ export function buildSkin() {
 
   // ---- Hipodermis (lemak) ----
   const fat = fatTexture();
-  const hypoMat = organic('#ffffff', { map: fat, rough: 0.45, clearcoat: 0.5, opacity: 0.55, bump: 0.8, side: THREE.DoubleSide });
+  const hypoMat = organic('#ffffff', { map: fat, rough: 0.45, clearcoat: 0.5, bump: 0.8, side: THREE.DoubleSide });
   fat.repeat.set(2, 1);
   group.add(layerBox(Y_HYPO[0], Y_HYPO[1], hypoMat, 'hipodermis'));
   // gumpalan lemak 3D
@@ -50,7 +50,7 @@ export function buildSkin() {
   // ---- Dermis ----
   const fib = fiberTexture();
   fib.repeat.set(2, 1.2);
-  const dermMat = organic('#f3a3a0', { map: fib, rough: 0.5, clearcoat: 0.4, opacity: 0.42, bump: 0.6, side: THREE.DoubleSide });
+  const dermMat = organic('#f3a3a0', { map: fib, rough: 0.5, clearcoat: 0.4, bump: 0.6, side: THREE.DoubleSide });
   const derm = layerBox(Y_DERM[0], Y_DERM[1], dermMat, 'dermis');
   derm.geometry.dispose();
   derm.geometry = deform(new THREE.BoxGeometry(W, Y_DERM[1] - Y_DERM[0], D, 90, 6, 60).translate(0, (Y_DERM[0] + Y_DERM[1]) / 2, 0), (v) => {
@@ -262,7 +262,7 @@ export function buildSkin() {
     group,
     anchors,
     minorPins: ['stratum-lusidum', 'stratum-granulosum', 'stratum-spinosum'],
-    innerLabel: ['Transparan', 'Padat'],
+    innerLabel: null, // balok kulit sendiri sudah berupa penampang (padat, tanpa transparansi)
     setInner,
     getInner: () => inner,
     frame: { center: new THREE.Vector3(0, 0.15, 0), radius: 2.6, dir: new THREE.Vector3(0.62, 0.48, 1) },

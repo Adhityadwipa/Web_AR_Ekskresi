@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-import { organic, deform, curve, taperTube, mesh, merge, branchTree, treeGeometry } from '../scene/helpers.js';
+import { Section } from '../scene/section.js';
+import { organic, liverCutTexture, deform, curve, taperTube, mesh, merge, branchTree, treeGeometry } from '../scene/helpers.js';
 import { fbm, seeded, smoothstep } from '../scene/noise.js';
 
 const X0 = 0.25; // posisi ligamen falsiformis (parameter bola)
@@ -32,7 +33,8 @@ function insideLiver(p) {
 
 function buildLobule() {
   const g = new THREE.Group();
-  const hex = mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.34, 6, 1), organic('#b2513f', { rough: 0.35, clearcoat: 0.8, opacity: 0.3, side: THREE.DoubleSide, bump: 0.8, bumpKind: 'cells' }), 'lobulus', { shell: true });
+  // lempeng dasar padat; lempeng sel hati & pembuluh berdiri di atasnya (seperti irisan mikroskop)
+  const hex = mesh(new THREE.CylinderGeometry(0.64, 0.64, 0.06, 6, 1).translate(0, -0.18, 0), organic('#9c4a36', { rough: 0.45, clearcoat: 0.6, bump: 1.2, bumpKind: 'cells' }), 'lobulus');
   g.add(hex);
   const plates = [];
   for (let i = 0; i < 18; i++) {
@@ -126,21 +128,37 @@ export function buildLiver() {
   const ivc = curve([[-0.15, -1.4, -0.68], [-0.14, -0.3, -0.7], [-0.12, 0.6, -0.62], [-0.12, 1.25, -0.6]]);
   group.add(mesh(taperTube(ivc, 0.14, 0.14, 40, 20), blue, 'vena-kava-hati'));
 
-  // ---- Percabangan di dalam hati (terlihat saat transparan) ----
+  // ---- Percabangan pembuluh di dalam hati: tepat di bidang irisan (z = 0) ----
+  const outline = [];
+  for (let i = 0; i < 120; i++) { const a = (i / 120) * Math.PI * 2; const v = new THREE.Vector3(Math.cos(a), Math.sin(a), 0); liverPoint(v); outline.push(v); }
+  const cx = outline.reduce((s0, v) => s0 + v.x, 0) / outline.length, cy = outline.reduce((s0, v) => s0 + v.y, 0) / outline.length;
+  const poly = outline.map((v) => new THREE.Vector2(cx + (v.x - cx) * 0.86, cy + (v.y - cy) * 0.78));
+  const inPoly = (x, y) => { let c = false; for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) { const a = poly[i], b = poly[j]; if ((a.y > y) !== (b.y > y) && x < ((b.x - a.x) * (y - a.y)) / (b.y - a.y) + a.x) c = !c; } return c; };
   const innerGroup = new THREE.Group();
-  const trees = (start, dirs, rad, depth) => {
+  const deepPts = {};
+  const trees = (id, start, dirs, rad, depth, mat, zOff = 0) => {
     const segs = [];
-    for (const d of dirs) branchTree({ start, dir: d, len: 0.38, radius: rad, depth: 0, maxDepth: depth, rnd, inside: insideLiver, spread: 0.6, shrink: 0.8, rshrink: 0.72, out: segs });
-    return treeGeometry(segs, () => true, 7);
+    for (const d of dirs) branchTree({ start, dir: d, len: 0.34, radius: rad, depth: 0, maxDepth: depth, rnd, inside: (p) => inPoly(p.x, p.y), spread: 0.55, shrink: 0.82, rshrink: 0.74, out: segs, planar: true });
+    for (const sg of segs) for (const k of ['v0', 'v1', 'v2']) if (sg.curve[k]) sg.curve[k].z = zOff;
+    deepPts[id] = segs.filter((x) => x.depth >= 2).map((x) => x.curve.getPoint(0.5))[3] || start;
+    const m = mesh(treeGeometry(segs, () => true, 10), mat.clone(), id);
+    innerGroup.add(m);
+    return m;
   };
-  const porta = new THREE.Vector3(0.06, -0.28, -0.04);
-  innerGroup.add(mesh(trees(porta, [new THREE.Vector3(-1, 0.25, 0.1), new THREE.Vector3(1, 0.3, 0.1), new THREE.Vector3(-0.6, 0.2, -0.5)], 0.07, 4), purple, 'vena-porta'));
-  innerGroup.add(mesh(trees(porta.clone().add(new THREE.Vector3(0, 0.02, 0.06)), [new THREE.Vector3(-1, 0.1, 0.35), new THREE.Vector3(1, 0.15, 0.35)], 0.035, 4), green, 'saluran-empedu'));
-  const hvStart = new THREE.Vector3(-0.12, 0.45, -0.6);
-  innerGroup.add(mesh(trees(hvStart, [new THREE.Vector3(-1, -0.2, 0.5), new THREE.Vector3(0.2, -0.1, 1), new THREE.Vector3(1, -0.25, 0.5)], 0.075, 4), blue, 'vena-hepatika'));
-  innerGroup.add(mesh(trees(porta.clone().add(new THREE.Vector3(0.03, -0.02, 0.1)), [new THREE.Vector3(-1, 0.05, 0.25), new THREE.Vector3(1, 0.1, 0.25)], 0.03, 4), red, 'arteri-hepatika'));
-  innerGroup.visible = false;
+  const porta = new THREE.Vector3(0.06, -0.2, 0);
+  const holes = [
+    trees('vena-porta', porta, [new THREE.Vector3(-1, 0.35, 0), new THREE.Vector3(1, 0.45, 0)], 0.075, 5, purple),
+    trees('saluran-empedu', porta.clone().add(new THREE.Vector3(-0.05, 0.03, 0)), [new THREE.Vector3(-1, 0.05, 0), new THREE.Vector3(1, 0.1, 0)], 0.035, 4, green, 0.01),
+    trees('arteri-hepatika', porta.clone().add(new THREE.Vector3(0.05, -0.02, 0)), [new THREE.Vector3(-1, -0.1, 0), new THREE.Vector3(1, -0.05, 0)], 0.028, 4, red, -0.01),
+    trees('vena-hepatika', new THREE.Vector3(-0.12, 0.38, 0), [new THREE.Vector3(-1, 0.1, 0), new THREE.Vector3(-0.1, -1, 0), new THREE.Vector3(1, 0.05, 0)], 0.08, 5, blue),
+  ];
   group.add(innerGroup);
+
+  // ---- Penampang: hati dibelah pada bidang frontal z = 0 (struktur luar di bawah hati tetap utuh) ----
+  const section = new Section(group, new THREE.Plane(new THREE.Vector3(0, 0, -1), 0), { size: 6 });
+  section.cap(liver, new THREE.MeshStandardMaterial({ map: liverCutTexture(), roughness: 0.6, bumpMap: liverCutTexture(), bumpScale: 1.5 }), holes);
+  const ligMesh = group.children.find((o) => o.userData.partId === 'ligamen-falsiformis');
+  if (ligMesh) section.clip(ligMesh);
 
   // ---- Perbesaran lobulus ----
   const lob = buildLobule();
@@ -149,21 +167,18 @@ export function buildLiver() {
   lob.group.scale.setScalar(0.85);
   group.add(lob.group);
 
-  let inner = false;
+  let inner = true;
   const setInner = (on) => {
     inner = on;
-    liverMat.opacity = on ? 0.55 : 1;
-    liverMat.transparent = on;
-    liverMat.depthWrite = !on;
-    liverMat.userData.baseOpacity = liverMat.opacity;
-    liverMat.needsUpdate = true;
     innerGroup.visible = on;
+    section.setEnabled(on);
   };
-  setInner(true); // seperti ilustrasi: percabangan pembuluh tampak samar di balik permukaan
+  setInner(true);
 
   const anchors = {
-    'lobus-kanan-hati': new THREE.Vector3(-0.9, 0.55, 0.55),
-    'lobus-kiri-hati': new THREE.Vector3(1.05, 0.05, 0.45),
+    'lobus-kanan-hati': new THREE.Vector3(-1.55, 0.25, 0),
+    'lobus-kiri-hati': new THREE.Vector3(1.45, -0.12, 0),
+    'vena-hepatika': deepPts['vena-hepatika'].clone(),
     'ligamen-falsiformis': ligCurve.getPointAt(0.45),
     'kantong-empedu': gb.localToWorld(new THREE.Vector3(0.2, -0.3, 0)),
     'saluran-empedu': cbd.getPointAt(0.5),
@@ -176,10 +191,13 @@ export function buildLiver() {
   return {
     group,
     anchors,
-    innerLabel: ['Transparan', 'Utuh'],
+    section,
+    innerOnly: ['vena-hepatika'],
+    outerOnly: ['ligamen-falsiformis'],
+    innerLabel: ['Penampang', 'Utuh'],
     setInner,
     getInner: () => inner,
-    frame: { center: new THREE.Vector3(0.55, -0.1, 0), radius: 2.7 },
+    frame: { center: new THREE.Vector3(0.75, -0.1, 0), radius: 2.85 },
     insetBillboard: lob.ring,
     update() {},
   };

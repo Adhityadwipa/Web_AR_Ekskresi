@@ -99,6 +99,54 @@ export function fatTexture() {
   }, { srgb: true });
 }
 
+/** Permukaan irisan paru: jaringan seperti spons (rongga alveolus). */
+export function spongeTexture() {
+  return canvasTexture('sponge', 512, (ctx, n) => {
+    ctx.fillStyle = '#d98a86';
+    ctx.fillRect(0, 0, n, n);
+    const rnd = seeded(77);
+    for (let i = 0; i < 2600; i++) {
+      const x = rnd() * n, y = rnd() * n, r = 2 + rnd() * 6;
+      ctx.fillStyle = rnd() > 0.35 ? 'rgba(120,40,45,0.55)' : 'rgba(255,215,205,0.7)';
+      ctx.beginPath();
+      ctx.ellipse(x, y, r, r * (0.6 + rnd() * 0.5), rnd() * 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for (let i = 0; i < 60; i++) { // septa lobulus
+      ctx.strokeStyle = 'rgba(150,60,60,0.35)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      let x = rnd() * n, y = rnd() * n;
+      ctx.moveTo(x, y);
+      for (let k = 0; k < 4; k++) { x += (rnd() - 0.5) * 80; y += (rnd() - 0.5) * 80; ctx.lineTo(x, y); }
+      ctx.stroke();
+    }
+  }, { srgb: true, repeat: 3 });
+}
+
+/** Permukaan irisan hati: jaringan cokelat dengan pola lobulus samar. */
+export function liverCutTexture() {
+  return canvasTexture('livercut', 512, (ctx, n) => {
+    ctx.fillStyle = '#8b4632';
+    ctx.fillRect(0, 0, n, n);
+    const rnd = seeded(91);
+    const s = 26;
+    for (let row = -1; row < n / (s * 1.5) + 1; row++) {
+      for (let col = -1; col < n / (s * 1.73) + 1; col++) {
+        const cx = col * s * 1.73 + (row % 2) * s * 0.87, cy = row * s * 1.5;
+        ctx.strokeStyle = 'rgba(70,25,15,0.35)';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        for (let k = 0; k <= 6; k++) { const a = (k / 6) * Math.PI * 2 + Math.PI / 6; const x = cx + Math.cos(a) * s * (0.95 + rnd() * 0.1), y = cy + Math.sin(a) * s; k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(60,20,30,0.55)';
+        ctx.beginPath(); ctx.arc(cx, cy, 2.2, 0, Math.PI * 2); ctx.fill(); // vena sentralis
+      }
+    }
+    for (let i = 0; i < 1500; i++) { ctx.fillStyle = rnd() > 0.5 ? 'rgba(160,90,60,0.35)' : 'rgba(90,35,20,0.3)'; ctx.fillRect(rnd() * n, rnd() * n, 2, 2); }
+  }, { srgb: true, repeat: 3 });
+}
+
 /** Serat kolagen bergelombang (dermis). */
 export function fiberTexture() {
   return canvasTexture('fiber', 512, (ctx, n) => {
@@ -242,23 +290,24 @@ export function perpendicular(d, rnd) {
  * Pohon percabangan (bronkus, pembuluh darah) → daftar segmen {curve, r0, r1, depth}.
  * `inside(p)` membatasi agar cabang tetap di dalam volume organ.
  */
-export function branchTree({ start, dir, len, radius, depth, maxDepth, rnd, inside, spread = 0.55, shrink = 0.78, rshrink = 0.7, out = [], tips = [] }) {
+export function branchTree({ start, dir, len, radius, depth, maxDepth, rnd, inside, spread = 0.55, shrink = 0.78, rshrink = 0.7, out = [], tips = [], planar = false }) {
   const d = dir.clone().normalize();
   const end = start.clone().addScaledVector(d, len);
-  const mid = start.clone().lerp(end, 0.5).addScaledVector(perpendicular(d, rnd), len * 0.08);
+  const flatPerp = () => new THREE.Vector3(-d.y, d.x, 0).normalize().multiplyScalar(rnd() > 0.5 ? 1 : -1);
+  const mid = start.clone().lerp(end, 0.5).addScaledVector(planar ? flatPerp() : perpendicular(d, rnd), len * 0.08);
   out.push({ curve: new THREE.QuadraticBezierCurve3(start.clone(), mid, end.clone()), r0: radius, r1: radius * 0.86, depth });
   if (depth >= maxDepth) { tips.push({ p: end.clone(), d }); return { out, tips }; }
-  const base = perpendicular(d, rnd);
+  const base = planar ? new THREE.Vector3(-d.y, d.x, 0).normalize() : perpendicular(d, rnd);
   for (let k = 0; k < 2; k++) {
     let best = null;
     for (let tries = 0; tries < 8; tries++) {
-      const side = base.clone().multiplyScalar(k === 0 ? 1 : -1).applyAxisAngle(d, (rnd() - 0.5) * 1.2);
+      const side = base.clone().multiplyScalar(k === 0 ? 1 : -1).applyAxisAngle(d, planar ? 0 : (rnd() - 0.5) * 1.2);
       const nd = d.clone().multiplyScalar(Math.cos(spread)).addScaledVector(side, Math.sin(spread) * (0.8 + rnd() * 0.5)).normalize();
       const probe = end.clone().addScaledVector(nd, len * shrink);
       if (!inside || inside(probe)) { best = nd; break; }
     }
     if (!best) { tips.push({ p: end.clone(), d }); continue; }
-    branchTree({ start: end, dir: best, len: len * shrink * (0.85 + rnd() * 0.3), radius: radius * rshrink, depth: depth + 1, maxDepth, rnd, inside, spread, shrink, rshrink, out, tips });
+    branchTree({ start: end, dir: best, len: len * shrink * (0.85 + rnd() * 0.3), radius: radius * rshrink, depth: depth + 1, maxDepth, rnd, inside, spread, shrink, rshrink, out, tips, planar });
   }
   return { out, tips };
 }
