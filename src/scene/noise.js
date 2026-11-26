@@ -57,3 +57,21 @@ export const smoothstep = (a, b, x) => {
   return t * t * (3 - 2 * t);
 };
 export { lerp };
+
+// Worley/cellular noise 3D: mengembalikan [F1, F2] (jarak titik sel terdekat & kedua)
+function hash3(x, y, z) {
+  let h = (x * 374761393 + y * 668265263 + z * 2147483647) | 0;
+  h = Math.imul(h ^ (h >>> 13), 1274126177);
+  return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+}
+export function worley3(x, y, z) {
+  const xi = Math.floor(x), yi = Math.floor(y), zi = Math.floor(z);
+  let f1 = 9, f2 = 9;
+  for (let i = -1; i <= 1; i++) for (let j = -1; j <= 1; j++) for (let k = -1; k <= 1; k++) {
+    const cx = xi + i, cy = yi + j, cz = zi + k;
+    const px = cx + hash3(cx, cy, cz), py = cy + hash3(cy, cz, cx), pz = cz + hash3(cz, cx, cy);
+    const d = Math.hypot(px - x, py - y, pz - z);
+    if (d < f1) { f2 = f1; f1 = d; } else if (d < f2) f2 = d;
+  }
+  return [f1, f2];
+}

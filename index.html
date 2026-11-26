@@ -42,6 +42,7 @@
           <h1 class="organ-name" id="organName">Paru-paru</h1>
           <p class="organ-latin" id="organLatin">Pulmo</p>
           <p class="organ-tag" id="organTag"></p>
+          <p class="nav-hint"><kbd>Seret</kbd> putar · <kbd>Klik kanan</kbd> geser · <kbd>Scroll</kbd> zoom · <kbd>Klik 2×</kbd> perbesar bagian</p>
         </section>
 
         <div class="tools" id="tools" data-xr-ui>
@@ -53,6 +54,16 @@
           </button>
           <button type="button" class="tool is-on" id="toolRotate" title="Putar otomatis">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.3-5.6" /><path d="M20 4v4h-4" /></svg><span>Putar</span>
+          </button>
+          <div class="tool-sep"></div>
+          <button type="button" class="tool" id="toolZoomIn" title="Perbesar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.4-4.4M11 8v6M8 11h6" /></svg><span>Perbesar</span>
+          </button>
+          <button type="button" class="tool" id="toolZoomOut" title="Perkecil">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m20 20-4.4-4.4M8 11h6" /></svg><span>Perkecil</span>
+          </button>
+          <button type="button" class="tool" id="toolPan" title="Mode geser kamera">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M3 12h18M12 3l-2.5 2.5M12 3l2.5 2.5M12 21l-2.5-2.5M12 21l2.5-2.5M3 12l2.5-2.5M3 12l2.5 2.5M21 12l-2.5-2.5M21 12l-2.5 2.5" /></svg><span>Geser</span>
           </button>
           <button type="button" class="tool" id="toolReset" title="Atur ulang tampilan">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4" /><circle cx="12" cy="12" r="3" /></svg><span>Pusatkan</span>
@@ -72,6 +83,7 @@
           </header>
           <div class="part-desc" id="partDesc"></div>
           <div class="part-actions">
+            <button type="button" class="pill ghost" id="partZoom">Perbesar bagian</button>
             <button type="button" class="pill" id="partAsk">Tanyakan ke asisten →</button>
           </div>
         </article>

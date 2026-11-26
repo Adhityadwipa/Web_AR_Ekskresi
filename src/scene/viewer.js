@@ -84,8 +84,12 @@ export class Viewer extends EventTarget {
     c.enableDamping = true;
     c.dampingFactor = 0.08;
     c.rotateSpeed = 0.8;
-    c.minDistance = 1.2;
+    c.minDistance = 0.45;
     c.maxDistance = 22;
+    c.screenSpacePanning = true;
+    c.zoomToCursor = true; // zoom mengikuti posisi kursor → mudah memperbesar bagian tertentu
+    c.zoomSpeed = 1.1;
+    c.panSpeed = 0.9;
     c.autoRotate = true;
     c.autoRotateSpeed = 0.6;
     c.addEventListener('start', () => { this.dispatchEvent(new Event('interact')); });
@@ -114,6 +118,11 @@ export class Viewer extends EventTarget {
       this._hoverClient = { x: e.clientX, y: e.clientY };
     });
     el.addEventListener('pointerleave', () => { this._pendingHover = null; this._setHover(null); });
+    // klik ganda: perbesar ke bagian yang diklik
+    el.addEventListener('dblclick', (e) => {
+      const hit = this.pick(this._ndc(e));
+      if (hit) { this.select(hit.partId, { source: 'click' }); this.focusPoint(hit.point); }
+    });
     new ResizeObserver(() => this.resize()).observe(this.container);
   }
 
@@ -159,9 +168,12 @@ export class Viewer extends EventTarget {
       const div = document.createElement('button');
       div.className = 'pin';
       div.type = 'button';
-      div.innerHTML = `<span class="pin-dot"></span><span class="pin-text">${info.name}</span>`;
+      div.innerHTML = `<span class="pin-dot"></span><span class="pin-line"></span><span class="pin-text">${info.name}</span>`;
+      div.setAttribute('aria-label', info.name);
       div.addEventListener('pointerdown', (e) => e.stopPropagation());
-      div.addEventListener('click', (e) => { e.stopPropagation(); this.select(pid, { source: 'pin' }); });
+      div.addEventListener('click', (e) => { e.stopPropagation(); this.select(pid, { source: 'pin', focus: true }); });
+      div.addEventListener('pointerenter', () => { this.hoverId = pid; });
+      div.addEventListener('pointerleave', () => { if (this.hoverId === pid) this.hoverId = null; });
       const obj = new CSS2DObject(div);
       obj.position.copy(pos);
       (m.anchorParent ? m.anchorParent(pid) : m.group).add(obj);
@@ -214,7 +226,7 @@ export class Viewer extends EventTarget {
     const hfov = 2 * Math.atan(Math.tan(fov / 2) * this.camera.aspect);
     const wide = this.camera.aspect > 1.15;
     const dist = (radius / Math.sin(Math.min(fov, hfov) / 2)) * (wide ? 1.12 : 0.9);
-    const dir = new THREE.Vector3(0.18, 0.12, 1).normalize();
+    const dir = (m.frame.dir || new THREE.Vector3(0.18, 0.12, 1)).clone().normalize();
     const right = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), dir).normalize();
     // geser bidikan agar model tidak tertutup judul (kiri atas) dan dock (bawah)
     const target = center.clone().addScaledVector(right, wide ? -radius * 0.22 : 0).add(new THREE.Vector3(0, -radius * (wide ? 0.08 : 0.16), 0));
@@ -243,10 +255,74 @@ export class Viewer extends EventTarget {
     const obj = m.pins.get(pid);
     const wp = obj.getWorldPosition(new THREE.Vector3());
     const dir = this.camera.position.clone().sub(this.controls.target).normalize();
-    const dist = Math.max(3.2, m.frame.radius * 1.5);
+    const dist = Math.max(2.2, m.frame.radius * 1.05);
     this.controls.autoRotate = false;
     this._userMoved = true;
     this._moveCamera(wp.clone().addScaledVector(dir, dist), wp, 0.9);
+  }
+
+  /** Perbesar ke sebuah titik dunia (mis. hasil klik ganda). */
+  focusPoint(p) {
+    if (this.mode !== '3d') return;
+    const dir = this.camera.position.clone().sub(this.controls.target).normalize();
+    const dist = Math.max(this.controls.minDistance * 2, this.camera.position.distanceTo(this.controls.target) * 0.45);
+    this.controls.autoRotate = false;
+    this._userMoved = true;
+    this.dispatchEvent(new Event('interact'));
+    this._moveCamera(p.clone().addScaledVector(dir, dist), p.clone(), 0.7);
+  }
+
+  /** Zoom bertahap (k < 1 = mendekat). */
+  zoom(k) {
+    const c = this.controls;
+    const off = this.camera.position.clone().sub(c.target);
+    const len = THREE.MathUtils.clamp(off.length() * k, c.minDistance, c.maxDistance);
+    this._userMoved = true;
+    this._moveCamera(c.target.clone().add(off.setLength(len)), c.target.clone(), 0.35);
+  }
+
+  /** Mode geser: seret satu jari/klik kiri untuk menggeser kamera, bukan memutar. */
+  setPanMode(on) {
+    const c = this.controls;
+    c.mouseButtons.LEFT = on ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE;
+    c.mouseButtons.RIGHT = on ? THREE.MOUSE.ROTATE : THREE.MOUSE.PAN;
+    c.touches.ONE = on ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE;
+    this.panMode = on;
+  }
+
+  /** Tata letak label: garis penanda dari titik bagian ke kotak nama, disebar keluar & tidak bertumpuk. */
+  _layoutPins() {
+    const m = this.current;
+    if (!m || this.renderer.xr.isPresenting) return;
+    const el = this.renderer.domElement;
+    const W = el.clientWidth, H = el.clientHeight;
+    const toPx = (v) => { v.project(this.camera); return { x: (v.x * 0.5 + 0.5) * W, y: (-v.y * 0.5 + 0.5) * H }; };
+    const c = toPx(m.group.localToWorld(m.frame.center.clone()));
+    const items = [];
+    for (const [pid, obj] of m.pins) {
+      if (!obj.visible) continue;
+      const p = toPx(obj.getWorldPosition(new THREE.Vector3()));
+      let dx = p.x - c.x, dy = (p.y - c.y) * 0.5;
+      if (Math.abs(dx) < 1 && Math.abs(dy) < 1) dx = 1;
+      const len = Math.hypot(dx, dy);
+      const L = pid === this.selectedId ? 64 : 52;
+      const side = dx < 0 ? -1 : 1;
+      items.push({ obj, p, side, ex: p.x + (dx / len) * L + side * 14, ey: p.y + (dy / len) * L });
+    }
+    for (const side of [-1, 1]) {
+      const col = items.filter((i) => i.side === side).sort((a, b) => a.ey - b.ey);
+      for (let i = 1; i < col.length; i++) if (col[i].ey - col[i - 1].ey < 24) col[i].ey = col[i - 1].ey + 24;
+    }
+    for (const it of items) {
+      const ox = it.ex - it.p.x, oy = it.ey - it.p.y;
+      const len = Math.hypot(ox, oy), ang = Math.atan2(oy, ox);
+      const e = it.obj.element;
+      const line = e.children[1], text = e.children[2];
+      line.style.width = len.toFixed(1) + 'px';
+      line.style.transform = `rotate(${ang.toFixed(3)}rad)`;
+      text.style.transform = `translate(${ox.toFixed(1)}px, ${oy.toFixed(1)}px) translate(${it.side < 0 ? '-100%' : '0'}, -50%)`;
+      e.classList.toggle('left', it.side < 0);
+    }
   }
 
   // ---------- Kontrol tampilan ----------
@@ -333,11 +409,11 @@ export class Viewer extends EventTarget {
         const lobes = [this.selectedId, this.hoverId];
         const mine = lobes.some((l) => l && o.userData.resolverIds?.includes(l));
         o.material.emissive.copy(o.material.userData.baseEmissive);
-        if (mine) o.material.emissive.add(new THREE.Color('#3a1810').multiplyScalar(sel ? pulse : 0.6));
+        if (mine) o.material.emissive.add(new THREE.Color('#6a2a12').multiplyScalar(sel ? pulse : 0.6));
         return;
       }
       o.material.emissive.copy(o.material.userData.baseEmissive);
-      if (sel) o.material.emissive.add(new THREE.Color('#ffb36b').multiplyScalar(0.32 * pulse));
+      if (sel) o.material.emissive.add(new THREE.Color('#ffb36b').multiplyScalar(0.55 * pulse));
       else if (hov) o.material.emissive.add(new THREE.Color('#ffd2a8').multiplyScalar(0.22));
     });
   }
@@ -429,6 +505,6 @@ export class Viewer extends EventTarget {
     this._paint();
     if (this.mode !== 'xr') this.controls.update();
     this.renderer.render(this.scene, this.camera);
-    if (!this.renderer.xr.isPresenting) this.labels.render(this.scene, this.camera);
+    if (!this.renderer.xr.isPresenting) { this._layoutPins(); this.labels.render(this.scene, this.camera); }
   }
 }

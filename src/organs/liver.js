@@ -71,7 +71,7 @@ export function buildLiver() {
   const geo = deform(new THREE.SphereGeometry(1, 160, 110), liverPoint);
   const pos = geo.attributes.position;
   const cols = new Float32Array(pos.count * 3);
-  const c = new THREE.Color(), base = new THREE.Color('#7a2a22'), dark = new THREE.Color('#3f120f');
+  const c = new THREE.Color(), base = new THREE.Color('#8a4a33'), dark = new THREE.Color('#4a2216');
   const X0w = X0 * 1.65;
   for (let i = 0; i < pos.count; i++) {
     const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
@@ -81,7 +81,7 @@ export function buildLiver() {
     cols.set([c.r, c.g, c.b], i * 3);
   }
   geo.setAttribute('color', new THREE.BufferAttribute(cols, 3));
-  const liverMat = organic('#7a2a22', { vertexColors: true, rough: 0.42, clearcoat: 0.7, clearcoatRough: 0.3, sheen: 0.3, bump: 2.2, side: THREE.DoubleSide });
+  const liverMat = organic('#8a4a33', { vertexColors: true, rough: 0.4, clearcoat: 0.75, clearcoatRough: 0.28, sheen: 0.25, bump: 1.6, side: THREE.DoubleSide });
   const liver = mesh(geo, liverMat, 'lobus-kanan-hati', { shell: true, resolver: (p) => (p.x < X0w ? 'lobus-kanan-hati' : 'lobus-kiri-hati') });
   liver.userData.resolverIds = ['lobus-kanan-hati', 'lobus-kiri-hati'];
   liver.renderOrder = 2;
@@ -102,7 +102,7 @@ export function buildLiver() {
   // ---- Kantong empedu ----
   const gbProfile = [[0, -0.42], [0.13, -0.4], [0.19, -0.3], [0.2, -0.14], [0.17, 0.04], [0.11, 0.2], [0.065, 0.31], [0.05, 0.4]].map(([a, b]) => new THREE.Vector2(a, b));
   const gbGeo = new THREE.LatheGeometry(gbProfile, 48);
-  const gb = mesh(gbGeo, organic('#5f9d4f', { rough: 0.2, clearcoat: 1, clearcoatRough: 0.1, sheen: 0.6, opacity: 0.92, transparent: true, bump: 0.6 }), 'kantong-empedu');
+  const gb = mesh(gbGeo, organic('#5d6b3c', { rough: 0.25, clearcoat: 1, clearcoatRough: 0.12, sheen: 0.4, bump: 0.6 }), 'kantong-empedu');
   gb.position.set(-0.32, -0.4, 0.38);
   gb.rotation.set(-1.05, 0, 0.25);
   group.add(gb);
@@ -138,6 +138,7 @@ export function buildLiver() {
   innerGroup.add(mesh(trees(porta.clone().add(new THREE.Vector3(0, 0.02, 0.06)), [new THREE.Vector3(-1, 0.1, 0.35), new THREE.Vector3(1, 0.15, 0.35)], 0.035, 4), green, 'saluran-empedu'));
   const hvStart = new THREE.Vector3(-0.12, 0.45, -0.6);
   innerGroup.add(mesh(trees(hvStart, [new THREE.Vector3(-1, -0.2, 0.5), new THREE.Vector3(0.2, -0.1, 1), new THREE.Vector3(1, -0.25, 0.5)], 0.075, 4), blue, 'vena-hepatika'));
+  innerGroup.add(mesh(trees(porta.clone().add(new THREE.Vector3(0.03, -0.02, 0.1)), [new THREE.Vector3(-1, 0.05, 0.25), new THREE.Vector3(1, 0.1, 0.25)], 0.03, 4), red, 'arteri-hepatika'));
   innerGroup.visible = false;
   group.add(innerGroup);
 
@@ -151,14 +152,14 @@ export function buildLiver() {
   let inner = false;
   const setInner = (on) => {
     inner = on;
-    liverMat.opacity = on ? 0.38 : 1;
+    liverMat.opacity = on ? 0.55 : 1;
     liverMat.transparent = on;
     liverMat.depthWrite = !on;
     liverMat.userData.baseOpacity = liverMat.opacity;
     liverMat.needsUpdate = true;
     innerGroup.visible = on;
   };
-  setInner(false);
+  setInner(true); // seperti ilustrasi: percabangan pembuluh tampak samar di balik permukaan
 
   const anchors = {
     'lobus-kanan-hati': new THREE.Vector3(-0.9, 0.55, 0.55),

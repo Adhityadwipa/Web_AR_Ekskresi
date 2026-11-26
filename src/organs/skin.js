@@ -14,6 +14,8 @@ const EPI = [
   { id: 'stratum-korneum', h: 0.07, color: '#e9c3a2' },
 ];
 
+const papilla = (x, z) => 0.055 * Math.sin(x * 7.5) * Math.cos(z * 6.5) + 0.02 * Math.sin(x * 17 + z * 3);
+
 function layerBox(y0, y1, mat, id, opts = {}) {
   const g = new THREE.BoxGeometry(W, y1 - y0, D, 40, 1, 28);
   g.translate(0, (y0 + y1) / 2, 0);
@@ -31,11 +33,14 @@ export function buildSkin() {
   fat.repeat.set(2, 1);
   group.add(layerBox(Y_HYPO[0], Y_HYPO[1], hypoMat, 'hipodermis'));
   // gumpalan lemak 3D
-  const lob = new THREE.InstancedMesh(new THREE.SphereGeometry(0.16, 18, 14), organic('#f4d27e', { rough: 0.3, clearcoat: 0.8, sheen: 0.6, bump: 0.5 }), 90);
+  const lob = new THREE.InstancedMesh(new THREE.SphereGeometry(0.16, 18, 14), organic('#f1cb68', { rough: 0.3, clearcoat: 0.8, sheen: 0.6, bump: 0.5 }), 150);
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3();
-  for (let i = 0; i < 90; i++) {
-    const p = new THREE.Vector3((rnd() - 0.5) * (W - 0.3), Y_HYPO[0] + 0.15 + rnd() * 0.6, (rnd() - 0.5) * (D - 0.3));
-    const k = 0.7 + rnd() * 0.6;
+  for (let i = 0; i < 150; i++) {
+    const yy = Y_HYPO[0] + 0.1 + rnd() * 0.75;
+    const p = i % 3 === 0 ? new THREE.Vector3(W / 2 - 0.06, yy, (rnd() - 0.5) * (D - 0.2))
+      : i % 3 === 1 ? new THREE.Vector3((rnd() - 0.5) * (W - 0.2), yy, D / 2 - 0.06)
+        : new THREE.Vector3((rnd() - 0.5) * (W - 0.3), yy, (rnd() - 0.5) * (D - 0.3));
+    const k = 0.55 + rnd() * 0.45;
     m4.compose(p, q, s.set(k, k * 0.85, k));
     lob.setMatrixAt(i, m4);
   }
@@ -45,18 +50,23 @@ export function buildSkin() {
   // ---- Dermis ----
   const fib = fiberTexture();
   fib.repeat.set(2, 1.2);
-  const dermMat = organic('#ffffff', { map: fib, rough: 0.5, clearcoat: 0.4, opacity: 0.42, bump: 0.6, side: THREE.DoubleSide });
-  group.add(layerBox(Y_DERM[0], Y_DERM[1], dermMat, 'dermis'));
+  const dermMat = organic('#f3a3a0', { map: fib, rough: 0.5, clearcoat: 0.4, opacity: 0.42, bump: 0.6, side: THREE.DoubleSide });
+  const derm = layerBox(Y_DERM[0], Y_DERM[1], dermMat, 'dermis');
+  derm.geometry.dispose();
+  derm.geometry = deform(new THREE.BoxGeometry(W, Y_DERM[1] - Y_DERM[0], D, 90, 6, 60).translate(0, (Y_DERM[0] + Y_DERM[1]) / 2, 0), (v) => {
+    if (v.y > Y_DERM[1] - 0.01) v.y += papilla(v.x, v.z);
+  });
+  group.add(derm);
 
   // ---- Epidermis berlapis dengan papila dermis bergelombang ----
   let y = Y_DERM[1];
   const epiMeshes = [];
   for (const L of EPI) {
-    const g = new THREE.BoxGeometry(W, L.h, D, 80, 1, 56);
+    const g = new THREE.BoxGeometry(W, L.h, D, 90, 1, 60);
     g.translate(0, y + L.h / 2, 0);
     const top = L.id === 'stratum-korneum';
     deform(g, (v) => {
-      const wav = 0.03 * Math.sin(v.x * 7) * Math.cos(v.z * 6) + (top ? 0.012 * fbm(v.x * 6, 0, v.z * 6, 3) : 0);
+      const wav = papilla(v.x, v.z) * (top ? 0.35 : 1) + (top ? 0.018 * fbm(v.x * 6, 0, v.z * 6, 3) : 0);
       v.y += wav;
     });
     const mat = top
@@ -71,16 +81,16 @@ export function buildSkin() {
 
   // ---- Folikel rambut + kelenjar minyak + otot penegak rambut ----
   const follGeos = [], hairGeos = [], bulbGeos = [], sebGeos = [], musGeos = [];
-  const hairs = [[-1.05, -0.5], [0.1, 0.55], [1.05, -0.35], [-0.35, -0.75]];
+  const hairs = [[-1.0, D / 2 - 0.02], [0.1, 0.45], [0.95, D / 2 - 0.02], [-0.35, -0.65], [0.55, -0.2], [1.2, -0.7]];
   hairs.forEach(([hx, hz], i) => {
     const tilt = 0.28 + rnd() * 0.12;
     const bottom = new THREE.Vector3(hx - 0.25, Y_HYPO[1] - 0.15, hz);
     const top = new THREE.Vector3(hx + Math.tan(tilt) * 0.2, SURF, hz);
     const c = curve([bottom, bottom.clone().lerp(top, 0.5).add(new THREE.Vector3(0.02, 0, 0)), top]);
     follGeos.push(taperTube(c, 0.085, 0.07, 30, 16));
-    const tip = top.clone().add(new THREE.Vector3(0.38 + rnd() * 0.2, 1.0 + rnd() * 0.4, 0.05));
+    const tip = top.clone().add(new THREE.Vector3(0.3 + rnd() * 0.2, 0.95 + rnd() * 0.35, (rnd() - 0.5) * 0.2));
     const hc = curve([bottom.clone().add(new THREE.Vector3(0, 0.05, 0)), top, top.clone().lerp(tip, 0.5).add(new THREE.Vector3(0.05, 0.05, 0)), tip]);
-    hairGeos.push(taperTube(hc, (t) => 0.032 * (1 - t * 0.6), 0, 60, 8));
+    hairGeos.push(taperTube(hc, (t) => 0.036 * (1 - t * 0.7), 0, 60, 8));
     const bulb = new THREE.SphereGeometry(0.12, 24, 18);
     bulb.scale(1, 1.25, 1);
     bulb.translate(bottom.x, bottom.y, bottom.z);
@@ -97,16 +107,16 @@ export function buildSkin() {
     const mc = curve([m0.clone().add(new THREE.Vector3(-0.05, 0, 0)), m0.clone().add(new THREE.Vector3(-0.3, 0.25, 0.02)), new THREE.Vector3(m0.x - 0.55, Y_DERM[1] - 0.02, m0.z)]);
     musGeos.push(taperTube(mc, (t) => 0.022 + 0.018 * Math.sin(Math.PI * t), 0, 20, 8));
   });
-  group.add(mesh(merge(follGeos), organic('#e8b9a0', { rough: 0.35, clearcoat: 0.7, opacity: 0.55, bump: 0.6 }), 'folikel-rambut'));
-  group.add(mesh(merge(bulbGeos), organic('#c47a5c', { rough: 0.4, clearcoat: 0.6, bump: 0.8, bumpKind: 'cells' }), 'folikel-rambut'));
-  group.add(mesh(merge(hairGeos), organic('#2c1d17', { rough: 0.32, clearcoat: 0.8, bump: 0 }), 'rambut'));
-  group.add(mesh(merge(sebGeos), organic('#f2cf6b', { rough: 0.3, clearcoat: 0.8, sheen: 0.8, bump: 0.6, bumpKind: 'cells' }), 'kelenjar-minyak'));
+  group.add(mesh(merge(follGeos), organic('#b07a55', { rough: 0.35, clearcoat: 0.7, bump: 0.6 }), 'folikel-rambut'));
+  group.add(mesh(merge(bulbGeos), organic('#7a4a2c', { rough: 0.4, clearcoat: 0.6, bump: 0.8, bumpKind: 'cells' }), 'folikel-rambut'));
+  group.add(mesh(merge(hairGeos), organic('#6b4226', { rough: 0.35, clearcoat: 0.7, bump: 0 }), 'rambut'));
+  group.add(mesh(merge(sebGeos), organic('#e9b93a', { rough: 0.3, clearcoat: 0.8, sheen: 0.8, bump: 0.6, bumpKind: 'cells' }), 'kelenjar-minyak'));
   group.add(mesh(merge(musGeos), organic('#c5444a', { rough: 0.45, clearcoat: 0.4, bump: 0.6 }), 'otot-penegak-rambut'));
 
   // ---- Kelenjar keringat: gulungan + saluran spiral ke pori ----
   const coilGeos = [], ductGeos = [], poreGeos = [];
   const pores = [];
-  const glands = [[-0.55, 0.35], [0.7, 0.4], [-1.25, 0.6], [0.45, -0.7], [1.3, 0.75]];
+  const glands = [[-0.45, D / 2], [0.45, D / 2], [W / 2, -0.35], [W / 2, 0.5], [-1.25, 0.1], [0.2, -0.6]];
   glands.forEach(([gx, gz], i) => {
     const center = new THREE.Vector3(gx, Y_DERM[0] + 0.05, gz);
     const pts = [];
@@ -134,8 +144,8 @@ export function buildSkin() {
     poreGeos.push(pore);
     pores.push(top.clone().setY(SURF + 0.03));
   });
-  group.add(mesh(merge(coilGeos), organic('#6fb4d6', { rough: 0.28, clearcoat: 0.9, sheen: 0.5, bump: 0.6, bumpKind: 'fine' }), 'kelenjar-keringat'));
-  group.add(mesh(merge(ductGeos), organic('#86c5e3', { rough: 0.28, clearcoat: 0.9, bump: 0 }), 'pori'));
+  group.add(mesh(merge(coilGeos), organic('#e2b13c', { rough: 0.28, clearcoat: 0.9, sheen: 0.5, bump: 0.6, bumpKind: 'fine' }), 'kelenjar-keringat'));
+  group.add(mesh(merge(ductGeos), organic('#e8c25a', { rough: 0.28, clearcoat: 0.9, bump: 0 }), 'pori'));
   group.add(mesh(merge(poreGeos), organic('#7c4a35', { rough: 0.5, bump: 0 }), 'pori'));
 
   // Tetes keringat di permukaan (beranimasi)
@@ -157,57 +167,62 @@ export function buildSkin() {
     }
     arr.push(taperTube(curve(pts), r, r, 120, 10));
   };
-  plexus(Y_DERM[0] + 0.02, -0.25, 0.045, art, 0);
-  plexus(Y_DERM[0] + 0.0, 0.05, 0.05, vein, 1.4);
-  plexus(Y_DERM[1] - 0.2, -0.45, 0.025, art, 2.1);
-  plexus(Y_DERM[1] - 0.22, -0.15, 0.028, vein, 0.6);
+  const ZF = D / 2 - 0.035; // menempel di muka depan → tampak timbul
+  plexus(Y_DERM[0] + 0.05, ZF, 0.045, art, 0);
+  plexus(Y_DERM[0] - 0.06, ZF, 0.05, vein, 1.4);
+  plexus(Y_DERM[1] - 0.2, ZF, 0.026, art, 2.1);
+  plexus(Y_DERM[1] - 0.3, ZF, 0.03, vein, 0.6);
+  plexus(Y_DERM[0] + 0.02, -0.4, 0.045, art, 3);
+  plexus(Y_DERM[0] - 0.02, 0.2, 0.05, vein, 2.2);
   for (let k = 0; k < 9; k++) {
     const x = -W / 2 + 0.25 + k * ((W - 0.5) / 8);
-    const a0 = new THREE.Vector3(x, Y_DERM[1] - 0.2, -0.45), v0 = new THREE.Vector3(x + 0.06, Y_DERM[1] - 0.22, -0.15);
-    const loop = curve([a0, new THREE.Vector3(x, Y_DERM[1] - 0.02, -0.35), new THREE.Vector3(x + 0.04, Y_DERM[1] + 0.02, -0.28), new THREE.Vector3(x + 0.07, Y_DERM[1] - 0.04, -0.22), v0]);
+    const a0 = new THREE.Vector3(x, Y_DERM[1] - 0.2, ZF), v0 = new THREE.Vector3(x + 0.12, Y_DERM[1] - 0.3, ZF);
+    const pk = Y_DERM[1] + papilla(x + 0.05, ZF) - 0.03;
+    const loop = curve([a0, new THREE.Vector3(x - 0.01, pk - 0.08, ZF), new THREE.Vector3(x + 0.05, pk, ZF), new THREE.Vector3(x + 0.11, pk - 0.08, ZF), v0]);
     const g = taperTube(loop, 0.012, 0.012, 30, 6);
     (k % 2 ? vein : art).push(g);
     // penghubung vertikal antar pleksus
     if (k % 3 === 0) {
-      art.push(taperTube(curve([new THREE.Vector3(x, Y_DERM[0] + 0.02, -0.25), new THREE.Vector3(x + 0.05, -0.05, -0.35), new THREE.Vector3(x, Y_DERM[1] - 0.2, -0.45)]), 0.02, 0.02, 30, 6));
-      vein.push(taperTube(curve([new THREE.Vector3(x + 0.1, Y_DERM[0], 0.05), new THREE.Vector3(x + 0.12, -0.05, -0.05), new THREE.Vector3(x + 0.06, Y_DERM[1] - 0.22, -0.15)]), 0.022, 0.022, 30, 6));
+      art.push(taperTube(curve([new THREE.Vector3(x, Y_DERM[0] + 0.05, ZF), new THREE.Vector3(x + 0.06, -0.05, ZF), new THREE.Vector3(x, Y_DERM[1] - 0.2, ZF)]), 0.02, 0.02, 30, 6));
+      vein.push(taperTube(curve([new THREE.Vector3(x + 0.14, Y_DERM[0] - 0.06, ZF), new THREE.Vector3(x + 0.18, -0.05, ZF), new THREE.Vector3(x + 0.12, Y_DERM[1] - 0.3, ZF)]), 0.022, 0.022, 30, 6));
     }
   }
   group.add(mesh(merge(art), organic('#d4313b', { rough: 0.3, clearcoat: 0.8, bump: 0 }), 'pembuluh-darah-kulit'));
-  group.add(mesh(merge(vein), organic('#3c5fc2', { rough: 0.3, clearcoat: 0.8, bump: 0 }), 'pembuluh-darah-kulit'));
+  group.add(mesh(merge(vein), organic('#6a4fb0', { rough: 0.3, clearcoat: 0.8, bump: 0 }), 'pembuluh-darah-kulit'));
 
   // ---- Saraf + reseptor (Pacini & Meissner) ----
   const nerve = [];
-  const n1 = curve([[-W / 2, -0.75, 0.7], [-0.6, -0.65, 0.6], [0.4, -0.7, 0.75], [W / 2, -0.6, 0.65]]);
+  const n1 = curve([[-W / 2, -0.78, ZF], [-0.6, -0.62, ZF], [0.4, -0.72, ZF], [W / 2, -0.6, ZF]]);
   nerve.push(taperTube(n1, 0.03, 0.03, 80, 8));
   const recGeos = [];
-  for (const [x, z] of [[-0.9, 0.62], [0.95, 0.7]]) {
+  const spiralDisc = (cx, cy, cz, R) => { // badan Pacini: lapisan melingkar seperti spiral
+    const pts = [];
+    for (let a = 0; a <= Math.PI * 10; a += 0.12) { const r = 0.012 + (R / (Math.PI * 10)) * a; pts.push(new THREE.Vector3(cx + Math.cos(a) * r, cy + Math.sin(a) * r * 1.15, cz)); }
+    recGeos.push(taperTube(curve(pts), 0.012, 0.012, 400, 6));
+    recGeos.push(new THREE.CylinderGeometry(R * 1.05, R * 1.05, 0.03, 40).rotateX(Math.PI / 2).scale(1, 1.15, 1).translate(cx, cy, cz - 0.02));
+  };
+  for (const x of [-0.9, 0.95]) {
     const p = n1.getPointAt((x + W / 2) / W);
-    nerve.push(taperTube(curve([p, new THREE.Vector3(x, -0.95, z)]), 0.018, 0.018, 12, 6));
-    for (let l = 0; l < 4; l++) { // Pacini: berlapis seperti bawang
-      const e = new THREE.SphereGeometry(0.07 + l * 0.035, 20, 14);
-      e.scale(1, 1.6, 1);
-      e.translate(x, -1.05, z);
-      recGeos.push(e);
-    }
+    nerve.push(taperTube(curve([p, new THREE.Vector3(x, -0.75, ZF + 0.03)]), 0.018, 0.018, 12, 6));
+    spiralDisc(x, -0.62, D / 2 + 0.05, 0.15);
   }
   for (const x of [-0.2, 0.55]) { // Meissner di papila dermis
     const base = n1.getPointAt((x + W / 2) / W);
-    const top = new THREE.Vector3(x, Y_DERM[1] - 0.04, 0.55);
-    nerve.push(taperTube(curve([base, new THREE.Vector3(x + 0.05, 0, 0.6), top]), 0.014, 0.014, 30, 6));
+    const top = new THREE.Vector3(x, Y_DERM[1] + papilla(x, ZF) - 0.06, ZF);
+    nerve.push(taperTube(curve([base, new THREE.Vector3(x + 0.05, 0, ZF), top]), 0.014, 0.014, 30, 6));
     const mz = new THREE.SphereGeometry(0.05, 16, 12);
     mz.scale(1, 1.7, 1);
     mz.translate(top.x, top.y, top.z);
     recGeos.push(mz);
   }
-  group.add(mesh(merge(nerve), organic('#f1d34f', { rough: 0.35, clearcoat: 0.6, bump: 0 }), 'saraf-kulit'));
-  group.add(mesh(merge(recGeos), organic('#f6e7b4', { rough: 0.3, clearcoat: 0.8, opacity: 0.6, bump: 0 }), 'saraf-kulit'));
+  group.add(mesh(merge(nerve), organic('#e6b422', { rough: 0.35, clearcoat: 0.6, bump: 0 }), 'saraf-kulit'));
+  group.add(mesh(merge(recGeos), organic('#efc23a', { rough: 0.3, clearcoat: 0.8, bump: 0 }), 'saraf-kulit'));
 
   // posisikan sehingga model terpusat
   group.position.y = 0.1;
 
   const layerMats = [hypoMat, dermMat];
-  let inner = true;
+  let inner = false;
   const setInner = (on) => {
     inner = on;
     hypoMat.opacity = on ? 0.55 : 1;
@@ -219,7 +234,7 @@ export function buildSkin() {
       m.needsUpdate = true;
     }
   };
-  setInner(true);
+  setInner(false);
 
   const at = (x, yy, z) => new THREE.Vector3(x, yy, z); // koordinat lokal grup
   let ey = Y_DERM[1];
@@ -233,14 +248,14 @@ export function buildSkin() {
     'stratum-basale': at(W / 2 - 0.35, epiY['stratum-basale'], D / 2),
     dermis: at(W / 2, 0.1, D / 2),
     hipodermis: at(W / 2, -0.95, D / 2),
-    'kelenjar-keringat': at(glands[0][0], Y_DERM[0] + 0.1, glands[0][1] + 0.15),
+    'kelenjar-keringat': at(glands[0][0], Y_DERM[0] + 0.05, D / 2 + 0.05),
     pori: pores[1].clone().add(new THREE.Vector3(0, 0.12, 0)),
     rambut: at(0.45, SURF + 0.85, 0.55),
-    'folikel-rambut': at(hairs[2][0] - 0.2, -0.25, hairs[2][1]),
-    'kelenjar-minyak': at(hairs[1][0] - 0.25, 0.05, hairs[1][1]),
-    'otot-penegak-rambut': at(hairs[0][0] - 0.45, 0.32, hairs[0][1]),
-    'pembuluh-darah-kulit': at(-1.3, Y_DERM[0] + 0.05, -0.25),
-    'saraf-kulit': at(0.95, -1.0, 0.7),
+    'folikel-rambut': at(hairs[2][0] - 0.18, -0.3, D / 2 + 0.03),
+    'kelenjar-minyak': at(hairs[0][0] - 0.12, 0.1, D / 2 + 0.03),
+    'otot-penegak-rambut': at(hairs[0][0] - 0.42, 0.3, D / 2 + 0.03),
+    'pembuluh-darah-kulit': at(-1.3, Y_DERM[0] + 0.05, D / 2 + 0.03),
+    'saraf-kulit': at(0.95, -0.62, D / 2 + 0.06),
   };
 
   return {
@@ -250,7 +265,7 @@ export function buildSkin() {
     innerLabel: ['Transparan', 'Padat'],
     setInner,
     getInner: () => inner,
-    frame: { center: new THREE.Vector3(0, 0, 0), radius: 2.55 },
+    frame: { center: new THREE.Vector3(0, 0.15, 0), radius: 2.6, dir: new THREE.Vector3(0.62, 0.48, 1) },
     update(t) {
       drops.forEach((d, i) => {
         const u = (t * 0.25 + i * 0.21) % 1; // tumbuh lalu menguap

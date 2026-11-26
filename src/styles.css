@@ -98,33 +98,53 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
   background-size: 22px 22px;
   mask-image: radial-gradient(70% 70% at 50% 50%, #000 30%, transparent 85%);
 }
-.canvas-host { position: absolute; inset: 0; }
+.canvas-host { position: absolute; inset: 0; z-index: 0; } /* konteks tumpukan: label tidak menutupi panel alat */
 .canvas-host .gl { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; touch-action: none; outline: none; }
 .canvas-host .labels { position: absolute; inset: 0; pointer-events: none; }
 .cam-feed { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1; display: none; }
 .app.is-camera .cam-feed { display: block; }
 .app.is-camera .stage-bg { display: none; }
 
-/* Pins */
+/* Pins: titik pada bagian organ + garis penanda + kotak nama */
 .pin {
-  pointer-events: auto;
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 4px 10px 4px 5px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 6px 18px -8px rgba(30, 20, 10, 0.4);
+  pointer-events: none;
+  position: relative;
+  width: 0; height: 0;
+  padding: 0; border: 0; background: none;
+}
+.pin-dot {
+  position: absolute; left: -5px; top: -5px;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #fff; border: 2.5px solid var(--organ);
+  box-shadow: 0 1px 4px rgba(0,0,0,.35);
+  pointer-events: auto; cursor: pointer;
+}
+.pin-line {
+  position: absolute; left: 0; top: -0.75px;
+  height: 1.5px; width: 50px;
+  background: rgba(23, 24, 28, .55);
+  transform-origin: 0 50%;
+  box-shadow: 0 0 0 .5px rgba(255,255,255,.6);
+}
+.pin-text {
+  position: absolute; left: 0; top: 0;
+  padding: 4px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(23, 24, 28, .12);
+  box-shadow: 0 6px 18px -8px rgba(30, 20, 10, 0.45);
   backdrop-filter: blur(8px);
   font-size: 11.5px; font-weight: 600; color: var(--ink-2);
   white-space: nowrap;
-  transition: transform .2s, background .2s, color .2s, opacity .2s;
-  opacity: 0.92;
+  pointer-events: auto; cursor: pointer;
+  transition: background .2s, color .2s, box-shadow .2s;
 }
-.pin:hover { transform: translateY(-1px) scale(1.04); opacity: 1; }
-.pin-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--organ); box-shadow: 0 0 0 3px color-mix(in oklab, var(--organ) 25%, transparent); }
-.pin.is-active { background: var(--ink); color: #fff; opacity: 1; transform: scale(1.06); }
-.pin.is-active .pin-dot { background: #fff; animation: ping 1.6s infinite; }
-@keyframes ping { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.7); } 100% { box-shadow: 0 0 0 10px rgba(255,255,255,0); } }
+.pin:hover .pin-text { background: #fff; color: var(--ink); box-shadow: 0 0 0 2px var(--organ-soft), 0 6px 18px -8px rgba(30,20,10,.45); }
+.pin:hover .pin-line { background: var(--ink); }
+.pin.is-active .pin-text { background: var(--ink); color: #fff; border-color: var(--ink); }
+.pin.is-active .pin-line { background: var(--ink); height: 2px; }
+.pin.is-active .pin-dot { background: var(--organ); border-color: #fff; animation: ping 1.6s infinite; }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--organ) 70%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
 
 /* Organ heading */
 .organ-head {
@@ -144,7 +164,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 
 /* Tools */
 .tools {
-  position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+  position: absolute; right: 18px; z-index: 7; top: 50%; transform: translateY(-50%);
   display: flex; flex-direction: column; gap: 6px;
   padding: 6px;
   background: var(--card);
@@ -162,6 +182,9 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 }
 .tool:hover { background: rgba(23, 24, 28, .05); color: var(--ink); }
 .tool.is-on { color: var(--ink); background: var(--organ-soft); }
+.tool-sep { height: 1px; margin: 2px 8px; background: var(--line-2); }
+.nav-hint { margin: 10px 0 0; font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.nav-hint kbd { font: 600 10.5px var(--sans); padding: 1px 6px; border-radius: 5px; background: rgba(255,255,255,.8); border: 1px solid var(--line-2); color: var(--ink-2); }
 .tool.is-on svg { color: var(--organ); }
 
 /* Part card */
@@ -191,6 +214,7 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
   transition: transform .15s;
 }
 .pill:hover { transform: translateX(2px); }
+.pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-2); }
 
 .icon-btn { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); transition: background .2s, color .2s; }
 .icon-btn:hover { background: rgba(23, 24, 28, .06); color: var(--ink); }
@@ -367,8 +391,8 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
   .organ-head { left: 16px; top: calc(var(--top-h) + 6px); max-width: 70%; }
   .organ-name { font-size: 46px; }
   .organ-latin { font-size: 17px; }
-  .organ-tag { display: none; }
-  .tools { top: auto; bottom: 96px; right: 10px; transform: none; padding: 4px; border-radius: 16px; }
+  .organ-tag, .nav-hint { display: none; }
+  .tools { top: calc(var(--top-h) + 96px); bottom: auto; right: 10px; transform: none; padding: 4px; border-radius: 16px; }
   .tool { width: 52px; padding: 7px 2px 5px; font-size: 9.5px; }
   .part-card { left: 10px; bottom: 96px; width: calc(100% - 84px); padding: 13px 14px; }
   .part-card h3 { font-size: 22px; }

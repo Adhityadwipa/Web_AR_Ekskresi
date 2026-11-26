@@ -35,6 +35,14 @@ function shapeFrom(pts, scale = 1, center = new THREE.Vector2(0, 0)) {
   return s;
 }
 
+/** Bentuk 2D yang ditonjolkan (bevel) agar penampang tampak 3D seperti model peraga. */
+function raised(shape, mat, partId, z, h = 0.03, bevel = 0.018) {
+  const g = new THREE.ExtrudeGeometry(shape, { depth: 0.004, bevelEnabled: true, bevelThickness: h, bevelSize: bevel, bevelSegments: 5, curveSegments: 22 });
+  const m = mesh(g, mat, partId, { shadow: false });
+  m.position.z = z;
+  return m;
+}
+
 function flat(shapeOrGeo, mat, partId, z) {
   const g = shapeOrGeo.isBufferGeometry ? shapeOrGeo : new THREE.ShapeGeometry(shapeOrGeo, 24);
   const m = mesh(g, mat, partId, { shadow: false });
@@ -63,7 +71,7 @@ function capsule2D(a, b, w) {
 /** Satu ginjal lengkap dengan penampang membujur. */
 function buildKidney() {
   const g = new THREE.Group();
-  const shellMat = organic('#a03a2b', { rough: 0.36, clearcoat: 0.75, clearcoatRough: 0.25, sheen: 0.5, bump: 1.1, side: THREE.DoubleSide });
+  const shellMat = organic('#7a2c22', { rough: 0.33, clearcoat: 0.85, clearcoatRough: 0.2, sheen: 0.4, bump: 1.3, side: THREE.DoubleSide });
   const back = mesh(deform(new THREE.SphereGeometry(1, 112, 80, Math.PI, Math.PI), kidneyPoint), shellMat, 'kapsul-ginjal');
   const front = mesh(deform(new THREE.SphereGeometry(1, 112, 80, 0, Math.PI), kidneyPoint), shellMat.clone(), 'kapsul-ginjal');
   g.add(back, front);
@@ -72,11 +80,11 @@ function buildKidney() {
   const section = new THREE.Group();
   const out = outlinePoints();
   const C = new THREE.Vector2(-0.14, 0);
-  section.add(flat(shapeFrom(out, 1), new THREE.MeshStandardMaterial({ color: '#e7c2b4', roughness: 0.6 }), 'kapsul-ginjal', 0.001));
-  const cortexMat = new THREE.MeshPhysicalMaterial({ map: speckleTexture('#b9573f', '#7a2618', 1400, 'cortex'), roughness: 0.55, clearcoat: 0.4 });
+  section.add(flat(shapeFrom(out, 1), new THREE.MeshStandardMaterial({ color: '#5a1f18', roughness: 0.5 }), 'kapsul-ginjal', 0.001));
+  const cortexMat = new THREE.MeshPhysicalMaterial({ map: speckleTexture('#8a3426', '#55180f', 1600, 'cortex'), roughness: 0.5, clearcoat: 0.5, clearcoatRoughness: 0.35 });
   cortexMat.map.repeat.set(2.5, 2.5);
   section.add(flat(shapeFrom(out, 0.965, new THREE.Vector2(0.02, 0)), cortexMat, 'korteks', 0.002));
-  section.add(flat(ellipse(-0.2, 0, 0.21, 0.36), new THREE.MeshStandardMaterial({ color: '#ecd08a', roughness: 0.45 }), 'pelvis-renalis', 0.003));
+  section.add(flat(ellipse(-0.2, 0, 0.21, 0.36), new THREE.MeshStandardMaterial({ color: '#3d1510', roughness: 0.7 }), 'pelvis-renalis', 0.003)); // rongga sinus (gelap)
 
   // jarak dari C ke tepi pada arah tertentu
   const radiusAt = (ang) => {
@@ -90,10 +98,10 @@ function buildKidney() {
     return best;
   };
 
-  const pyrTex = stripeTexture('#8a2d22', '#5e1912', 46);
+  const pyrTex = stripeTexture('#c4804f', '#965530', 46);
   pyrTex.repeat.set(1.6, 1);
-  const pyrMat = new THREE.MeshPhysicalMaterial({ map: pyrTex, roughness: 0.5, clearcoat: 0.35 });
-  const pelvisMat = new THREE.MeshPhysicalMaterial({ color: '#f3e4c8', roughness: 0.35, clearcoat: 0.6 });
+  const pyrMat = new THREE.MeshPhysicalMaterial({ map: pyrTex, roughness: 0.4, clearcoat: 0.7, clearcoatRoughness: 0.25, bumpMap: pyrTex, bumpScale: 0.6 });
+  const pelvisMat = new THREE.MeshPhysicalMaterial({ color: '#dcae6e', roughness: 0.35, clearcoat: 0.7, clearcoatRoughness: 0.25 });
   const angles = [-138, -100, -62, -22, 18, 58, 98, 138].map((d) => (d * Math.PI) / 180);
   const apexes = [];
   angles.forEach((a) => {
@@ -106,28 +114,28 @@ function buildKidney() {
     s.quadraticCurveTo(-hw * 0.5, L * 0.45, -hw, L);
     s.quadraticCurveTo(0, L * 1.1, hw, L);
     s.quadraticCurveTo(hw * 0.5, L * 0.45, 0, 0);
-    const m = flat(s, pyrMat, 'medula', 0.006);
+    const m = raised(s, pyrMat, 'medula', 0.006, 0.045, 0.012);
     const apex = C.clone().addScaledVector(dir, apexD);
     m.position.set(apex.x, apex.y, 0.006);
     m.rotation.z = a - Math.PI / 2;
     section.add(m);
     apexes.push({ apex, dir, a, R });
     // kaliks minor (mangkuk di ujung papila)
-    section.add(flat(ellipse(apex.x - dir.x * 0.025, apex.y - dir.y * 0.025, 0.07, 0.05, a + Math.PI / 2), pelvisMat, 'pelvis-renalis', 0.005));
+    section.add(raised(ellipse(apex.x - dir.x * 0.025, apex.y - dir.y * 0.025, 0.06, 0.042, a + Math.PI / 2), pelvisMat, 'pelvis-renalis', 0.005, 0.025, 0.012));
     // kaliks → pelvis
-    section.add(flat(capsule2D(apex.clone().addScaledVector(dir, -0.03), new THREE.Vector2(-0.22, 0), 0.07), pelvisMat, 'pelvis-renalis', 0.0045));
+    section.add(raised(capsule2D(apex.clone().addScaledVector(dir, -0.03), new THREE.Vector2(-0.22, 0), 0.05), pelvisMat, 'pelvis-renalis', 0.0045, 0.025, 0.012));
   });
-  section.add(flat(ellipse(-0.24, 0, 0.12, 0.2), pelvisMat, 'pelvis-renalis', 0.0046));
-  section.add(flat(capsule2D(new THREE.Vector2(-0.24, -0.04), new THREE.Vector2(-0.4, -0.1), 0.12), pelvisMat, 'pelvis-renalis', 0.0046));
+  section.add(raised(ellipse(-0.24, 0, 0.11, 0.19), pelvisMat, 'pelvis-renalis', 0.0046, 0.03, 0.015));
+  section.add(raised(capsule2D(new THREE.Vector2(-0.24, -0.04), new THREE.Vector2(-0.42, -0.1), 0.1), pelvisMat, 'pelvis-renalis', 0.0046, 0.03, 0.015));
 
   // pembuluh di penampang: interlobaris → arkuata → interlobularis
   const artGeos = [], veinGeos = [];
-  const at = (a, r, off = 0) => new THREE.Vector3(C.x + Math.cos(a + off) * r, C.y + Math.sin(a + off) * r, 0.012);
+  const at = (a, r, off = 0) => new THREE.Vector3(C.x + Math.cos(a + off) * r, C.y + Math.sin(a + off) * r, 0.035);
   for (let i = 0; i < apexes.length - 1; i++) {
     const a = (apexes[i].a + apexes[i + 1].a) / 2;
     const R = radiusAt(a);
-    artGeos.push(taperTube(curve([at(a, 0.2, 0.03), at(a, R * 0.5, 0.03), at(a, R * 0.79, 0.02)]), 0.016, 0.011, 20, 6));
-    veinGeos.push(taperTube(curve([at(a, 0.2, -0.03), at(a, R * 0.5, -0.03), at(a, R * 0.8, -0.02)]), 0.017, 0.012, 20, 6));
+    artGeos.push(taperTube(curve([at(a, 0.2, 0.03), at(a, R * 0.5, 0.03), at(a, R * 0.79, 0.02)]), 0.022, 0.015, 20, 8));
+    veinGeos.push(taperTube(curve([at(a, 0.2, -0.03), at(a, R * 0.5, -0.03), at(a, R * 0.8, -0.02)]), 0.022, 0.016, 20, 8));
   }
   for (const p of apexes) {
     const pts = [], vts = [];
@@ -141,11 +149,11 @@ function buildKidney() {
         artGeos.push(taperTube(curve([at(a, R + 0.012), at(a + 0.01, R + (Ro - R) * 0.5), at(a, Ro * 0.94)]), 0.007, 0.004, 10, 5));
       }
     }
-    artGeos.push(taperTube(curve(pts), 0.01, 0.01, 30, 6));
-    veinGeos.push(taperTube(curve(vts), 0.011, 0.011, 30, 6));
+    artGeos.push(taperTube(curve(pts), 0.014, 0.014, 30, 6));
+    veinGeos.push(taperTube(curve(vts), 0.015, 0.015, 30, 6));
   }
-  artGeos.push(taperTube(curve([[-0.36, 0.1, 0.012], [-0.25, 0.14, 0.012], [-0.12, 0.1, 0.012]]), 0.03, 0.02, 16, 8));
-  veinGeos.push(taperTube(curve([[-0.36, 0.0, 0.012], [-0.26, -0.12, 0.012], [-0.12, -0.08, 0.012]]), 0.032, 0.022, 16, 8));
+  artGeos.push(taperTube(curve([[-0.42, 0.1, 0.04], [-0.25, 0.14, 0.045], [-0.12, 0.1, 0.035]]), 0.034, 0.022, 16, 10));
+  veinGeos.push(taperTube(curve([[-0.42, 0.0, 0.04], [-0.26, -0.12, 0.045], [-0.12, -0.08, 0.035]]), 0.036, 0.024, 16, 10));
   const red = organic('#d1303a', { rough: 0.3, clearcoat: 0.8, bump: 0 });
   const blue = organic('#3f63c2', { rough: 0.3, clearcoat: 0.8, bump: 0 });
   section.add(mesh(merge(artGeos), red, 'arteri-renalis', { shadow: false }));
@@ -173,13 +181,13 @@ function buildKidney() {
 
 export function buildKidneys() {
   const group = new THREE.Group();
-  const s = 0.82;
+  const s = 0.96;
   const L = buildKidney(); // ginjal kiri → sisi kanan layar
-  L.group.position.set(1.2, 0.68, 0);
+  L.group.position.set(1.32, 0.62, 0);
   L.group.scale.setScalar(s);
   L.group.rotation.z = 0.16;
   const R = buildKidney(); // ginjal kanan (lebih rendah karena hati)
-  R.group.position.set(-1.2, 0.42, 0);
+  R.group.position.set(-1.32, 0.36, 0);
   R.group.scale.set(-s, s, s);
   R.group.rotation.z = -0.16;
   group.add(L.group, R.group);
@@ -189,8 +197,8 @@ export function buildKidneys() {
   const blue = organic('#3b5fbf', { rough: 0.3, clearcoat: 0.8, bump: 0.5 });
   // aorta & vena kava inferior + percabangan iliaka
   const AX = 0.12, VX = -0.17, Z = -0.22;
-  group.add(mesh(taperTube(curve([[AX, 1.9, Z], [AX, 0.6, Z], [AX + 0.02, -0.75, Z], [AX + 0.02, -0.95, Z]]), 0.075, 0.068, 40, 20), red, 'aorta'));
-  group.add(mesh(taperTube(curve([[VX, 1.9, Z], [VX, 0.6, Z], [VX - 0.02, -0.75, Z], [VX - 0.02, -0.95, Z]]), 0.085, 0.078, 40, 20), blue, 'vena-kava'));
+  group.add(mesh(taperTube(curve([[AX, 1.25, Z], [AX, 0.6, Z], [AX + 0.02, -0.75, Z], [AX + 0.02, -0.95, Z]]), 0.075, 0.068, 40, 20), red, 'aorta'));
+  group.add(mesh(taperTube(curve([[VX, 1.25, Z], [VX, 0.6, Z], [VX - 0.02, -0.75, Z], [VX - 0.02, -0.95, Z]]), 0.085, 0.078, 40, 20), blue, 'vena-kava'));
   for (const sd of [-1, 1]) {
     group.add(mesh(taperTube(curve([[AX + 0.02, -0.92, Z], [AX + 0.02 + sd * 0.25, -1.3, Z], [AX + sd * 0.6, -1.75, Z - 0.05]]), 0.055, 0.045, 24, 12), red, 'aorta'));
     group.add(mesh(taperTube(curve([[VX - 0.02, -0.92, Z - 0.06], [VX + sd * 0.28, -1.3, Z - 0.08], [VX + sd * 0.62, -1.75, Z - 0.1]]), 0.06, 0.05, 24, 12), blue, 'vena-kava'));
@@ -212,7 +220,7 @@ export function buildKidneys() {
 
   // ureter, kandung kemih, uretra
   const B = new THREE.Vector3(0, -2.02, 0.15);
-  const ureterMat = organic('#e9c27a', { rough: 0.3, clearcoat: 0.7, bump: 0.6, bumpKind: 'fine', opacity: 0.8 });
+  const ureterMat = organic('#d9a866', { rough: 0.3, clearcoat: 0.75, bump: 0.6, bumpKind: 'fine', opacity: 0.85 });
   const ureters = [L, R].map((K, i) => {
     const sd = i === 0 ? 1 : -1;
     const p0 = W(K, K.pelvisOut);
@@ -263,8 +271,8 @@ export function buildKidneys() {
     'kelenjar-adrenal': W(R, new THREE.Vector3(0.05, 1.2, 0.1)),
     'arteri-renalis': vR.art.getPointAt(0.45).add(new THREE.Vector3(0, 0.06, 0)),
     'vena-renalis': vL.vein.getPointAt(0.5).add(new THREE.Vector3(0, -0.05, 0.05)),
-    aorta: new THREE.Vector3(AX, 1.6, Z + 0.1),
-    'vena-kava': new THREE.Vector3(VX, 1.45, Z + 0.1),
+    aorta: new THREE.Vector3(AX, 1.1, Z + 0.1),
+    'vena-kava': new THREE.Vector3(VX, 0.98, Z + 0.1),
     ureter: ureters[1].getPointAt(0.55),
     'kandung-kemih': B.clone().add(new THREE.Vector3(0.3, 0.1, 0.3)),
     uretra: urethra.getPointAt(0.7),

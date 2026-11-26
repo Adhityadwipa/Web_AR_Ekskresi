@@ -154,6 +154,15 @@ $('#toolRotate').addEventListener('click', (e) => {
   viewer.setAutoRotate(on);
 });
 $('#toolReset').addEventListener('click', () => viewer.reset());
+$('#toolZoomIn').addEventListener('click', () => viewer.zoom(0.72));
+$('#toolZoomOut').addEventListener('click', () => viewer.zoom(1.38));
+$('#toolPan').addEventListener('click', (e) => {
+  const on = !viewer.panMode;
+  viewer.setPanMode(on);
+  e.currentTarget.classList.toggle('is-on', on);
+  toast(on ? 'Mode geser aktif: seret untuk menggeser kamera.' : 'Mode putar aktif: seret untuk memutar organ.');
+});
+$('#partZoom').addEventListener('click', () => { const pid = ctx.part; if (pid) viewer.focusPart(pid); });
 window.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') { viewer.select(null); app.classList.remove('chat-open'); }
 });
