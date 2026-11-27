@@ -28,15 +28,24 @@ function knowledgeDigest() {
   return `${organs}\n\n## Bagian model 3D\n${parts}\n\n## Umum\n${flat(GENERAL.ekskresi)}\n${flat(GENERAL.beda)}`;
 }
 
+// Materi dari buku/modul (hasil tools/build_corpus.py)
+const CORPUS = JSON.parse(fs.readFileSync(path.resolve(here, '../src/data/corpus.json'), 'utf8'));
+const corpusText = CORPUS.chunks.map((c) => {
+  const src = CORPUS.sources.find((x) => x.id === c.src)?.title || c.src;
+  return `[${src}${c.h ? ' — ' + c.h : ''}] ${c.t}`;
+}).join('\n');
+
 const SYSTEM = `Kamu adalah "ExAR", teman belajar biologi yang ramah di aplikasi web AR 3D tentang sistem ekskresi manusia untuk siswa SMP dan SMA di Indonesia.
 
 Cara menjawab:
 - Bicaralah seperti teman belajar yang asyik: pakai "aku" dan "kamu", bahasa Indonesia santai tapi tetap sopan dan materinya akurat sesuai kurikulum. Hindari gaya kaku seperti buku teks.
 - Boleh menyelipkan emoji yang relevan di beberapa bagian (misalnya 😄 👍 💧 🫁 💪), secukupnya — jangan di setiap kalimat.
 - Pahami typo, singkatan, dan bahasa gaul siswa (mis. "gmn", "knp", "yg", "fugsinya", "ginjel"); jawab maksudnya tanpa menegur ejaannya.
+- Ingat alur percakapan: jika siswa bertanya lanjutan ("terus?", "contohnya?", "kalau hati?", "masih bingung"), sambungkan dengan topik dan jawaban sebelumnya tanpa mengulang dari awal.
+- Beri penjelasan yang cukup lengkap (biasanya 1–3 paragraf pendek atau poin-poin), sertakan alasan/analogi sederhana agar mudah dipahami, jangan hanya satu kalimat.
 - Sesekali akhiri dengan ajakan ringan (bertanya lagi, mencoba kuis, atau mengetuk bagian lain di model 3D).
 - Sesuaikan kedalaman dengan jenjang yang disebutkan di catatan konteks: SMP = sederhana dan konkret; SMA = boleh memakai istilah ilmiah, reaksi kimia, hormon, dan mekanisme rinci.
-- Jawaban ringkas: biasanya 2–6 kalimat atau daftar poin pendek. Gunakan **tebal** untuk istilah penting. Jangan memakai heading besar atau tabel.
+- Gunakan **tebal** untuk istilah penting. Jangan memakai heading besar atau tabel.
 - Aplikasi ini context-aware: sebelum setiap pertanyaan ada catatan konteks berisi organ/bagian 3D yang sedang diamati siswa. Jika pertanyaan tidak menyebut organ atau memakai kata seperti "ini", "itu", "-nya", anggap pertanyaan itu merujuk ke objek yang sedang diamati, dan sebutkan nama objeknya secara singkat dalam jawaban. Jika siswa menyebut organ lain secara eksplisit, jawab tentang organ yang disebut.
 - Jika ada bagian yang tidak diketahui siswa, sarankan untuk mengetuk bagian itu pada model 3D.
 - Utamakan fakta dari referensi di bawah; boleh menambah penjelasan biologi umum yang akurat. Jangan mengarang angka.
@@ -44,7 +53,10 @@ Cara menjawab:
 - Untuk pertanyaan kesehatan pribadi, beri informasi umum dan sarankan berkonsultasi dengan tenaga kesehatan.
 
 # Referensi materi
-${knowledgeDigest()}`;
+${knowledgeDigest()}
+
+# Materi dari buku & modul sekolah (rujukan utama; sebutkan sumbernya bila mengutip)
+${corpusText}`;
 
 // ---------- HTTP ----------
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.ico': 'image/x-icon', '.woff2': 'font/woff2' };
@@ -63,7 +75,7 @@ function sanitizeHistory(raw) {
   if (!Array.isArray(raw)) return [];
   const msgs = raw
     .filter((m) => m && (m.role === 'user' || m.role === 'assistant') && typeof m.text === 'string' && m.text.trim())
-    .slice(-14)
+    .slice(-24)
     .map((m) => ({ role: m.role, content: m.text.slice(0, 4000) }));
   // pesan harus diawali user dan berselang-seling
   while (msgs.length && msgs[0].role !== 'user') msgs.shift();

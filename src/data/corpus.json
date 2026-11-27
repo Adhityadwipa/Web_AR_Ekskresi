@@ -1,0 +1,1611 @@
+{
+"sources": [
+{
+"id": "modul",
+"title": "Modul Sistem Ekskresi pada Manusia",
+"level": "SMA"
+},
+{
+"id": "bio11",
+"title": "Modul Biologi Kelas XI KD 3.9",
+"level": "SMA"
+},
+{
+"id": "ipa8",
+"title": "Buku IPA Kelas VIII",
+"level": "SMP"
+},
+{
+"id": "ipa7",
+"title": "Buku IPA Kelas VII",
+"level": "SMP"
+},
+{
+"id": "tinjauan",
+"title": "Materi Sistem Ekskresi (Tinjauan Pustaka)",
+"level": "SMP"
+}
+],
+"chunks": [
+{
+"id": "modul-1",
+"src": "modul",
+"h": "Letak Ginjal",
+"t": "Ginjal terletak di bagian belakang cavum abdominalis di belakang peritonium, yang melekat pada dinding belakang abdomen (Gambar 1). Bentuk ginjal seperti biji kacang, jumlahnya ada dua buah kiri dan kanan, ginjal kiri lebih besar dari ginjal kanan dan pada umumnya ginjal laki-laki lebih panjang dari ginjal wanita. Setiap ginjal orang dewasa beratnya kira-kira 150 gram dan kira-kira seukuran kepalan tangan. b. Fungsi Ginjal. Ginjal memiliki beberapa fungsi : 1) Membuang sisa metabolisme seperti urea, asam urat, kreatinin, keratin, obat-obatan, dan zat lain yang bersifat racun. 2) Menjaga keseimbangan air dalam tubuh dengan mengatur volume plasma darah dan volume air. 3) Mengatur kandungan elektrolit dengan menyaring zat-zat kimia yang masih berguna bagi tubuh (nutrium, fosfor ,dan kalium) dan mengembalikannya ke saluran peredaran darah.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-2",
+"src": "modul",
+"h": "",
+"t": "4) Menjaga asam basa cairan darah dengan mengatur pH plasma dan cairan tubuh dengan mengekskresikan urin yang bersifat basa atau asam. 5) Menjaga tekanan osmosis dengan cara mengatur ekskresi garam-garam, yaitu membuang jumlah garam yang berlebihan dan menahan garam apabila jumlahnya berkurang.",
+"o": [
+"ginjal",
+"paru"
+]
+},
+{
+"id": "modul-4",
+"src": "modul",
+"h": "Struktur Ginjal",
+"t": "Ginjal memiliki berat sekitar 0,5% dari berat tubuh yang menyusun kurang dari 1% masa tubuh manusia. Ginjal menerima sekitar 25% darah yang keluar dari jantung. Ginjal tersusun atas tiga bagian, yaitu korteks, medula, dan pelvis (Gambar 2). Korteks merupakan bagian luar ginjal. Bagian dalam ginjal disebut medula. Pelvis merupakan bagian dalam dengan terkecil pada ginjal. Masing-masing ginjal manusia mengandung kira-kira sejuta nefron dengan panjang total tubulus sebesar 80 km. Setiap nefron terdiri dari badan malpighi dan saluran nefron. Nefron yaitu unit fungsional terkecil pada ginjal. Badan malpighi mengandung glumerulus yang diselubungi oleh kapsul bowman. Glomerulus berupa anyaman pembuluh kapiler darah, sedangkan kapsul bowman berbentuk cawan berdinding tebal yang menggelilingi glomerulus. Glomerulus ini berhubungan dengan arteriola aferen (lebar) dan arteriola eferen (sempit). Oleh karena itu, glomerulus turut berperan mengatur tekanan darah. Fungsi utama glomerulus sebagai penyaring atau filtrasi cairan darah. Saluran ginjal terdiri dari kapsul bowmam, tubulus proksimal, lengkung henle, dan tubulus distal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-5",
+"src": "modul",
+"h": "Struktur Ginjal",
+"t": "Pada bagian medula terdapat piramida ginjal dan piala ginjal yang mengandung pembuluh-pembuluh yang berfungsi untuk mengumpulkan hasil ekskresi. Pembuluh-pembuluh tersebut berhubungan dengan ureter yang bermuara pada kantong kemih. Kantong kemih berfungsi sebagai tempat penampungan urin sementara. Jika kantong kemih telah mengandung banyak urin, maka dinding kantong akan tertekan sehingga merengangnya otot melingkar pada pangkal kantong kemih sehingga akan timbul rasa ingin buang air kecil. Urine kemudian akan dikeluarkan melalui uretra. Untuk mempelajari lebih lanjut mengenai struktur ginjal dapat melalui link d.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-6",
+"src": "modul",
+"h": "",
+"t": "saat melalui arteriola aferen ini, tekanan darah relative cukup tinggi, sedangkan tekanan darah di arteriola eferen relative cukup rendah. Kondisi ini terjadi karena diameter arteriola aferen lebih besar dan ukurannya lebih pendek dibandingkan dengan arteriola eferen. Keadaan inilah yang menyebabkan terjadinya filtrasi. Pada saat itu, berliter-liter darah didorong ke ruang glomerulus yang berukuran kecil lalu ke dalam lumen kapsula Bowman. Di glomerulus terdapat sel-sel endothelium kapiler yang berpori (podosit), membran basiler, dan epitel kapsul Bowman, yang dapat mempermudah proses filtrasi yaitu tekanan hidrostatik dan tekanan osmotik. Kapiler yang berpori dan selsel kapsula yang terspesialisasi bersifat permeabel terhadap air dan zat-zat terlarut kecil tetapi tidak terhadap sel darah atau molekul besar seperti protein plasma. Pada proses filtrasi ini sel-sel darah, trombosit, dan sebagian besar protein plasma disaring dan diikat agar tidak turut dikeluarkan. Sementara itu, zat-zat kecil terlarut dalam plasma seperti glukosa, asam amino, natrium, kalium, klorida bikarbonat, garam lain, dan urea melewati saringan dan menjadi bagian dari endapan. Hasil saringan tersebut merupakan urine primer (filtrate glomerulus).",
+"o": [
+"ginjal",
+"kulit",
+"paru"
+]
+},
+{
+"id": "modul-7",
+"src": "modul",
+"h": "",
+"t": "Proses Pembentukan Urine Proses pembentukan urine terjadi di dalam nefron. Proses pembentukan urine meliputi filtrasi (penyaringan zat-zat sisa yang beracun), reabsorpsi (penyerapan kembali), dan augmentasi (pengeluaran zat sisa yang tidak diperlukan lagi oleh tubuh). ✓ Filtrasi Pembentukan urine diawali dengan filtrasi yang terjadi di glomerulus. Filtrasi berlangsung pada saat darah masuk ke nefron melalui arteriola aferen. Pada Jadi, urine primer komposisinya masih serupa dengan darah tetapi tidak mengandung protein dan tidak mengandung elemen selular di antaranya sel darah merah. Cairan filtrasi dari glomerulus ini akan masuk ke tubulus dan mengalami reabsorpsi. ✓",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-8",
+"src": "modul",
+"h": "",
+"t": "Reabsorpsi Proses reabsorpsi adalah proses penyerapan kembali zat-zat yang masih berguna bagi tubuh. Pada proses ini terjadi reabsorpsi zat-zat berikut: a). Reabsorpsi air Pada keadaan normal, sekitar 99% air yang menembus membrane filtrasi akan diabsorpsi sebelum mencapai ureter. Reabsorpsi di tubulus kontroktus proksimal dilakukan secara pasif melalui proses osmosis yang disebut reabsorpsi obligat. Sebaliknya, reabsorpsi air di tubulus kontroktus distal dilakukan secara aktif yang disebut dengan reabsorpsi fakultatif. Reabsorpsi fakultatif terjadi tergantung pada kebutuhan yang dipengaruhi oleh hormon antidiuretik (ADH) yang disekresikan oleh kelenjar hipofisis. Jika tubuh terlalu banyak mengandung air, air tidak direabsorpsi. Tetapi jika kandungan air dalam",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-9",
+"src": "modul",
+"h": "",
+"t": "tubuh sedikit, maka terjadilah reabsorpsi. Apabila sekresi hormon antidiuretik dari kelenjar hipofisis sangat berkurang, maka reabsorpsi air akan dihambat. b). Reabsorpsi zat tertentu Reabsorpsi zat-zat tertentu dapat terjadi secara transport aktif dan difusi. Zatzat yang mengalami transport aktif pada tubulus proksimal yaitu ion Na+ , K + , PO 4-, NO 3-, glukosa, dan asam amino. Ion-ion khususnya ion Na+ mengalami difusi dari sel tubulus menuju pembuluh kapiler. Difusi ini terjadi karena adanya perbedaan konsentrasi ion di dalam dan di luar sel tubulus. Difusi tersebut dapat meningkat karena permeabilitas sel tubulus yang tinggi terhadap ion natrium. c). Reabsorpsi zat yang penting bagi tubuh Zat-zat penting bagi tubuh yang secara aktif direabsorpsi yaitu protein, asam amino, glukosa, asam asetoasetat. Zat-zat tersebut direabsorpsi secara aktif di tubulus proksimal sehingga tidak akan ditemukan lagi di lengkung Henle. Setelah terjadi reabsorpsi, maka tubulus akan menghasilkan urine sekunder. Pada urine sekunder ini zat-zat yang masih diperlukan tidak akan ditemukan lagi.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-10",
+"src": "modul",
+"h": "",
+"t": "Sebaliknya, konsentrasi zat-zat sisa metabolisme yang bersifat racun akan bertambah, misalnya ureum dari 0,03% dalam urine primer dapat mencapai 2% dalam urine sekunder. ✓ Augmentasi Augmentasi adalah proses penambahan zat-zat yang tidak diperlukan oleh tubuh ke dalam tubulus kontroktus distal. Peristiwa ini juga disebut sekresi tubular. Sel-sel tubulus mensekresi ion hydrogen (NH3-) dan ion kalium (K+) ke dalam lumen tubulus melalui proses difusi. Ion-ion ini kemudian menyatu dengan urine sekunder. Penambahan ion hidrogen sangat penting untuk menjaga keseimbangan pH dalam darah. Untuk mempelajari lebih lanjut mengenai proses pembentukan urin dapat",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-11",
+"src": "modul",
+"h": "Urin Dan Komposisinya",
+"t": "Mikturasi merupakan refleks yang dapat dikendalikan dan dapat ditahan oleh pusat persarafan dari manusia. Gerakan oleh kontraksi otot abdominal yang menambah tekanan di dalam rongga dan berbagai organ yang menekan kandung kemih membantu mengosongkannya. Rata-rata dalam satu hari 1-2 liter, tetapi berbeda sesuai dengan jumlah cairan yang masuk. Urin berwarna bening orange, pucat tanpa endapan, baunya tajam dengan pH rata-rata 6. Komposisi urin terdiri dari kira-kira 95% air, zat-zat nitrogen dari hasil metabolisme protein asam urea, (natrium, kalsium, NH3, bikarbonat, fosfat, dan sufat), elektrolit, toksin, hormon, pigmen empedu (bilirubin dan urobilin), amoniak dan kreatinin. Pigmen empedu ini berfungsi memberi warna dan bau pada urine. Jika pH dalam darah mulai turun, sekresi ion hidrogen akan meningkat sampai berada pada keadaan pH normal (7,3-7,4) dan urine yang dihasilkan memiliki pH sekitar 4,5-7,5. Urine yang terbentuk akan disimpan sementara di kantong kemih. Setelah itu, urine akan dikeluarkan dari tubuh melalui uretra.",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "modul-12",
+"src": "modul",
+"h": "Cuaca",
+"t": "Apabila cuaca panas, cairan tubuh lebih banyak dikeluarkan dalam bentuk keringat sedangkan apabila cuaca dingin cairan tubuh akan dikeluarkan dalam bentuk urine.",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "modul-13",
+"src": "modul",
+"h": "Jumlah Air Yang Diminum",
+"t": "Apabila banyak minum air, maka jumlah urin yang dikeluarkan juga meningkat.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-14",
+"src": "modul",
+"h": "Hormon Antidiuretik (Adh)",
+"t": "Hormon ADH menjadi faktor internal yang berperan dalam menentukan jumlah pengeluaran urin. Target hormon ADH adalah tubulus distal dan saluran pengumpul. ADH menyebabkan perubahan-perubahan yang menjadikan epitelium lebih permeabel terhadap air. Peningkatan reabsorpsi air yang dihasilkan akan memekatkan urin, mengurangi volume urin, dan menurunkan osmolaritas darah kembali ke 300 mOsm/L.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-15",
+"src": "modul",
+"h": "Psikologis",
+"t": "Psikologis sangat berpengaruh terhadap pengeluaran urin. Orang yang sedang cemas, aktivitas metabolismenya akan lebih cepat sehingga akan lebih sering mengeluarkan urine.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-16",
+"src": "modul",
+"h": "Alkohol Dan Kafein",
+"t": "Alkohol dapat menghambat pelepasan ADH. Seseorang yang banyak minum alkohol dan kafein maka jumlah urin akan meningkat.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-17",
+"src": "modul",
+"h": "Gangguan Dan Penyakit Ginjal",
+"t": "Batu Ginjal Batu ginjal merupakan massa yang keras seperti batu yang terbentuk di sepanjang saluran kemih. Proses pembentukan batu ini disebut urolitiasis. Batu ginjal sekitar 80% terdiri dari kalsium dan sisanya berupa asam urat, sistin, dan mineral struvit yang menyebabkan nyeri di perut bagian bawah. Apabila batu ginjal menyumbat ureter, pelvis ginjal, maupun tubulus dapat menyebabkan nyeri punggung. Urine tersebut dapat menjadi sarang bakteri dan dapat menyebabkan infeksi. 2. Diabetes Melitus (DM) Diabetes mellitus disebabkan oleh kurangnya produksi insulin (DM tipe I)",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-18",
+"src": "modul",
+"h": "",
+"t": "atau kurangnya sensitifitas jaringan tubuh terhadap insulin (DM tipe II). Diabetes melitus ditandai dengan gejala adanya poliuria (sering buang air kecil dalam jumlah banyak). Gejala yang lain berupa polidipsia (rasa haus terus menerus) dan poliphagia (mudah lapar). Gejala awal yang biasa digunakan untuk indikasi yaitu kadar gula darah yang tinggi. Jika kadar gula darah sampai di atas 160-180 mg/dl, maka glukosa akan turut dikeluarkan dalam urine.",
+"o": []
+},
+{
+"id": "modul-19",
+"src": "modul",
+"h": "Gagal Ginjal Kronis",
+"t": "Gagal ginjal kronis yaitu keadaan ginjal yang mengalami kerusakan permanen sehingga ginjal tidak dapat menjalankan fungsinya. Gagal ginjal ditandai dengan edema (pembengkakan) di seluruh tubuh, hipertensi, dan kadar kreatinin < 25. Dalam beberapa kasus serius, penderita gagal ginjal akan disarankan untuk melakukan tindakan haemodialisis (pencucian darah) atau transplantasi ginjal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-20",
+"src": "modul",
+"h": "Nefritis",
+"t": "Nefritis atau peradangan ginjal merupakan salah satu penyakit ginjal yang ditandai adanya albumin dalam urine (albuminuria). Apabila urine penderita diperiksa secara mikroskopik maka akan tampak sel-sel darah merah, sel-sel darah putih, serta serpihan granular.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-21",
+"src": "modul",
+"h": "Glomerulonefritis",
+"t": "glomerulus. Penyakit ini disebabkan oleh infeksi bakteri Streptococcus. Peradangan pada glomerulus mengakibatkan terganggunya proses filtrasi. Penyakit ini ditandai dengan adanya protein dalam darah (proteinuria), adanya darah dalam urine (hematuria), serta hipertensi.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-22",
+"src": "modul",
+"h": "Hati",
+"t": "Hati adalah organ yang paling besar di dalam tubuh manusia, warnanya cokelat dan beratnya lebih kurang 1,5 kg yang terletak di bagian atas dalam rongga abdomen di sebelah kanan bawah diafragma. Ada dua lapisan utama hati yaitu permukaan atas berbentuk cembung terletak di bawah diafragma dan permukaan bawahnya tidak rata dan memperlihatkan lekukan fisura transversus. Hati mempunyai dua jenis peredaran darah yaitu vena porta dan arteri hepatika. Hati menghasilkan empedu sekitar 1 liter empedu setiap hari. Empedu dibentuk di sela-sela kecil di dalam hati. Empedu mengalir melalui saluran hepatika kiri dan kanan dari kedua lobus hati. Empedu mengandung garam-garam empedu sebagai pengemulsi untuk membantu dalam digesti dan absorpsi lipid. Kantong empedu menampung sekitar 50 ml empedu. Empedu disekresikan dalam dua tahap oleh hati yaitu disekresikan oleh sel-sel hepatosit hati yang mengandung sejumlah besar asam empedu, kolesterol, dan zat-zat organik lain. Lalu empedu disekresikan ke dalam kanalikuli biliaris. Produksi empedu terintegrasi dengan tugas hati yang",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-23",
+"src": "modul",
+"h": "Hati",
+"t": "Fungsi Hati Hati mempunyai fungsi sebagai berikut : ✓ Hati sebagai tempat menyimpan energi Hati menyimpan energi dalam bentuk glikogen. Glikogen dibentuk dari suatu jenis zat gula yang disebut glukosa. Ketika kadar gula dalam darah tinggi, melalui proses glikogenesis, hati mengkombinasi molekul-molekul glukosa yang tersusun dalam rantai yang panjang menjadi glikogen. Ketika kadar glukosa dalam darah lebih rendah dari kebutuhan tubuh, hati mengubah glikogen menjadi glukosa. ✓ Hati menyimpan vitamin-vitamin Hati mengambil vitamin dari aliran darah yang diangkut oleh pembuluh portal hepatik. Hati kemudian mengumpulkan dan menyimpan persediaan vitamin A, B, D, E, dan K. Vitamin ini dapat disimpan hingga dua sampai empat tahun. ✓ Hati sebagai pabrik kimia tubuh Beberapa protein penting yang ditemukan di dalam darah dihasilkan oleh hati. Salah satu dari protein ini yaitu albumin. Albumin berfungsi membantu ketersediaan kalsium dan unsur-unsur penting lain dalam aliran darah. Albumin juga membantu pergerakan air dari aliran darah ke jaringan tubuh. Selain albumin, hati juga memproduksi globin. Globin turut membentuk hemoglobin yang merupakan pembawa oksigen dalam sel darah merah.",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-24",
+"src": "modul",
+"h": "Hati",
+"t": "lain seperti penghancuran sel darah merah yang tidak berfungsi lagi. Produk sampingan penguraian sel darah merah berupa pigmen-pigmen empedu akan dibuang dari tubuh bersama feses. a. Jenis protein lain yang ditemukan dalam hati yaitu globulin. Globulin yaitu sekelompok protein yang didalamnya terdapat antibodi. Globulin ini berperan sebagai sistem pelengkap dari sistem kekebalan tubuh yang berkombinasi dengan antibodi melawan mikroorganisme yang menyerang tubuh. Selain itu, globulin juga merupakan komponen kunci dari membrane sel yang mengangkut lemak dalam aliran darah ke dalam jaringan tubuh. Zat kimia lain yang dihasilkan oleh hati yaitu fibrinogen dan prothrombin. Zat kimia ini",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-25",
+"src": "modul",
+"h": "Hati",
+"t": "membantu menyembuhkan luka dan membantu darah membentuk zat pembeku dan kolesterol. ✓ Hati sebagai pembersih atau detoksifikasi Hati membantu membersihkan zat-zat beracun, seperti obat dan alkohol dari aliran darah dengan cara menyerap zat-zat berbahaya tersebut lalu menetralkannya menggunakan cairan empedu. ✓ Hati memproduksi cairan empedu Fungsi hati dalam sistem ekskresi yaitu menghasilkan empedu secara terus-menerus. Hati setiap harinya mampu menghasilkan empedu 800-1.000 ml. empedu mengandung air, asam empedu, garam empedu, kolesterol, fosfolipid (lesitin), zat warna empedu (pigmen bilirubin, biliverdin), dan beberapa ion. Empedu berasal dari penghancuran hemoglobin dari eritrosit yang telah tua. Hemoglobin akan diuraikan menjadi hemin, zat besi, dan globin. Zat besi dan globin akan disimpan di dalam hati, kemudian dikirim ke sumsum tulang merah untuk pembentukan antibody atau hemoglobin baru. Sementara itu, hemin akan dirombak menjadi bilirubin dan biliverdin. Bilirubin dan biliverdin ini merupakan zat warna bagi empedu dan mengandung warna hijau biru. Zat warna tersebut di dalam usus akan mengalami oksidasi menjadi urobilin sehingga warna feses dan urine menjadi kekuningan.",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-26",
+"src": "modul",
+"h": "",
+"t": "Empedu ini berperan mencerna dan mengabsorpsi lemak dalam usus, mengaktifkan lipase, mengubah zat yang tidak larut dalam air menjadi zat yang larut dalam air, serta membentuk urea dan amoniak",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-27",
+"src": "modul",
+"h": "Struktur Hati",
+"t": "Hati terdiri atas dua lobus utama, yaitu lobus kiri dan kanan, dengan posisi sedikit saling menindih. Lobus kanan memiliki dua lobus yang salah satunya berukuran lebih kecil (Gambar 4). Setiap lobus terdiri dari banyak lobulus. Lobulus merupakan unsur terkecil yang menyusun hati. Struktur lobulus berbentuk persegi enam, dengan panjang 1 mm. Bagian luar hati diselaputi oleh kapsula hepatika. Dalam jaringan hati terdapat beberapa pembuluh darah, yaitu arteri hepatika dan vena portal hepatika. Arteri hepatika mengangkut 30% darah dari jumlah total darah di hati. Darah ini",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-28",
+"src": "modul",
+"h": "Struktur Hati",
+"t": "berasal dari percabangan aorta sehingga darah yang diangkut merupakan darah kaya oksigen. Darah yang diangkut vena portal hepatika mengangkut 70% dari jumlah total darah yang ada di hati. Darah ini mengangkut sari-sari makanan dari usus halus. Pembuluh yang mengangkut darah keluar dari hati yaitu vena hepatika. Pertemuan antara pembuluh arteri hepatika dan vena portal hepatika membentuk sinusoid. Pada sinusoid terjadi spesialisasi sel yang membentuk sel kupffer. Sel ini bertugas memfagositosis organisme asing atau zat-zat berbahaya. Untuk mempelajari lebih lanjut mengenai hati dapat melalui link berikut ini",
+"o": [
+"hati"
+]
+},
+{
+"id": "modul-29",
+"src": "modul",
+"h": "Penyakit Dan Gangguan Pada Hati",
+"t": "Hepatitis atau Radang Hati Hepatitis adalah peradangan pada hati atau liver. Penyakit ini bisa disebabkan oleh infeksi virus, bisa juga oleh penyakit atau kondisi lain seperti kebiasaan mengonsumsi alkohol, penggunaan obat-obatan tertentu maupun penyakit autoimun. Hepatitis yang disebabkan oleh infeksi virus terdiri dari hepatitis A, B, C, D dan E. Sirosis Hati (Pengerasan Organ Hati) Sirosis adalah penyakit hati kronik yang mengakibatkan kerusakan sel hati dan sel tersebut digantikan oleh jaringan parut sehingga terjadi penurunan jumlah jaringan hati normal. Peningkatan jaringan parut menimbulkan distorsi struktur hati yang normal sehingga terjadi gangguan aliran darah melalui hati dan terjadi gangguan fungsi hati. Gejalanya : a) Kembung, banyak angin di perut, nyeri pada daerah ulu hati.",
+"o": [
+"hati",
+"paru"
+]
+},
+{
+"id": "modul-31",
+"src": "modul",
+"h": "Kulit",
+"t": "Kulit merupakan lapisan terluar yang membungkus seluruh permukaan tubuh manusia. Pada permukaan kulit bermuara kelenjar keringat dan kelenjar mukosa. Kelenjar keringat mengekskresikan zat-zat sisa. Zat-zat sisa yang dikeluarkan melalui pori-pori kulit berupa keringat. Keringat tersusun dari air dan garam-garam mineral terutama garam dapur (NaCl) yang merupakan hasil metabolisme protein. Kulit memiliki daya regenerasi yang besar. Jika sel kulit terluka maka sel-sel dalam dermis melawan infeksi lokal kapiler dan jaringan ikat yang bergenerasi sehingga terbentuk parut",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-32",
+"src": "modul",
+"h": "Fungsi Kulit",
+"t": "produksi keringat dan minyak pada kulit membuat lapisan kulit bersifat asam. Kondisi ini berfungsi melindungi tubuh dari infeksi jamur dan bakteri. ✓ Absorpsi Kulit yang sehat memiliki kemampuan untuk menyerap larutan yang mudah menguap. Kulit memiliki fungsi penting dalam proses respirasi jaringan. Hal ini karena sifat permeabilitas kulit terhadap O 2, CO2, dan uap air. ✓ Regulator Suhu Kulit melakukan fungsi ini dengan cara memproduksi keringat dan mengkontraksikan pembuluh darah dalam kulit. ✓ Penentu Warna Kulit Warna kulit salah satunya ditentukan oleh kandungan melanosit pada kulit. ✓ Pembentukan Vitamin D Vitamin D dibentuk dari provitamin D dengan bantuan sinar matahari. ✓ Ekskresi Sebagai alat ekskresi kulit berfungsi mengeluarkan keringat. Kelenjar keringat menyerap air dan garam dari darah di pembuluh kapiler. Keringat yang dikeluarkan melalui pori-pori kulit akan menyerap panas tubuh sehingga suhu tubuh tetap stabil. Pada keadaan normal, tubuh mengeluarkan keringat sebanyak 50 ml setiap jam. Beberapa factor yang dapat memacu pengeluaran keringat antara lain aktivitas tubuh yang meningkat, suhu lingkungan yang tinggi, dan keadaan emosi.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-33",
+"src": "modul",
+"h": "Fungsi Kulit",
+"t": "Kulit mempunyai fungsi sebagai berikut : ✓ Proteksi Kulit berfungsi melindungi organ tubuh dari kontak mekanis yang dapat menyebabkan cedera. Kulit melindungi tubuh dari kontak yang berupa sengatan panas. Sel-sel melanosit yang terdapat pada kulit mempunyai fungsi penting dalam melindungi tubuh dari bahaya paparan sinar UV. Sementara itu, Emosi dapat merangsang saraf simpatetik untuk memperkecil pengeluaran keringat dengan cara mempersempit pembuluh darah. Pengeluaran keringat yang berlebihan karena terik matahari atau aktivitas tubuh yang tinggi, dapat menyebabkan tubuh kekurangan garam. Jika kadar garam dalam darah menurun dapat mengakibatkan kekejangan bahkan pingsan.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-34",
+"src": "modul",
+"h": "Struktur Kulit",
+"t": "Kulit merupakan organ terbesar dalam tubuh. Luas kulit sekitar 2 m2. ketebalan pada setiap bagian tubuh berbeda-beda (0,5-5 mm) dan rata-rata ketebalannya 1-2 mm. berdasarkan strukturnya kulit terdiri dari tiga lapisan, yaitu epidermis (kulit ari), dermis (kulit jangat), dan hipodermis (jaringan ikat bawah kulit) (Gambar 5). Epidermis Epidermis merupakan lapisan terluar dari kulit yang selalu mengelupas (kulit mati) yang mengandung pigmen. Epidermis terdiri atas beberapa lapis berikut :",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-35",
+"src": "modul",
+"h": "Stratum Korneum (Lapisan Tanduk)",
+"t": "Stratum korneum merupakan lapisan kulit yang paling luar, tersusun atas selsel mati yang bersifat keras, tahan terhadap air, dan selalu mengelupas (deskuamasi). Lapisan ini akan mengalami pembaruan selama proses keratinisasi (pembentukan zat tanduk/keratin).",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-38",
+"src": "modul",
+"h": "Stratum Germinativum",
+"t": "Stratum germinativum tersusun atas sel-sel yang selalu membentuk sel-sel baru ke arah luar. Dermis Dermis terletak di bawah epidermis. Lapisan ini mengandung akar rambut, pembuluh darah, kelenjar, dan saraf. Kelenjar kulit mempunyai lobulus yang bergulung-gulung dengan saluran keluar lurus mengeluarkan berbagai zat dari badan. Kelenjar kulit ada dua jenis yaitu sebagai berikut:",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-39",
+"src": "modul",
+"h": "Kelenjar Sudorifera (Kelenjar Keringat)",
+"t": "Kelenjar keringat tersebar luas pada sebagian besar permukaan tubuh. Saluran keringat dilapisi oleh sel-sel kubus bertingkat. Dibeberapa daerah tubuh seperti aksila, areola mamal, dan daerah sirkumanal, kelenjar keringat lebih besar daripada yang bertempat di telapak tangan. Kelenjar tersebut dari jenis apokrin yang memproduksi sekresi yang lebih pekat.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-40",
+"src": "modul",
+"h": "Kelenjar Sebacea (Kelenjar Minyak)",
+"t": "Kelenjar sebacea berhubungan dengan folikel rambut. Kelenjar sebacea bermuara melalui saluran-saluran ke dalam ruang antara folikel rambut dengan batang rambut untuk melumasi rambut dan kulit yang berdekatan. Kelenjar keringat menghasilkan keringat yang di dalamnya terlarut berbagai garam, terutama NaCl. Keringat dialirkan melalui saluran kelenjar keringat dan dikeluarkan dari dalam tubuh melalui pori-pori. Di dalam kantong rambut terdapat akar rambut dan batang rambut. Kelenjar minyak menghasilkan minyak yang berfungsi meminyaki rambut agar tidak kering. Rambut dapat tumbuh terus karena mendapat sari-sari makanan dari pembuluh kapiler di bawah kantong rambut. Di dekat akar rambut terdapat otot penegak rambut.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-41",
+"src": "modul",
+"h": "",
+"t": "Hipodermis Hipodermis terletak di bawah dermis. Lapisan ini banyak mengandung lemak. Lemak berfungsi sebagai makanan cadangan, pelindung tubuh terhadap benturan, dan menahan panas tubuh. Untuk mempelajari lebih lanjut mengenai kulit dapat melalui link berikut",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-42",
+"src": "modul",
+"h": "Gangguan Dan Penyakit Pada Kulit",
+"t": "Xerosis Xerosis merupakan keadaan kulit yang tampak kering dan kasar. Keadaan ini terjadi pada seluruh tubuh terutama pada tungkai bawah yang disebabkan oleh kelembapan kulit yang rendah. Xerosis ini mencerminkan adanya kelainan pada proses maturasi dari epidermis sehingga akan menghasilkan suatu permukaan kulit yang tidak rata. Kelainan ini ditandai adanya rasa gatal sehingga terjadi peradangan pada permukaan kulit. Peradangan ini disebabkan adanya kelainan dalam lapisan tanduk. 2. Lentigo Lentigo ditandai adanya bercak-bercak hiperpigmentasi pada kulit, berwarna",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-43",
+"src": "modul",
+"h": "Gangguan Dan Penyakit Pada Kulit",
+"t": "cokelat hitam. Jika bercak ini terdapat pada kulit yang terkena sinar matahari disebut solar lentigo. Apabila bercak ini terdapat pada orang tua maka bercak tersebut tidak dapat hilang. Akan tetapi jika bercak tersebut muncul pada kulit orang muda, maka dapat hilang jika tidak terkena sinar matahari. Lentigo yang muncul pada orang muda disebut freckles. 3. Kanker Kulit Kanker kulit merupakan pertumbuhan sel-sel kulit yang bersifat ganas. Kanker ini dapat disebabkan oleh :",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-44",
+"src": "modul",
+"h": "Berkurangnya Melanosit",
+"t": "Eksim atau dermatitis Eksim ditandai dengan kulit yang meradang dan iritasi. Radang ini biasa terjadi di bagian tangan dan kaki. Eksim pada orang yang berkulit putih akan tampak berwarna merah muda lalu berubah menjadi cokelat. Sementara itu, eksim pada kulit gelap akan tampak lebih gelap sehingga memengaruhi pigmen kulit. Eksim ini apabila dibiarkan dapat menimbulkan rasa gatal dan memicu terjadinya infeksi. Oleh karena itu, eksim perlu diobati untuk menghilangkan rasa gatal. 5.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-45",
+"src": "modul",
+"h": "",
+"t": "Scabies Scabies merupakan penyakit yang disebabkan oleh reaksi alergi terhadap tungau. Penyakit ini ditandai dengan timbulnya rasa gatal di malam hari, tampak lepuh-lepuh kecil, dan terjadi abrasi yang dikarenakan garukan dan goresan pada ruam. Penyakit ini dapat menular melalui kontak kulit, tidur seranjang, dan menggunakan handuk yang sama dengan orang yang terinfeksi. 6. Kusta atau lepra Kusta merupakan penyakit infeksi kronis pada kulit yang disebabkan oleh bakteri Mycobacterium leprae. Penyakit ini apabila tidak segera ditangani dapat menyebabkan kerusan pada kulit, saraf, anggota gerak, dan mata. 7.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-46",
+"src": "modul",
+"h": "",
+"t": "Jerawat Jerawat merupakan kondisi abnormal pada kulit akibat dari produksi kelenjar minyak yang berlebih. Berlebihnya produksi kelenjar minyak ini menyebabkan terjadinya penyumbatan saluran folikel rambut dan pori-pori kulit. Kondisi ini menyebabkan kulit menjadi meradang. Bagian tubuh yang mudah terkena jerawat yaitu wajah, dada, dan punggung.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-47",
+"src": "modul",
+"h": "Paru-Paru",
+"t": "Manusia memiliki sepasang paru-paru yang terletak di rongga dada. Paruparu ini mempunyai fungsi utama sebagai alat pernapasan. Paru-paru mengekskresikan zat sisa metabolisme berupa karbon dioksida (CO2) dan uap air (H2O) sehingga organ ini juga berperan sebagai alat ekskresi. Karbon dioksida dan uap air berdifusi di dalam alveolus kemudian dikeluarkan melalui lubang hidung. Oksigen dari luar akan berdifusi dari alveolus ke dalam kapiler darah lalu diedarkan ke seluruh tubuh. Di dalam jaringan oksigen diperlukan untuk proses metabolisme, dan sisa metabolisme berupa karbondioksida dan uap air masuk ke dalam darah lalu dibawa ke jantung. Dari jantung darah yang membawa cukup banyak gas karbondioksida dibawa menuju paru-paru, lalu sampai di alveoli. Gas karbondioksida akan dikeluarkan melalui proses difusi. Lapisan epitel pada alveolus selalu lembab, baik oksigen maupun karbondioksida dapat larut dalam cairan ini. Pada saat kita melakukan ekspirasi, gas karbondioksida dan uap air akan dikeluarkan dari paru-paru. a.",
+"o": [
+"paru"
+]
+},
+{
+"id": "modul-48",
+"src": "modul",
+"h": "Paru-Paru",
+"t": "Struktur paru-paru Paru-paru terletak di dalam rongga dada bagian atas. Paru-paru berjumlah sepasang, kiri dan kanan. Paru-paru sebelah kanan terdiri atas tiga kelompok alveolus dan merupakan tiga belahan (3 lobus). Paru-paru sebelah kiri terdiri atas dua kelompok alveolus dan merupakan dua belahan paru-paru (2 lobus). Paru-paru dibungkus oleh selaput tipis rangkap dua yang disebut saluran pleura. Saluran pleura berfungsi sebagai pelumas paru-paru. Cairan pleura mencegah terjadinya gesekan antara paru-paru dan dinding dada saat bernapas. Di dalam paru-paru, bronkus sebelah kanan bercabang tiga, sedangkan bronkus sebelah kiri bercabang dua, sama jumlahnya dengan jumlah lobus paru-paru. Cabang bronkus disebut bronkiolus. Oksigen masuk ke paru–paru (alveolus), darah pada alveolus mengikat O2 dan mengangkutnya ke sel-sel jaringan. Dalam jaringan, darah mengikat CO2 untuk dikeluarkan bersama H2O yang dikeluarkan dalam bentuk uap air.",
+"o": [
+"paru"
+]
+},
+{
+"id": "modul-49",
+"src": "modul",
+"h": "",
+"t": "Ion H+ yang bersifat racun diikat oleh Hb, sedangkan HCO3keluar dari sel darah merah dan masuk ke dalam plasma darah. Kedudukan HCO 3digantikan oleh ion Cl- (klorida) dari plasma darah. Struktur",
+"o": [
+"paru"
+]
+},
+{
+"id": "modul-50",
+"src": "modul",
+"h": "Penyakit Dan Gangguan Pada Paru-Paru",
+"t": "1) Bronkitis yaitu peradangan bronkus. 2) Pneumonia, disebabkan karena infeksi di dalam alveolus, membran paru mengalami peradangan dan berlubang sehingga cairan dan bahkan eritrosit dan leukosit masuk ke dalam alveoli. 3) Atelektasis, yaitu alveoli mengempis (kolaps) yang disebabkan oleh obstruksi saluran napas dan berkurangnya surfaktan pada cairan yang melapisi alveoli. 4) Asma, ditandai dengan kontraksi spastik dari otot polos bronkiolus yang menyebabkan kesukaran bernapas karena hipersensivitas bronkiolus terhadap benda-benda asing di udara.",
+"o": [
+"paru"
+]
+},
+{
+"id": "modul-51",
+"src": "modul",
+"h": "Tbc Disebabkan Oleh Mycobacterium",
+"t": "terbentuknya bintik kecil pada dinding alveolus. 6) Polip yaitu pembengkakan kelenjar limfa di hidung yang menyebabkan penyempitan saluran napas. 7) Sianosis, yaitu kebiruan pada kulit yang disebabkan oleh Hb yang tidak mengandung oksigen jumlahnya berlebihan dalam pembuluh darah kulit terutama dalam kapiler.",
+"o": [
+"kulit",
+"paru"
+]
+},
+{
+"id": "modul-52",
+"src": "modul",
+"h": "",
+"t": "Ekskresi adalah proses mengeluarkan sisa-sisa metabolisme yang sudah tidak diperlukan lagi oleh tubuh makhluk hidup. Organ-organ ekskresi manusia berupa ginjal, kulit, hati, dan paru-paru. Ginjal memiliki beberapa fungsi : 1) Membuang sisa metabolisme seperti urea, asam urat, kreatinin, keratin, obat-obatan, dan zat lain yang bersifat racun. 2) Menjaga keseimbangan air dalam tubuh dengan mengatur volume plasma darah dan volume air. 3) Mengatur kandungan elektrolit dengan menyaring zat-zat kimia yang masih berguna bagi tubuh (nutrium, fosfor ,dan kalium). Dan mengembalikannya ke saluran peredaran darah. 4) Menjaga asam basa cairan darah dengan mengatur pH plasma dan cairan tubuh dengan mengekskresikan urin yang bersifat basa atau asam. 5) Menjaga tekanan osmosis dengan cara mengatur ekskresi garam-garam, yaitu membuang jumlah garam yang berlebihan dan menahan garam apabila jumlahnya berkurang.",
+"o": [
+"ginjal",
+"hati",
+"paru"
+]
+},
+{
+"id": "modul-53",
+"src": "modul",
+"h": "Menjalankan Fungsi Sebagai Hormon",
+"t": "Pembentukan urine terdiri dari proses filtrasi (penyaringan zat-zat sisa yang beracun), reabsorpsi (penyerapan kembali), dan augmentasi (pengeluaran zat sisa yang tidak diperlukan lagi oleh tubuh). Faktor yang mempengaruhi jumlah dan terbentuknya urine adalah cuaca, jumlah air yang diminum, hormon antidiuretik (ADH), psikologis, alkohol dan kafein. Fungsi hati adalah sebagai tempat menyimpan energi dalam bentuk glikogen, menyimpan vitamin-vitamin, segabai pabrik kimia tubuh, memproduksi cairan empedu, sebagai detoksifikasi. Kulit merupakan lapisan terluar yang membungkus seluruh permukaan tubuh manusia.",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "modul-54",
+"src": "modul",
+"h": "Menjalankan Fungsi Sebagai Hormon",
+"t": "Fungsi kulit adalah sebagai proteksi, absorpsi, regulator suhu, tempat pembentukan vitamin D, sebagai organ ekskresi. Berdasarkan strukturnya kulit terdiri dari tiga lapisan, yaitu epidermis (kulit ari), dermis (kulit jangat), dan hypodermis (jaringan ikat bawah kulit). 10. Epidermis terdiri atas stratum korneum, stratum lusidum, stratum granulosum dan stratum germinativum. 11. Dermis terletak di bawah epidermis. Lapisan ini mengandung akar rambut, pembuluh darah, kelenjar, dan saraf. 12. Hypodermis terletak di bawah dermis. Lapisan ini banyak mengandung lemak. Lemak berfungsi sebagai makanan cadangan, pelindung tubuh terhadap benturan, dan menahan panas tubuh.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "modul-55",
+"src": "modul",
+"h": "",
+"t": ": Proses penambahan zat-zat yang tidak diperlukan oleh tubuh.",
+"o": []
+},
+{
+"id": "modul-56",
+"src": "modul",
+"h": "",
+"t": ": Glomerulus yang diselubungi oleh kapsul bowman.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-57",
+"src": "modul",
+"h": "",
+"t": ": Proses mengeluarkan sisa-sisa metabolisme yang sudah tidak diperlukan lagi oleh tubuh makhluk hidup.",
+"o": []
+},
+{
+"id": "modul-58",
+"src": "modul",
+"h": "Filtrasi",
+"t": ": Perpindahan cairan dari glomerulus menuju ke kapsul bowman melalui membran filtrasi.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-59",
+"src": "modul",
+"h": "",
+"t": ": Ujung tubulus yang tertutup dan membungkus glomerulus.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-60",
+"src": "modul",
+"h": "",
+"t": ": Peradangan pada nefron karena bakteri Streptococcus yang masuk melalui saluran pernapasan.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-61",
+"src": "modul",
+"h": "Nefron",
+"t": ": Unit fungsional dan struktural terkecil ginjal yang mengandung malpighi dan saluran nefron.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "modul-62",
+"src": "modul",
+"h": "",
+"t": ": Proses perpindahan cairan dari tubulus renalis menuju kapiler darah.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-0",
+"src": "bio11",
+"h": "",
+"t": ": Memberi warna pada feses. : Tempat penyimpanan urine. Organ ini berbentuk balon dengan dinding elastis. : Produk sisa yang dibuang dalam urin yang berasal dari pemecahan kreatinin otot. : Adanya endapan pada rongga ginjal atau kandung kemih. : Prosedur yang digunakan pada keadaan gagal ginjal untuk membersihkan zat-zat sisa yang terakumulasi dalam darah, racun, dan membuang kelebihan cairan. : Lapisan dalam kulit yang terdapat pembuluh darah, akar rambut, dan ujung saraf : Pengeluaran zat sisa metabolisme yang tidak digunakan lagi. : lapisan terluar kulit. : Struktur yang terbentuk dari pembuluh-pembuluh darah kecil yang menyaring darah menjadi urin. : Organ penting yang membersihkan darah dari zat-zat sisa dan mengeluarkannya dalam bentuk urin. : Kehilangan fungsi ginjal. : Massa solid yang terbentuk dari kristalisasi dan agregasi senyawasenyawa dalam urin. Seringkali disebut juga sebagai renal calculi. : Penyakit yang ditandai dengan pembentukan batu. Jika berlokasi di saluran kemih atau ginjal, kita sebut urolithiasis atau nephrolithiasis. : unit fungsional ginjal.",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "bio11-1",
+"src": "bio11",
+"h": "",
+"t": "Bilirubin Kandung kemih Kreatinin Batu ginjal Dialisis Dermis Ekskresi Epidermis Glomerulus Ginjal Gagal ginjal Batu ginjal Lithiasis Nefron Nefritis Tubulus : Radang nefron pada ginjal yang dapat disebabkan oleh infeksi bakteri Streptococcus sp. : Bagian dari nefron berbentuk pipa panjang yang menghasilkan urin akhir dari cairan yang dikumpulkan setelah filtrasi darah di badan renal. : Zat sisa yang berasal dari penggunaan protein dan asam amino tubuh. : Saluran yang mengalirkan urin dari setiap ginjal ke kandung kemih. : Saluran yang mengalirkan urin dari kandung kemih ke luar tubuh. : Cairan yang dihasilkan oleh ginjal dan diekskresikan untuk menghilangkan zat sisa yang larut dalam air dan mengeluarkan kelebihan cairan dari tubuh. : Pembuluh darah yang membawa darah dari organ ke jantung. Darah dalam vena secara umum miskin akan oksigen.",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "bio11-4",
+"src": "bio11",
+"h": "Materi Pembelajaran",
+"t": "Modul ini terbagi menjadi 3 kegiatan pembelajaran dan di dalamnya terdapat uraian materi, penugasan, soal latihan dan soal evaluasi. Pertama Kedua Ketiga : Struktur dan fungsi organ ekskresi pada manusia. : Mekanisme Pembentukan Urine. : Gangguan dan Teknologi yang berhubungan dengan Sistem Ekskresi.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-5",
+"src": "bio11",
+"h": "Tujuan Pembelajaran",
+"t": "Setelah kegiatan pembelajaran 1 ini diharapkan Anda dapat menganalisis hubungan antara struktur dan fungsi penyusun organ ekskresi pada manusia.",
+"o": []
+},
+{
+"id": "bio11-6",
+"src": "bio11",
+"h": "",
+"t": "Salam cerdas buat kalian semua. Kali ini kita akan membahas mengenai sistem ekskresi pada manusia. Peristiwa ekskresi merupakan pengeluaran sisa metabolisme yang tidak di manfaatkan lagi.",
+"o": []
+},
+{
+"id": "bio11-8",
+"src": "bio11",
+"h": "Kulit",
+"t": "Kulit berperan untuk mengekskresikan urea, garam, dan kelebihan air melalui kelenjar keringat yang ada di kulit. Keringat manusia terdiri dari air, garam, terutama garam dapur (NaCl), sisa metabolisme sel, urea, serta asam. Kulit (integument) terdiri dari dua bagian yaitu epidermis dan dermis.",
+"o": [
+"hati",
+"kulit"
+]
+},
+{
+"id": "bio11-9",
+"src": "bio11",
+"h": "Epidermis",
+"t": "Epidermis adalah lapisan terluar kulit dan terumata tersusun atas sel-sel epithelial mati yang terus-menerus terlepas dan jatuh. Sel-sel baru mendorong ke atas dari lapisan-lapisan di bawah, menggantikan sel-sel yang hilang. Ketebalan epidermis menentukan ketebalan kulit. Kulit yang tebal, misalnya pada telapak tangan, ujung jari, memiliki lima lapis epidermis, yaitu stratum basal, stratum spinosum, stratum granulosum, stratum lusidum, dan stratum korneum. Kulit yang tipis, sperti yang melapisi tubuh, tidak memiliki stratum lusidum. Sel-sel pada stratum basal, spinosum, dan stratum granulosum merupakan sel hidup karena mendapat nutrient dari kapiler di jaringan ikat (dalam hal ini adalah dermis). Sebaliknya sel-sel di stratum lusidum dan stratum korneum merupakan sel mati karena tidak mencapai lapisan ini.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "bio11-10",
+"src": "bio11",
+"h": "Dermis",
+"t": "Dalam dermis terdapat pembuluh darah, akar rambut, dan ujung saraf. Selain itu, terdapat pula kelenjar keringat (glandula sudorifera) serta kelenjar minyak (glandula sebassea) yang terletak dekat akar rambut dan berfungsi meminyaki rambut. Kelenjar keringat berupa pipa terpilin yang memajang dari epidermis masuk ke bagian dermis. Pangkal kelenjarnya menggulung dan dikelilingi oleh kapiler darah dan serabut saraf simpatetik. Dari kapiler darah inilah kelenjar keingat menyerap cairan jaringan yang terdiri dari air dan ± 1% larutan garam beserta urea. Cairan jaringan tersebut dikeluarkan sebagai keringat melalui saluran keringat ke permukaan kulit. Proses pengeluaran keringat diatur oleh pusat pengatur suhu di dalam otak, yaitu hipotalamus. Hipotalamus menghasilkan enzim bradikinin yang mempengaruhi kegiatan kelenjar keringat. Jika pusat pengatur suhu mendapat ransangan, misalnya berupa perubahan suhu pada pembuluh darah, maka ransangan tersebut akan diteruskan oleh saraf simpatetik ke kelenjar keringat. Selanjutnya kelenjar keringat menyerap air, garam, dan sedikit urea dari kapiler darah, lalu mengirimkannya ke permukaan kulit dalam bentuk keringat. Keringat tersebut menguap dan menyerap panas sehingga suhu tubuh kembali normal.",
+"o": [
+"hati",
+"kulit"
+]
+},
+{
+"id": "bio11-11",
+"src": "bio11",
+"h": "Paru-Paru",
+"t": "Paru merupakan organ ekskresi yang berperan dalam mengeluarkan karbon dioksida (CO2) dan uap air (H2O) yang dihasilkan dari respirasi. Karbon dioksida yang dihasilkan selama respirasi dalam sel diangkut oleh hemoblobin dalam darah. Pada prinsipnya, CO2 diangkut dengan dua cara yaitu melalui plasma darah dan diangkut dalam bentuk ion HCO3 melalui proses berantai yang disebut. b Pertukaran gas terjadi di alveoli (tunggal, alveolus), kantong-kantong udara yang menggugus di ujung bronkiolus paling kecil. Paru-paru manusia mengandung jutaan alveoli, yang secara bersamaan memiliki area permukaan sekitar 100 m2, lima puluh kali lebih luas daripada kulit. Oksigen di udara yang memasuki alveoli terlarut di dalam selaput lembab yang melapisi permukaan dalam dan berdifusi dengan cepat melintasi epitelium ke dalam jejaring kapiler yang mengelilingi setiap alveoli. Karbon dioksida berdifusi dalam arah yang berlawanan, dari kapiler melintasi epitelium alveoli dan menuju ke dalam rongga udara.",
+"o": [
+"paru"
+]
+},
+{
+"id": "bio11-12",
+"src": "bio11",
+"h": "Hati",
+"t": "Hati berperan untuk membuang urea, pigmen, empedu, dan racun. Hati merupakan kelenjar terbesar dalam tubuh dan merupakan kelenjar detoksifikasi. Hati (mengeksresikan) kurang lebih ½ liter empedu setiap hari. Empedu berupa cairan hijau kebiruan berasa pahit, dengan pH sekitar 7-7,6; mengandung kolesterol, garam mineral, garam empedu, serta pigmen (zat warna empedu) yang disebut bilirubin dan biliverdin. Empedu berasal dari perombakan sel darah merah (eritrosit) yang telah tua dan rusak di dalam hati. Sel-sel hati yang khusus bertgas merombak eritrosit disebut sel histiosit. Sel tersebut akan menguraikan hemoglobin menjadi senyawa hemin, zat besi (Fe), dan globulin. Zat besi diambil dan disimpan dalam hati untuk dikembalikan ke sumsum tulang. Globin digunakan lagi untuk metabolisme protein atau untuk membentuk Hb baru. Senayawa hemin di dalam hati diubah menjadi zat warna empedu, yaitu bilirubin dan biliverdin. Selanjutnya zar warna tersebut dikirim ke usus dua belas jari dan dioksidasi menjadi urobilin. Urobilin berwarna kuning cokelat yang berperan memberi warna pada feses dan urin.",
+"o": [
+"hati"
+]
+},
+{
+"id": "bio11-13",
+"src": "bio11",
+"h": "Ginjal",
+"t": "Ginjal atau “ren” berbentuk seperti biji buah kacang merah (kara/ercis). Ginjal terletak di kanan dan di kiri tulang pinggang yaitu di dalam rongga perut pada dinding tubuh dorsal. Ginjal berjumlah dua buah dan berwarna merah keunguan. Ginjal sebelah kiri terletak agak lebih tinggi daripada ginjal sebelah kanan. Sebuah saluran sempit yang disebut uereter terdapat di setiap ginjal. Ureter inilah yang terhubung ke kanting besar yang disebut kandung kemih. Urin dikumpulkan dan disimpan dalam kandung kemih. Pada akhir kandung kemih terdapat saluran berotot yang disebut uretra. Uretra bekerja sebagai saluran tempat pembuangan. Urin terus mengalir keluar dari ginjal ke dalam ureter dan bergerak menuju kandung kemih karena kontraksi dinding ureter. Kandung kemih dapat mengembang dan meperluas volumenya agar dapat diisi urin.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-14",
+"src": "bio11",
+"h": "Ginjal",
+"t": "Struktur penampang ginjal menunjukkan daerah berwarna gelap di bagian luar yang disebut korteks dan daerah berwarna pucat di bagian dalam yang disebut medulla. Setiap ginjal terdiri atas sejumlah besar unit fungsional terluar yang tipis dan mikroskopis yang disebut nefron atau tubulus uriniferous. Bagian tubulus merupakan bagian yang melingkar. Bagian tubulus ini terdiri atas tubulus kontortus proksimal atau saluran pertama., lengkung henle yang berbentuk “U”, dan tubulus kontortus distal atau saluran kompleks (tubulus kedua). Tubulus kontortus distal yang berlekuk-lekuk akan bermuara pada tubulus pengumpul (kolektivus). Banyak nefron dari tubulus distal yang kemudian bergabung dengan tubulus pengumpul. Tubulus pengumpul inilah yang mengumpulkan urin dari nefron. Lengkung henle ialah bagian saluran ginjal (tubulus) yang melengkung pada daerah medulla dan berhubungan dengan tubulus proksimal maupun tubulus distal di daerah korteks. Bagian lengkung Henle ada dua, yaitu lengkung Henle asendens (menanjak) dan lengkung Henle desendens (menurun).",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-15",
+"src": "bio11",
+"h": "",
+"t": "Sistem ekskresi adalah sistem pembuangan zat-zat sisa metabolisme yang sudah tidak berguna dalam tubuh makhluk hidup, meliputi ginjal, hati, paru-paru, dan kulit. Kulit sebagai alat ekskresi mengeluarkan lemak dan keringat yang mengandung air, garam, urea, serta ion-ion seperti Na+. Paru-paru sebagai organ ekskresi berperan dalam mengeluarkan karbon dioksida (CO2) dan uap air (H2O) yang dihasilkan dari respirasi. Hati (hepar) berfungsi memecah beberapa senyawa yang bersifat racun (detoxifikasi), serta menghasilkan amonia, urea, dan asam urat yang akan diekskresikan ke dalam urine. Ginjal atau “ren” berbentuk seperti biji buah kacang merah (kara/ercis). Ginjal terletak di kanan dan di kiri tulang pinggang yaitu di dalam rongga perut pada dinding tubuh dorsal dan berfungsi dalam pembentukan urine.",
+"o": [
+"ginjal",
+"hati",
+"kulit",
+"paru"
+]
+},
+{
+"id": "bio11-19",
+"src": "bio11",
+"h": "Membersihkan Urin Untuk Diekskresikan",
+"t": "Pedoman Pengskoran Cocokkanlah jawaban Anda dengan Kunci Jawaban yang terdapat di bagian akhir soal ini. Hitunglah jawaban yang benar. Kemudian, gunakan rumus berikut untuk mengetahui tingkat penguasaan Anda terhadap materi Kegiatan Belajar 1. Nilai = 𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑃𝑒𝑟𝑜𝑙𝑒ℎ𝑎𝑛 x 100 % 𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑀𝑎𝑘𝑠𝑖𝑚𝑢𝑚 Konversi tingkat penguasaan: 90 - 100% = baik sekali 80 - 89% = baik 70 - 79% = cukup < 70% = kurang Apabila mencapai tingkat penguasaan 80% atau lebih, Anda dapat meneruskan dengan Kegiatan Belajar 2. Bagus! Jika masih di bawah 80%, Anda harus mengulangi materi Kegiatan Belajar 1, terutama bagian yang belum dikuasai.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-20",
+"src": "bio11",
+"h": "",
+"t": "Lapisan kulit terdiri atas stratum korneum, lucidum, granulosum, dan germinatovum. Bagian dari nefron adalah kapsula bowman dan glomerolus yang terletak pada bagian korteks pada ginjal yang berfungsi untuk melakukan filtrasi yaitu penyaringan darah untuk menghasilkan urine primer",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "bio11-21",
+"src": "bio11",
+"h": "Tujuan Pembelajaran",
+"t": "Setelah kegiatan pembelajaran 2 ini diharapkan Anda: 1. Mampu menjelaskan mekanisme pembentukan urine pada manusia. 2. Mampu menjelaskan faktor yang memengaruhi produksi urine.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-23",
+"src": "bio11",
+"h": "Mekanisme Pembentukan Urin",
+"t": "Di dalam ginjal terjadi serangkaian proses pembentukan urin, yaitu filtrasi (penyaringan), reabsorbsi (penyerapan kembali), dan augmentasi (pengeluaran). Darah yang masuk ke ginjal mengandung lebih banyak oksigen dan sedikit karbon dioksida. Biasanya, darah yang masuk memiliki kadar air, garam mineral, dan produk limbah nitrogen yang lebih besar daripada darah yang meninggalkan ginjal. Kelebihan garam mineral dan limbah nitrogen (seperti urea, kreatinin, dan asam urat) yang tidak berguna lagi bagi tubuh akan dibuang.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-24",
+"src": "bio11",
+"h": "Penyaringan Darah (Filtrasi)",
+"t": "Proses filtrasi terjadi di antara glomerulus dan kapsula Bowman. Ketika darah dari arteriol aferen memasuki glomerulus, tekanan darah menjadi tinggi. Hal tersebut menyebabkan air dan molekul-molekul yang tidak larut dalam darah melewati dinding kapiler pada glomerulus. Kemudian, air dan molekul-molekul memasuki lempeng filtrasi dari kapsula Bowman. Hasil filtrasi ini disebut filtrat glomerulus atau urin primer. Filtrat ini akan dipindahkan melalui tubulus kontortus proksimal, lengkung Henle, tubulus kontortus distal, kemudian menuju tubulus pengumpul.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-25",
+"src": "bio11",
+"h": "Penyerapan Kembali (Reabsorpsi)",
+"t": "Ketika filtrat dipindahkan, darah di arteriol eferen glomerulus menjadi sangat pekat. Hal tersebut terjadi karena hilangnya begitu banyak air. Selain itu, filtrasi mengandung substansi-substansi besar yang tidak dapat melewati dinding kapiler glomerulus, seperti sel darah, protein-protein besar, dan kepingan-kepingan lemak. Sementara itu, urin primer yang dihasilkan dari kapsula Bowman, memasuki tubulus kontortus proksimal. Di titik pertautan antara kapiler-kapiler yang melingkupi tubulus, diserap glukosa dan asam amino serta ion Na+. Urin primer yang memasuki lengkung Henle telah lebih isotonik dengan darah di kapiler. Pada lengkung Henle terjadi penyerapan garam NaCl dan air. Penyerapan berlanjut di tubulus kontortus distal. Di sini terjadi penyerapan urea, kreatinin, bahan obat-obatan, H+, dan NH4–. Sementara itu, garam NaCl dan air serta ion HCO3– kembali diserap. Urin yang dihasilkan dari tubulus kontortus distal, disebut urin sekunder. Hasil reabsorpsi ini mengandung air, garam, urea, dan pigmen empedu yang memberikan bau dan warna pada urin.",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "bio11-26",
+"src": "bio11",
+"h": "Pengumpulan (Augmentasi)",
+"t": "Urin sekunder dari tubulus kontortus distal akan memasuki tubulus pengumpul. Di tubulus ini, masih terjadi penyerapan kembali air, garam NaCl, dan urea sehingga terbentuk urin yang harus dibuang dari tubuh. Dari tubulus pengumpul, urin memasuki pelvis renalis, lalu mengalir menuju ureter menuju kandung kemih (vesika urinaria). Ketika kandung kemih penuh, orang akan merasakan keinginan untuk buang air kecil. Beberapa hal yang memengaruhi volume urin, di antaranya zat-zat diuretik, suhu, konsentrasi darah, dan emosi. Jika sering mengonsumsi kopi dan teh, zat diuretik (kafein) yang dikandungnya akan menghambat reabsorpsi air sehingga volume urin meningkat. Pada saat terjadi peningkatan suhu, kapiler di kulit melebar dan air berdifusi keluar serta kelenjar keringat menjadi aktif. Saat volume air turun, penyerapan air di ginjal berkurang sehingga volume urin menurun. Begitu pula halnya ketika konsentrasi darah meningkat, atau ketika darah menjadi lebih cair karena banyak mengonsumsi cairan. Tabel. Proses Pembentukan urine No",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "bio11-27",
+"src": "bio11",
+"h": "Pengumpulan (Augmentasi)",
+"t": "Proses Tekanan darah akan mendorong molekul kecil dari glomerolus bergerak menuju kapsul glomerolus Difusi dan transpor aktif mengembalikan molekul ke dalam darah pada tubulus kontortus proksimal Transpor aktif akan memindahkan molekul dari darah ke dalam tubulus kontortus distal Sepanjang struktur nefron dan lengkung henle serta tubulus pengumpul, air akan bergerak kembali dengan adanya osmosis yang diikuti dengan reabsorbsi aktif sejumlah garam mineral Pembentukan urine dan pembuangan zat sisa metabolik dari tubuh",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-28",
+"src": "bio11",
+"h": "",
+"t": "Contoh Molekul Air, glukosa, asam amino, urea, asam ureat, dan kreatinin Air, glukosa, asam amino, dan garam Asam urat, kreatinin, ion hidrogen, amonia, dan penisilin Garam dan air Air, garam, urea, asam urat, amonium, dan kreatinin Komposisi urin yang normal bervariasi serta bergantung pada beberapa faktor, misalnya makanan kaya protein akan menghasilkan lebih banyak urea di dalam urin. Hal itu terjadi karena adanya deaminasi protein di hati pada pembentukan urea berikutnya. Bahkan setelah makan, gula dapat muncul pada urin orang yang normal. Jika kondisi lainnya konstan, maka asupan makanan yang kaya cairan dapat meningkatkan volume air dalam darah sehingga akan lebih banyak urin yang diekskresikan. Kondisi ini juga terjadi dalam cuaca dingin ketika ekskresi keringat berkurang. Demikian pula jika kamu mengonsumsi makanan asin, maka garamgaram berlebih akan diekskresikan ke dalam urin. Komposisi rata-rata urin untuk orang normal dalam gram per 100 ml dapat dilihat pada tabel berikut.",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "bio11-29",
+"src": "bio11",
+"h": "",
+"t": "Tabel : Komposisi rata-rata urin untuk orang normal Molekul g/100ml Air 96 g Garammineral ( terutama NaCl) 1.8 g Ure 2g Zat nitrogen lain 0,2 9 Molekul-molekul abnormal di dalam urin juga ditemukan pada berbagai kasus penyakit tertentu, misalnya penyakit kecing manis (diabetes melitus). Urin pada penderita penyakit ini masih mengandung glukosa. Hal ini terjadi karena tubuh tidak mampu menyimpan kelebihan glukosa dalam bentuk glikogen. Diabetes melitus terjadi karena ketidakmampuan pankreas untuk menyekresikan hormon insulin. 2.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-30",
+"src": "bio11",
+"h": "",
+"t": "Faktor-Faktor yang Memengaruhi Produksi Urin Jumlah urine yang dikeluarkan oleh kita untuk setiap harinya tidak sama. Banyak sedikitnya urin seseorang yang dikeluarkan dipengaruhi oleh beberapa faktor, antara lain sebagai berikut.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-31",
+"src": "bio11",
+"h": "",
+"t": "Apabila kita banyak minum, maka konsentrasi protein darah akan turun, sehingga tekanan koloid protein juga menurun. Hal ini menyebabkan tekanan filtrasi menjadi kurang efektif.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-32",
+"src": "bio11",
+"h": "Saraf",
+"t": "Rangsangan saraf renalis menyebabkan penyempitan pembuluh darah yang menuju glomelurus, akibatnya air dan darah ke glomelurus berkurang, sehingga tekanan juga menjadi berkurang. Hal ini menyebabkan proses filtrasi menjadi kurang efektif.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-33",
+"src": "bio11",
+"h": "Hormon Antidiuretik (Adh)",
+"t": "ADH adalah hormon yang mempengaruhi penyerapan air oleh dinding tubulus. Hormon inini dihasilkan oleh hipofisis posterior. Apabila kadar ADH dalam darah naik atau berlebih, maka penyerapan air oleh dinding tubulus meningkat. Hal ini menyebabkan jumlah urine yang terbentuk sedikit. sebaliknya apabila kadar ADH dalam darah turun atau berkurang, maka penyerapan air oleh dinding tubulus menurun. Hal ini menyebabkan jumlah urine yang terbentuk banyak.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-35",
+"src": "bio11",
+"h": "Penyakit Diabetes Melitus",
+"t": "Seseorang yang menderita penyakit diabetes melitus (kencing manis), pengeluaran glukosa diikuti pula oleh kenaikan volme urine.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-36",
+"src": "bio11",
+"h": "Suhu",
+"t": "Jika suhu internal dan eksternal naik di atas normal, maka kecepatan respirasi meningkat. Ini menyebabkan pembuluh kutaneus melebar sehingga cairan tubuh berdifusi dari kapiler ke permukaan kulit. Saat volume air dalam tubuh menurun, ADH disekresikan sehingga reabsorpsi air meningkat. Di samping itu, peningkatan suhu merangsang pembuluh abdominal mengerut sehingga aliran darah di glomelurus dan filtasi turun. Meningkatnya reabsorpsi dan berkurangnya aliran darah di glomelurus mengurangi volume urin. Itulah sebabnya jika cuaca panas, kita jarang buang air.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-37",
+"src": "bio11",
+"h": "Rangkuman",
+"t": "1. Di dalam ginjal terjadi serangkaian proses pembentukan urin, yaitu filtrasi (penyaringan), reabsorbsi (penyerapan kembali), dan augmentasi (pengeluaran). 2. Faktor-faktor yang mempengaruhi proses pengeluaran urin yaitu jumlah air yang dimunum, saraf, Hormon antidiuretik (ADH), Kadar garam, Penyakit Diabetes mellitus, dan suhu. 2. Salah satu fungsi ginjal adalah menyaring darah.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-39",
+"src": "bio11",
+"h": "",
+"t": "3. Perhatikan gambar dibawah ini ! Bila organ tersebut menjalankan fungsinya sebagai organ ekskresi, maka bagian tersebut melaksanakan prosesnya secara berurutan…",
+"o": []
+},
+{
+"id": "bio11-40",
+"src": "bio11",
+"h": "",
+"t": "4. Perhatikan gambar nefron dibawah ini ! Proses yang terjadi pada X adalah…",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-41",
+"src": "bio11",
+"h": "Pengikatan Ion-Ion Dan Bahan Beracun Dalam Tubuh",
+"t": "D. Pembentukan urine primer yang siap diekresikan ke luar tubuh",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-43",
+"src": "bio11",
+"h": "Urin Sekunder Yang Akan Ditampung",
+"t": "𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑃𝑒𝑟𝑜𝑙𝑒ℎ𝑎𝑛 𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑀𝑎𝑘𝑠𝑖𝑚𝑢𝑚 Konversi tingkat penguasaan: 90 - 100% = baik sekali 80 - 89% = baik 70 - 79% = cukup < 70% = kurang Apabila mencapai tingkat penguasaan 80% atau lebih, Anda dapat meneruskan dengan Kegiatan Belajar 3. Bagus! Jika masih di bawah 80%, Anda harus mengulangi materi Kegiatan Belajar 2, terutama bagian yang belum dikuasai.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-44",
+"src": "bio11",
+"h": "Tujuan Pembelajaran",
+"t": "Setelah kegiatan pembelajaran 3 ini diharapkan peserta didik mampu menganalisis pengaruh pola hidup terhadap kelainan pada struktur dan fungsi organ yang menyebabkan gangguan pada sistem ekskresi serta kaitannya dengan teknologi. B.",
+"o": []
+},
+{
+"id": "bio11-45",
+"src": "bio11",
+"h": "Gangguan Sistem Ekskresi Pada Manusia",
+"t": "Ada beberapa penyakit yang disebabkan karena terganggunya fungsi ginjal. Infeksi yang paling umum terjadi disebabkan oleh peradangan pada ginjal, gangguan aliran urin, atau kurangnya jumlah darah yang mengalir menuju ginjal. Beberapa gangguan dan kelaian pada ginjal yang disebabkan oleh beberapa faktor antara lain, serangan bakteri, tumor, abnormalitas bentukginjal, atau bembentukan batu ginjal. Hal yang paling sering diderita oleh beberapa orang yang berada di sekitar kita yaitu diabetes. Diabetes merupakan penyakit yang dialami oleh sistem ekskresi. Selain diabetes, terdapat beberapa gangguan yang dialami oleh sistem ekskresi manusia, antara lain: Tabel. Kelainan pada Sistem Ekskresi Manusia No Nama Penyakit Proses Diabetes Penyakit pilulusan (banyak kencing), terjadi akibat Insipidus kekurangan hormon antidiuretik (ADH) sehingga jumlah urine dapat meningkat 20 sampai 30 kali lipat jumlah urin Diabetes Mellitus Penyakit yang ditandai dengan tingginya kadar glukosa dalam darah sehingga urine yang dihasilkan masih mengandung glukosa. Kadar gula darah yang tinggi disebabkan kekurangan hormon insulin",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-46",
+"src": "bio11",
+"h": "Gangguan Sistem Ekskresi Pada Manusia",
+"t": "Penyakit yang disebabkan oleh penimbunan air diruang antar seluler Penyakit yang ditandai dengan adanya protein dan albumin dalam urine. Terjadinya albuminaria menunjukkan terjadinya keursakan pada alat filtrasi dalam darah. Penyakit yang disebabkan oleh infeksi pada nefron Kondisi urine yang sangat encer dan berjumlah banyak karena kegagalan nefron untuk mengadakan reabsorbsi. Kondisi urin yang sangat encer dan berjumlah banyak karena kegagalan nefron untuk mengadakan reabsorbsi Suatu endapan garam kalsium di dalam rongga ginjal, saluran ginjal, atau kandung kemih. Kegagalan ginjal dalam menjalankan fungsinya.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-47",
+"src": "bio11",
+"h": "Hemodialisis (Cuci Darah)",
+"t": "Ada beberapa penyakit yang disebabkan karena terganggunya fungsi ginjal. Infeksi yang paling umum terjadi disebabkan oleh peradangan pada ginjal, gangguan aliran urin, atau kurangnya jumlah darah yang mengalir menuju ginjal. Berbagai kelainan tersebut tentunya dapat mengurangi efiseiensi fungsi ginjal dan dapat menyebabkan gagal ginjal. Jika hal ini terjadi, tentunya urea dan zat toksik lain yang terakumulasi dalam darah akan berbahaya bagi tubuh dan dapat berujung pada kematian. Pada kasus yang lebih serius, penggunaan mesin ginjal buatan (mesin dialisis atau cuci darah) dapat digunakan untuk membersihkan darah. Mesin ginjal buatan ini bekerja dengan prinsip dialisis, sama seperti pada proses yang terjadi pada ginjal. dialisis adalah proses pemisahan molekul kecil dari molekul yang lebih besar dengan menggunakan membran semi permeable.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-48",
+"src": "bio11",
+"h": "Hemodialisis (Cuci Darah)",
+"t": "Mesin ginjal menerima darah lewat saluran yang dihubungkan ke pembuluh arteri di lengan. Di dalam mesin, darah mengalir melalui saluran dialisis yang terbuat dari bahan selulosa (semipermeable). Saluran ini akan melakukan molekul kecil, termasuk urea untuk melewati membrane. Darah ‘bersih’ akan mengalir kembali ke tubuh pasien lewat saluran yang dihibungkan ke pembuluh vena pada lengan yang sama. Cairan pada saliran dialisis ini dikondisikan serupa dengan plasma darah (larutan dialisis), kecuali beberapa zat sisa yang hanya sedikit dijumpai di dalam plasma. Dengan demikian, zat sisa yang memang sudah tidak berguna lagi akan didifusikan ke luar darah dan dibawa keluar dari tubuh dengan mesin ini. b.",
+"o": [
+"ginjal",
+"paru"
+]
+},
+{
+"id": "bio11-49",
+"src": "bio11",
+"h": "",
+"t": "Transplantasi ginjal Terapi penggantian ginjal pasien, dengan ginjal lain yang berasal dari orang yang hidup atau yang sudah meninggal. ESWL (Extracorporeal Shock Wave Lithotripsy). Penghancuran batu saluran kemih dengan menggunakan gelombang kejut yang ditransmisikan dari luar tubuh. Skin grafting (cangkok kulit) Skin grafting (cangkok kulit) merupakanTindakan memindahkan sebagian atau seluruh ketebalan kulit dari donor ke resipien yang membutuhkan. Cangkok kulit bertujuan untuk penanganan luka bakar yang parah, dengan area luka yang luas.",
+"o": [
+"ginjal",
+"kulit"
+]
+},
+{
+"id": "bio11-50",
+"src": "bio11",
+"h": "",
+"t": "1. Gangguan sistem ekskresi, antara lain diabetes insipidus, diabetes mellitus, edema, albuminaria, nefritis, ureamia, poliuria, batu ginjal, gagal ginjal. 2. Teknologi sistem eksresi yaitu hemodialisis, transplantasi ginjal, ESWL (Extracorporeal Shock Wave Lithotripsy), Skin grafting (cangkok kulit). 1. Buatlah sebuah poster mengenai cara menjaga ginjal agar tetap sehat.",
+"o": [
+"ginjal",
+"hati",
+"kulit"
+]
+},
+{
+"id": "bio11-52",
+"src": "bio11",
+"h": "",
+"t": "2. Siswa kelas XI melakukan uji kandungan urine. Ketika urine tersebut diberi larutan biuret maka urine tersebut berubah menjadi warna ungu. Berdasarkan pengamatan dapat disimpulkan bahwa urine tersebut mengandung senyawa protein dalam jumlah yang tidak normal. Hal tersebut diakibatkan karena terjadi gangguan pada proses…",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-54",
+"src": "bio11",
+"h": "Terapi Penggantian Ginjal Pasien",
+"t": "B. Penghancuran batu saluran kemih dengan menggunakan gelombang kejut C. Proses pembersihan darah dari zat sisa metabolisme melalui proses penyaringan di luar tubuh D. Tindakan memindahkan sebagian atau seluruh ketebalan kulit dari donor ke resipien atau orang lain E. Teknik mengetahui struktur internal, mendiagnosis adanya gumpalan darah pada ginjal. 5. Ibu Ayu melakukan pemeriksaan untuk mengetahui penyakit yang dialami. Ibu ayu sering mengalami Nyeri punggung, samping, atau pangkal paha, sering buang air kecil dan ada darah pada urine dan dokter menyarankan untuk terapi ginjal. Berdasarkan diagnosis tersebut teknologi yang tepat untuk mengatasi gangguan pada sistem ekskresi yang dialami ibu ayu adalah…",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "bio11-55",
+"src": "bio11",
+"h": "",
+"t": "Pedoman Penskoran Cocokkanlah jawaban Anda dengan Kunci Jawaban yang terdapat di bagian akhir soal ini. Hitunglah jawaban yang benar. Kemudian, gunakan rumus berikut untuk mengetahui tingkat penguasaan Anda terhadap materi Kegiatan Belajar 3. Nilai = 𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑃𝑒𝑟𝑜𝑙𝑒ℎ𝑎𝑛 x 100 % 𝐽𝑢𝑚𝑙𝑎ℎ 𝑆𝑘𝑜𝑟 𝑀𝑎𝑘𝑠𝑖𝑚𝑢𝑚 Konversi tingkat penguasaan: 90 - 100% = baik sekali 80 - 89% = baik 70 - 79% = cukup < 70% = kurang Apabila mencapai tingkat penguasaan 80% atau lebih, Anda dapat meneruskan dengan Kegiatan Belajar selanjutnya. Bagus! Jika masih di bawah 80%, Anda harus mengulangi materi Kegiatan Belajar 3, terutama bagian yang belum dikuasai.",
+"o": []
+},
+{
+"id": "ipa8-0",
+"src": "ipa8",
+"h": "Sistem Ekskresi/",
+"t": "Pembuangan Dari beberapa subbab pembahasan sebelumnya kita telah mempelajari tentang makanan, sistem pencernaan, sistem peredaran darah, dan sistem respirasi. Di subbab ini kita akan mempelajari bagaimana sampah-sampah sisa hasil metabolisme tubuh itu dibuang, bagaimana sistem ekskresi memelihara tubuh kalian supaya tetap sehat dengan menghilangkan racun-racun tersebut, dan juga bagaimana sistem ekskresi mampu menjaga keseimbangan tubuh bagian dalam dengan kondisi luar. Ayo kita pelajari dengan semangat!",
+"o": []
+},
+{
+"id": "ipa8-1",
+"src": "ipa8",
+"h": "Fungsi Dan Peranan Sistem Ekskresi",
+"t": "Bayangkan jika di rumah kalian, barang-barang begitu berantakan, rumah tidak disapu, kertas-kertas berserakan, debu menumpuk, serta sampah sejak dua minggu kemarin tidak dibuang. Sampah yang tidak dibuang dan debu-debu yang menumpuk tentu akan menimbulkan penyakit. Sampah sisa metabolisme jika tidak dibersihkan akan menjadi racun dan membuat kalian sakit. Oleh sebab itu tubuh kalian perlu membuang sampah sisa-sisa metabolisme tersebut. Proses untuk membuang sampah-sampah hasil metabolisme ini disebut ekskresi. Sistem di dalam tubuh manusia yang berperan untuk membersihkan sampah-sampah hasil metabolisme melakukannya disebut sistem ekskresi atau pembuangan.",
+"o": []
+},
+{
+"id": "ipa8-2",
+"src": "ipa8",
+"h": "Fungsi Dan Peranan Sistem Ekskresi",
+"t": "Sistem ekskresi manusia terdiri dari ginjal, paruparu, kulit, dan liver atau hati. Dua sampah yang harus dikeluarkan dari tubuh kalian adalah sisa air dan urea. Urea adalah zat kimia sisa hasil pemecahan protein. Sementara sisa air yang dikeluarkan adalah berupa urine yang mengandung urea dan sisa metabolisme lainnya. Ayo Latihan Aktivitas 2.12 Ayo kita analisis data! Kandungan Urin dalam Kondisi Normal Bahan Padatan di dalam Urin yang normal Bahan padat 5,0% Urea 45,0% Air 95,0%",
+"o": [
+"ginjal",
+"hati",
+"paru"
+]
+},
+{
+"id": "ipa8-3",
+"src": "ipa8",
+"h": "",
+"t": "Urin terbuat dari air, bahan padatan organik, dan bahan padatan anorganik. Bahan padatan organik terdiri dari urea dan asam urea. Bahan padatan anorganik terdiri dari garam dan mineral. Bahan padatan ini larut di dalam air. Menghitung 1. Hitung dan beri label pada grafik “Kandungan Urin dalam Kondisi Normal.",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "ipa8-4",
+"src": "ipa8",
+"h": "Struktur Dan Organ Sistem Ekskresi",
+"t": "Ginjal, paru-paru, kulit, dan liver adalah organorgan yang berperan dalam sistem ekskresi manusia. Ekskresi membantu menjaga homeostasis di dalam tubuh manusia. Homeostasis adalah mekanisme tubuh untuk mempertahankan keseimbangan antara kondisi dalam tubuh dengan kondisi luar tubuh, agar tubuh berfungsi dengan normal. Kita akan bahas satu persatu organ-organ tersebut",
+"o": [
+"ginjal",
+"kulit",
+"paru"
+]
+},
+{
+"id": "ipa8-5",
+"src": "ipa8",
+"h": "Ginjal",
+"t": "Kita memiliki dua buah ginjal kiri dan kanan. Ginjal berfungsi untuk menyaring darah dengan cara membuang urea dan sampah metabolisme dari dalam darah dan mempertahankan zat-zat yang masih dibutuhkan oleh tubuh. Sampah-sampah atau zat sisa ini dibuang melalui urin. Urin mengalir dari ginjal menuju saluran yang bernama ureter. Ureter membawa urin dan menyimpannya di kandung kemih, sampai saatnya urin dilepaskan melalui uretra. Lihat Gambar 2.39 mengenai organ-organ yang membuang urin dari dalam tubuh.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "ipa8-6",
+"src": "ipa8",
+"h": "Ginjal",
+"t": "Selain menyaring darah, ginjal juga berperan untuk mengatur banyaknya air dalam tubuh kalian. Hal ini diperlukan agar kondisi tubuh bagian dalam kalian seimbang atau disebut homeostasis. Urin yang terbentuk pun membutuhkan air. Tubuh memiliki cara untuk menjaga jumlah air agar seimbang. Di hari yang panas, ketika tubuh kalian berkeringat dan kalian tidak banyak minum, maka urin kalian akan sedikit dan sangat pekat. Sementara di hari yang dingin, kalian akan sering buang air kecil dengan volume urin yang cukup banyak.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "ipa8-7",
+"src": "ipa8",
+"h": "Paru-Paru, Kulit Dan Hati",
+"t": "Paru-paru turut berperan dalam sistem ekskresi dengan cara melepaskan karbon dioksida dan air ketika kalian bernapas. Kelenjar keringat di kulit kalian melepaskan keringat yang terdiri dari air dan sedikit urea. Hati, membuat urea yang berasal dari pemecahan protein. Hati juga berperan untuk memecah banyak sampah metabolisme menjadi bentuk yang bisa dibuang oleh tubuh. Sebagai contoh, hati memecah sel darah merah yang sudah tua agar dapat membentuk sel darah merah yang baru.",
+"o": [
+"hati",
+"kulit",
+"paru"
+]
+},
+{
+"id": "ipa8-9",
+"src": "ipa8",
+"h": "Paru-Paru, Kulit Dan Hati",
+"t": "Gunakan tabel di bawah ini untuk menjawab pertanyaan no 6. Rata-Rata Air Yang Hilang Perharinya Di Dalam Tubuh Manusia (milliliter) Cuaca Normal 6. Berapakah total air yang hilang saat cuaca panas dan saat berolahraga berat? Fakta Sains Sistem pernapasan dan sistem ekskresi manusia memiliki banyak fakta menarik. 1. Kalian akan kehilangan air sebanyak 17,5 mililiter per jam nya, ketika menghembuskan napas. 2. Beberapa orang mampu menahan napas hingga 20 menit, sementara rata-rata orang dewasa mampu menahan napas selama 30-60 detik. 3. Paru-paru adalah satu-satunya organ yang mampu mengambang di dalam air. 4. Rata-rata kecepatan bersin seseorang adalah 63 km/jam. 5. Rongga dada membesar dan menyempit saat menghirup dan membuang napas bukan disebabkan oleh pergerakan udara, namun disebabkan oleh kontraksi dan relaksasi diafragma. 6. Kandung kemih manusia mampu menampung 400 ml urin. 7. Urin mampu bertahan di kandung kemih hampir selama 5 jam sebelum dibuang. 8. Jika salah satu ginjal rusak, ginjal yang lainnya mampu memperbesar ukuran hingga 50% dalam waktu dua bulan untuk menggantikan fungsi ginjal yang rusak.",
+"o": [
+"ginjal",
+"hati",
+"kulit",
+"paru"
+]
+},
+{
+"id": "ipa8-10",
+"src": "ipa8",
+"h": "",
+"t": "Review Bab Manusia terserang berbagai macam penyakit karena pola hidup yang tidak sehat. Makan sembarangan, tidur yang tidak cukup, malas berolahraga, dan merokok, menjadi penyebab mereka terkena penyakit-penyakit itu. Sebagai seorang yang telah belajar mengenai pola makan dan hidup yang sehat, bantulah orang-orang yang menderita penyakit di bawah ini, dengan memberikan panduan hidup sehat termasuk pola makan, tipe olahraga, ataupun aktivitas untuk mereka. Instruksi: Pilihlah satu penyakit di bawah ini • • • • • • •",
+"o": []
+},
+{
+"id": "ipa8-11",
+"src": "ipa8",
+"h": "",
+"t": "Diabetes tipe 1 atau tipe 2 Obesitas Batu empedu Aterosklerosis Stroke Darah tinggi GERD/ maag Produk bisa berupa buku panduan hidup sehat, esai, poster, ataupun infografik. Di dalam produk tersebut harus berisi",
+"o": [
+"hati"
+]
+},
+{
+"id": "ipa7-0",
+"src": "ipa7",
+"h": "Makhluk Hidup Dapat Bernapas",
+"t": "Hewan memerlukan oksigen untuk bernapas (respirasi). Oksigen yang dihirup oleh hewan digunakan untuk mengoksidasi (membakar) zat makanan di dalam sel sehingga dihasilkan energi. Zat sisa dari proses oksidasi ini adalah karbon dioksida dan uap air. Sama halnya dengan hewan, tumbuhan juga memerlukan oksigen untuk proses oksidasi zat makanan dan menghasilkan zat sisa yang sama yaitu karbon dioksida dan uap air. Selain itu, tumbuhan mengikat karbon dioksida yang digunakan untuk proses fotosintesis. Jadi, tumbuhan sedikit berbeda dengan hewan karena menggunakan gas oksigen dan karbon dioksida seperti yang terlihat pada Siklus Udara Tumbuhan hijau berfotosintesis mengeluarkan O2",
+"o": [
+"paru"
+]
+},
+{
+"id": "ipa7-1",
+"src": "ipa7",
+"h": "Makhluk Hidup Dapat Bernapas",
+"t": "Udara diperlukan makhluk hidup untuk bernapas. Penggunaan oksigen dan karbon dioksida oleh makhluk hidup.",
+"o": [
+"paru"
+]
+},
+{
+"id": "ipa7-2",
+"src": "ipa7",
+"h": "Makhluk Hidup Menghasilkan Zat Sisa",
+"t": "Terdapat banyak sekali proses biokimiawi di dalam tubuh makhluk hidup. Selain menghasilkan produk yang berguna, reaksi ini juga menghasilkan zat sisa yang bersifat racun bagi tubuh sehingga harus dikeluarkan dari tubuh makhluk hidup. Proses pengeluaran zat sisa metabolisme ini disebut dengan ekskresi. Manusia menghasilkan zat sisa karbon dioksida dan uap air dari proses respirasi seluler dan mengeluarkannya melalui proses bernapas seperti pada Gambar 5.8. Kita juga mengeluarkan zat sisa lainnya dari tubuh dengan cara berkeringat dan mengeluarkan urine. Adapun tumbuhan menggunakan daun untuk mengeluarkan gas karbon dioksida yang merupakan zat sisa respirasi sel.",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-2",
+"src": "tinjauan",
+"h": "",
+"t": "Penelitian ketiga dengan judul “Rancang Bangun Media Pembelajaran Berbasis Augmented Reality pada Materi Sistem Pernapasan Mata Pelajaran Biologi Kelas XI MIPA Tingkat SMA” dilakukan oleh (Oktrilani dkk., 2023). Peneliti mengidentifikasi adanya hambatan dalam pembelajaran materi sistem pernapasan, khususnya karena keterbatasan alat peraga yang memungkinkan siswa mengamati organ-organ pernapasan secara langsung. Sebagai solusi, peneliti mengembangkan aplikasi berbasis AR dengan metode Markerless Tracking yang menampilkan model 3D organ pernapasan, yakni paru-paru, sehingga siswa dapat berinteraksi secara visual. Pembuatan model dilakukan menggunakan software Blender, sementara pengembangan aplikasi memanfaatkan Unity dan Visual Studio Code dengan pemrograman berbasis C#. Desain antarmuka aplikasi dibuat menggunakan Paint Tool SAI. Aplikasi ini terdiri dari empat menu utama: “Mulai AR” untuk menampilkan objek 3D, “Materi” yang berisi file Materi sistem pernapasan, “KD dan RPP” untuk menyajikan dokumen kurikulum dan rencana pembelajaran, serta “Kuis” untuk mengevaluasi pemahaman siswa. Penelitian keempat dengan judul “Pemanfaatan Aplikasi Augmented Reality Untuk Pembelajaran Organ Tubuh Manusia Di Sekolah Dasar” dilakukan oleh (Hernanda dan Aji, 2024).",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-4",
+"src": "tinjauan",
+"h": "",
+"t": "Penelitian menggunakan metode UML, pembuatan objek 3D menggunakan Blender, serta pembuatan aplikasi menggunakan Unity3D. Aplikasi ini menggunakan Augmented Reality dengan metode Markerbase Tracking di mana user harus mengunduh aplikasi terlebih dahulu lalu mengunduh marker yang ada pada menu “Marker” baru nantinya user dapat menampilkan objek ketika melakukan scan. Penelitian yang dilakukan oleh Made Adhitya Dwipayana dengan judul “Implementasi Augmented Reality Sebagai Media Pembelajaran Sistem Ekskresi di SMP Negeri 1 Bangli”. Penelitian ini dilakukan setelah melakukan wawancara dengan salah satu guru mata pelajaran IPA di SMP Negeri 1 Bangli yaitu Ibu Dra. Ni Wayan Kari, bahwa terdapat kendala di beberapa materi pembelajaran IPA yang banyak menjelaskan tentang organ tubuh bagian dalam. Hal ini dikarenakan tidak tersedianya alat peraga sehingga siswa hanya memperlajarinya dari buku paket dan juga video dari internet. Oleh karena itu, peneliti merancang sebuah aplikasi berbasis Augmented Reality dengan metode",
+"o": []
+},
+{
+"id": "tinjauan-5",
+"src": "tinjauan",
+"h": "",
+"t": "Markerless Tracking yang dapat menampilkan objek 3D terkait materi sistem ekskresi sehingga siswa dapat berinteraksi dengan objek tersebut. Perbedaan penelitian ini dengan penelitian sebelumnya yaitu dengan adanya animasi yang disajikan sehingga siswa tidak hanya berinteraksi dengan objek tetapi juga dapat melihat bangaimana proses ekskresi yang terjadi. Adapun perbandingan dari penelitian sebelumnya dengan penelitian dengan penelitian saat ini disajikan pada tabel 2.1 berikut ini: Penerapan Augmented Reality dengan Markerless Pada Aplikasi Pengenalan Jenis Hewan Herbivora, Karnivora, dan Omnivora",
+"o": []
+},
+{
+"id": "tinjauan-7",
+"src": "tinjauan",
+"h": "",
+"t": "Tingkat SMA Pemasangan Sistem Baliho Pernapasan 2023 Blackbox dan kuesioner Hasil dari penelitian ini adalah sebuah aplikasi yang dapat memproyeksikan objek berupa baliho dengan berbagai ukuran yang tersedia yang dapat dipilih oleh user sehingga dapat memperkirakan tempat dan ukuran baliho yang sesuai. Blackbox dan kuesioner Hasil dari penelitian ini adalah aplikasi yang menampilkan objek organ paru-paru yang dapat diajak interaksi, selain itu juga terdapat menu “Materi” dan menu “KD dan RPP” untuk menampilkan materi serta menu “Kuis” untuk mengevaluasi pemahaman siswa.",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-8",
+"src": "tinjauan",
+"h": "",
+"t": "Pemanfaatan Aplikasi Augmented Reality Untuk Pembelajaran Organ Tubuh Manusia Di Sekolah Dasar Objek Penelitian Tahun Penelitian Metode Penelitian Tabel 2. 1 Tabel Perbandingan Penelitian Penelitian Penelitian V. Penelitian VI (Irfannudin dan Made Adhitya Zakariyah, Dwipayana 2024) Aplikasi Implementasi Augmented Augmented Reality Reality Sebagai Pengenalan Media Sistem Pembelajaran Musculoskeletal Sistem Ekskresi pada Tubuh Manusia di SMP Manusia Negeri 1 Bangli Berbasis Android Sistem Musculoskeletal 2024 2025 Penelitian ini menghasilkan aplikasi AR dengan metode Markerbase Tracking yang di mana ketika kamera diarahkan pada QR Code yang sudah disediakan maka akan menampilkan objek 3D.",
+"o": []
+},
+{
+"id": "tinjauan-13",
+"src": "tinjauan",
+"h": "",
+"t": "Sistem Ekskresi Manusia Makhluk hidup adalah sesuatu yang dapat melakukan metabolisme, dapat melakukan gerak, dapat tumbuh, dapat bereproduksi, dan responsif (Shodiqin, 2022). Selama menjalani kehidupan, makhluk hidup melakukan aktivitas atau kegiatan yang dapat dilihat secara langsung dengan mata seperti bergerak maupun secara tidak langsung seperti kerja sistem organ pada makhluk hidup. Pada manusia, terdapat beberapa mekanisme biologis dalam tubuh yang selalu bekerja untuk dapat menghasilkan zat-zat atau kebutuhan tubuh kita seperti sistem pernapasan, pencernaan, peredaran darah, dan yang lainnya. Proses-proses tersebut tidak hanya menghasilkan zat yang diperlukan, tetapi juga menghasilkan zat sisa yang tidak diperlukan oleh tubuh, proses ini lah yang disebut dengan sistem ekskresi (Legiawan dan Agustina, 2021). Terdapat beberapa organ penting yang bertanggung jawab pada sistem ekskresi yaitu kulit, ginjal, paru-paru, dan hati atau liver. 2.4.1",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-14",
+"src": "tinjauan",
+"h": "",
+"t": "Kulit Kulit sebagai organ terbesar di tubuh manusia memiliki fungsi sebagai pelindung antara tubuh dengan lingkungan yang terdiri dari lapisan epidermis, dermis dan endodermis (Inayah Fitri Wulandari dkk., 2022). Pada sistem ekskresi, kulit sebagai salah satu organ berfungsi untuk mengeluarkan zat sisa tubuh berupa keringat. Detail struktur kulit dapat dilihat pada gambar 2.2 berikut ini: Berdasarkan gambar di atas, terdapat beberapa struktur yang lebih terperinci pada lapisan kulit manusia yang dapat dijelaskan sebagai berikut:",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-15",
+"src": "tinjauan",
+"h": "Epidermis",
+"t": "Epidermis atau yang biasa dikenal dengan Kulit Ari merupakan bagian atau lapisan kulit terluar namun tipis (Inayah Fitri Wulandari dkk., 2022). Bagian kulit ini merupakan pelindung tubuh pertama terhadap hal-hal dari luar tubuh seperti melindungi dari sinar UV, zat kimia, bakteri, virus, maupun jamur oleh karena itu kulit ari juga sering melakukan regenerasi dengan menghasilkan kulit ari baru.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-16",
+"src": "tinjauan",
+"h": "Dermis",
+"t": "Lapisan selanjutnya adalah dermis atau kulit jangat, lapisan ini lebih tebal dari pada lapisan epidermis sebelumnya. Pada lapisan dermis terdapat serabut yang memungkinkan kulit merenggang jika seseorang mengalami penambahan atau pengurangan berat badan (Hajar dkk., 2023). Pada lapisan ini terdapat beberapa bagian, diantaranya:",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-17",
+"src": "tinjauan",
+"h": "Kelenjar Minyak (Grandula Sebaceae)",
+"t": "Kelenjar ini akan menghasilkan minyak yang berfungsi untuk menjaga kelembaban kulit sehingga kulit tidak kering dan mengkerut.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-18",
+"src": "tinjauan",
+"h": "Kelenjar Keringat (Glandula Sudorifera)",
+"t": "Kelenjar ini berfungsi untuk menghasilkan keringat melalui pori-pori kulit. Keringat merupakan proses biologis penyerapan air dan elektrolit dari darah. Terjadinya keringat dapat disebabkan beberapa faktor seperti ketika suhu tubuh mulai panas, setres, dan aktifitas fisik. Keringat yang keluar juga berfungsi untuk mendinginkan suhu tubuh agar kembali ke suhu normal.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-19",
+"src": "tinjauan",
+"h": "",
+"t": "Berfungsi untuk menyalurkan nutrisi dan oksigen sehingga kulit tetap sehat.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-22",
+"src": "tinjauan",
+"h": "Ujung Saraf Sensorik",
+"t": "Mendeteksi sentuhan, tekanan, panas, dingin, dan nyeri. Hal ini yang membuat kulit menjadi organ sensorik penting.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-23",
+"src": "tinjauan",
+"h": "Hipodermis",
+"t": "Bagian terkahir atau terdalam dari kulit adalah hipodermis atau subkutan atau subkutis. Pada lapisan ini tersusun atas sel lemak, jaringan ikat, pembuluh darah, dan saraf (Hajar dkk., 2023). Pada lapisan ini terdapat beberapa bagian, diantaranya: a. Sel Lemak Berfungsi untuk menyimpan energi dalam bentuk lemak, membantu menjaga suhu tubuh atau mengisolasi panas tubuh dan juga untuk melindungi organ dalam dari benturan dan tekanan.",
+"o": [
+"kulit"
+]
+},
+{
+"id": "tinjauan-24",
+"src": "tinjauan",
+"h": "",
+"t": "Menempelkan kulit ke otot dan tulang di bawahnya serta memberikan fleksibilitas saat bergerak. 2.4.2 Paru-Paru Paru-paru merupakan organ yang berperan dalam sistem pernapasan dan juga pada sistem ekskresi. Organ ini bekerja sebagai tempat pertukan O2 dan CO2 sehingga makhluk hidup seperti manusia dapat bertahan hidup (Nasher dan Aditya, 2022). Pada sistem ekskresi, paru-paru menghasilkan zat sisa metabolisme berupa CO 2 dan uap air. Detail struktur organ paru-paru dapat dilihat pada gambar 2.3 berikut ini:",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-25",
+"src": "tinjauan",
+"h": "",
+"t": "Berdasarkan gambar di atas, terdapat struktur organ pada paru-paru sebagai berikut:",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-27",
+"src": "tinjauan",
+"h": "Bronkus",
+"t": "Bronkus merupakan dua cabang pada paru-paru kiri dan kanan untuk menghubungkan paru-paru drngan trakea. Bronkus tersusun atas tulang rawan sebagai rangka bronkus, lapisan mukosa yang akan menghasilkan lendir untuk menyaring partikel asing, serta otot polos sehingga pernapasan dapat dilakukan secara otomatis.",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-28",
+"src": "tinjauan",
+"h": "Bronkiolus",
+"t": "Merupakan cabang dari bronkus yang mengarah ke alveolus. Pada brokiolus terdapat silia dan terdapat jaringan epitelium berbentuk kubus persilia di ujung bronkiolus.",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-29",
+"src": "tinjauan",
+"h": "Alveolus",
+"t": "Alveolus dilapisi oleh selaput tipis, terdapat banyak kapiler darah yang berfungsi untuk menyerap O 2 dan melepaskan CO2, membran alveolokapiler yang berfungsi sebagai Jalur tipis tempat terjadinya pertukaran gas (Oktrilani dkk., 2023), dan zat zurfaktan yang melapisi alveolus untuk mencegah kolaps dan menjaga kelembapan, serta meningkatkan efisiensi pertukaran gas. Pada alveolus terjadinya proses difusi gas yang merupakan proses pertukan gas dari daerah konsentrasi tinggi ke daerah konsentrasi rendah tampa memerlukan energi. Proses terjadinya pertukaran oksigen dijelaskan sebagai berikut: 1. Manusia menghirup udara (inspirasi) yang nantinya akan melewati organ pernapasan dari hidung, faring, laring, trakea, bronkus, bronkeolus hingga akhirnya sampai ke alveolus. 2. Di alveolus kadar oksigen tinggi sedangkan kadar oksigen pada kapiler darah yang datang dari tubuh rendah dikarenakan proses metabolisme yang menyebabkan gradien konsentrasi oksigen. 3. Selanjutnya terjadi difusi oksigen dari alveolus (konsentrasi tinggi) ke dalam darah kapiler (konsentrasi rendah) melewati membran alveolokapiler. Proses difusi gas di alveolus dapat dilihat pada gambar 2.4 berikut ini:",
+"o": [
+"paru"
+]
+},
+{
+"id": "tinjauan-30",
+"src": "tinjauan",
+"h": "Alveolus",
+"t": "Di dalam eritrosit (sel darah merah), oksigen diikat oleh hemoglobin (Hb) membentuk oksihemoglobin (HbO₂) dan kemudian diedarkan ke seluruh tubuh. Pada saat yang sama, karbon dioksida (CO₂) dari darah berdifusi ke arah berlawanan: dari kapiler ke alveolus lalu dikeluarkan saat menghembuskan napas (ekshalasi). Hati Hati merupakan organ ekskresi yang terletak di bawah tulang rusuk pada rongga perut kanan atas (Shodiqin, 2022). Pada hati terdapat sebuah kantung berwarna hijau yang disebut sebagai kantung empedu yang nantinya cairan empedu yang dihasilkan organ hati akan digunakan pada proses pencernaan. Organ ini merupakan organ terbesar pada tubuh manusia yang memiliki berat sekitar 1.500 gram atau sekitar 2,5% dari total berat badan orang dewasa. Hati",
+"o": [
+"hati",
+"paru"
+]
+},
+{
+"id": "tinjauan-31",
+"src": "tinjauan",
+"h": "",
+"t": "berwarna merah kecoklatan dikarenakan terdapat banyak persediaan darah dan juga hati terlindungi oleh selaput tipis yang disebut kapsula hepatis. Hati berperan besar pada proses ekskresi dan memiliki banyak fungsi diantaranya:",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-32",
+"src": "tinjauan",
+"h": "",
+"t": "Detail struktur organ hati dapat dilihat pada gambar 2.5 berikut ini: Berdasarkan gambar di atas, adapun beberapa bagian organ hati yakni sebagai berikut:",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-33",
+"src": "tinjauan",
+"h": "Lobus (Belahan)",
+"t": "Organ hati terdiri atas dua bagian lobus atau belahan utama yakni lobus kiri dan lobus kanan, namun jika dilihat dari sisi lain organ hati memiliki beberapa bagian sebagai berikut:",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-37",
+"src": "tinjauan",
+"h": "Lobus Kuadrat",
+"t": "Lobus yang berada lebih rendah dari lobus kaudatus atau tepatnya teretak di bagian belakang lobus kanan hingga membungkus empedu",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-38",
+"src": "tinjauan",
+"h": "Jaringan Ikat Pemisah (Ligamen)",
+"t": "Untuk melindungi hati, hati terbungkus oleh lapisan jaringan ikat yang disebut glisson yang kemudian jaringan ikat ini akan berkembang menjadi beberapa ligamen yang berfungsi sebagai pembatas antar lobus. Berikut beberapa jenis ligamen atau jaringan ikat pada organ hati: 4. Falciform ligament Merupakan jaringan ikat atau ligamen yang berbentuk sabit yang menempel pada bagian depan hati yang memisahkan lobus bagian kanan dan lobus kiri. Coronary ligament Merupakan ligamen yang terdapat pada bagian atas hati yang membatasi hati dengan diafragma. Triangular ligament Jaringan ini terbagi menjadi ligamen kanan yang membelah lobus kanan hati, serta ligamen kiri yang membelah lobus kiri hati. Lesser omentum Jaringan ikat atau ligamen yang terdapat pada bagian bawah hati yang membatasi hati dengan lambung dan usus besar.",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-39",
+"src": "tinjauan",
+"h": "Saluran Empedu",
+"t": "Saluran empedu ini berfungsi untuk menghubungkan hati dengan kantong empedu. Sebelum masuk ke kantong empedu, terdapat saluran hepatik kiri dan kanan yang membawa empedu dari lobus kiri dan lobus kanan yang nantinya kedua saluran hepatik tersebut menjadi satu dan mengarahkan seluruh empedu ke kantong empedu.",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-40",
+"src": "tinjauan",
+"h": "Pembuluh Darah",
+"t": "Sama halnya dengan beberapa organ lain, pada organ hati terdapat pembuluh darah sebagai suplai darah dari hati yang disebut sistem vena portal hepatik (Shodiqin, 2022). Terdapat dua sumber darah yang mengalir ke hati yaitu darah kaya oksigen dari pembuluh arteri hati dan darah kaya zat gizi dari pembuluh vena hati. Selain itu, darah yang berasal dari organ lain seperti limpa, pankreas, kantong empedu, dan usus akan berkumpul di dalam vena portal hepatik.",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-41",
+"src": "tinjauan",
+"h": "Proses Detoksifikasi Pada Hati",
+"t": "Detoksifikasi atau proses penetralisiran racun yang dilakukan pada organ hati tepatnya pada sel hati (hepatosit) yang merupakan salah satu proses penting agar zat berbahaya tidak diserap oleh tubuh dan dapat dikeluarkan dari tubuh. Proses ini dapat dijelaskan sebagai berikut:",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-42",
+"src": "tinjauan",
+"h": "Penyaringan Darah",
+"t": "Pada tahap awal darah akan masuk ke organ hati melalui vena porta hepatika, pada tahap ini hati akan menyaring darah dengan mengedintifikasi zat berbahaya yang masuk seperti alkohol, obat, atau sisa metabolisme.",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-43",
+"src": "tinjauan",
+"h": "Fase I Detoksifikasi (Reaksi Kimia)",
+"t": "Pada tahap ini enzim pada organ hati yaitu enzim sitokrom P450 akan mengubah bentuk kimia racun menjadi lebih reaktif. Hal ini dulakukan untuk mempersiapkan racun ke tahap ke II.",
+"o": [
+"hati"
+]
+},
+{
+"id": "tinjauan-45",
+"src": "tinjauan",
+"h": "",
+"t": "Zat-zat yang sudah dinetralisir melalui beberapa tahap di atas akan dikeluarkan pertama melalui empedu yang nantinya menuju usus dan keluar lewat feses dan yang kedua melalui darah yang akan disaring oleh ginjal dan keluarkan lewat urin. 2.4.4 Ginjal Ginjal merupakan sepasang organ yang berfungsi untuk menyaring racun yang masuk ke dalam tubuh manusia sama halnya seperti organ hati (Legiawan dan Agustina, 2021). Ukuran ginjal orang dewasa normal kirakira sebesar kepalan tangan dengan berat kurang lebih 135-170 gram. Selain itu, ginjal juga berperan penting dalam menjaga keseimbangan asam-basa darah, mengatur jumlah cairan dan elektrolit dalam tubuh, menghasilkan sel darah merah, mengendalikan tekanan darah, serta memelihara kekuatan tulang. Detail struktur ginjal dapat dilihat pada gambar 2.6 berikut ini:",
+"o": [
+"ginjal",
+"hati"
+]
+},
+{
+"id": "tinjauan-46",
+"src": "tinjauan",
+"h": "",
+"t": "Berdasarkan gambar di atas, struktur organ ginjal dapat disebutkan dan dijelaskan sebagai berikut:",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-47",
+"src": "tinjauan",
+"h": "Kapsul Fibrous (Kapsula Ginjal)",
+"t": "Merupakan bagian terluar dari ginjal yang melindungi jaringan ginjal dari infeksi atau trauma fisik dan menjaga bentuk ginjal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-48",
+"src": "tinjauan",
+"h": "Korteks Renal",
+"t": "Kortek renal merupakan tahap awal penyaringan darah yang mengandung glomerolus dan sebagian tubulus nefron. Glomerolus merupakan struktur kapiler darah kecil yang berada di dalam nefron yang terletak pada kapsul bowman.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-49",
+"src": "tinjauan",
+"h": "Medula Renal",
+"t": "Tempat proses reabsorpsi dan augmentasi, terdiri dari piramida renal. Reabsorpsi merupakan proses penyerapan kembali zat sisa yang masih berguna dari filtrat urin dalam kapiler darah, zat-zat yang direabsorpsi seperti air, glukosa, asam amino, dan garam mineral (Na+, Cl-, K+, dan lainnya).",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-50",
+"src": "tinjauan",
+"h": "Piramid Renal",
+"t": "Merupakan struktur berbentuk kerucut di dalam medula renal yang berfungsi untuk menampung urin dari nefron dan mengalirkannya ke papila renal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-51",
+"src": "tinjauan",
+"h": "Papila Renal",
+"t": "Merupakan ujung dari setiap piramida renal yang berfungsi untuk mengarahkan urin ke kaliks minor.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-52",
+"src": "tinjauan",
+"h": "Lobus Renal",
+"t": "Unit struktural dari ginjal yang merupakan gabungan dari piramida renal dan jaringan kortek.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-53",
+"src": "tinjauan",
+"h": "Sinus Renal",
+"t": "Merupakan rongga yang terletak di tengah ginjal yang berfungsi untuk menampung struktur penting ginjal seperti kaliks, pelvis renal, pembuluh darah, dan lemak.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-54",
+"src": "tinjauan",
+"h": "Kalikus Minor (Calyx Minor)",
+"t": "Terletak setelah papila renal yang berfungsi untuk menampung urin dari papila dan menyalurkannya ke kalikus mayor.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-55",
+"src": "tinjauan",
+"h": "Kalikus Mayor(Calyx Major)",
+"t": "Setelah kalikus minor terdapat kalikus mayor yang berfungsi untuk menyalurkan urin ke pelvis renal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-56",
+"src": "tinjauan",
+"h": "Pelvis Renal",
+"t": "Pelvis renal berbentuk corong yang berfungsi untuk menampung urin dari kalikus mayor sebelum dialirkan ke ureter.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-57",
+"src": "tinjauan",
+"h": "",
+"t": "Merupakan sebuah saluran panjang yang menghubungkan ginjal dan kandung kemih, saluran ini berfungsi untuk mengalirkan urin dari ginjal ke kandung kemih.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-58",
+"src": "tinjauan",
+"h": "",
+"t": "Merupakan pembuluh darah yang masuk ke ginjal dari aorta yang berfungsi untuk membawa darah yang kaya akan oksigen (O2) dan limbah metabolik ke ginjal untuk dilakukan penyaringan darah.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-59",
+"src": "tinjauan",
+"h": "Vena Renal",
+"t": "Merupakan pembuluh darah yang mengarah keluar ginjal ke kava inferior, vena renal berfungsi untuk mengalirkan darah bersih dari ginjal kembali ke sirkulasi tubuh.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-60",
+"src": "tinjauan",
+"h": "Lemak Ginjal (Renal Fat)",
+"t": "Lemak ginjal ini terletak mengelilingi ginjal berfungsi sebagai bantalan pelindung serta untuk menahan posisi ginjal dalam tubuh.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-61",
+"src": "tinjauan",
+"h": "Nefron",
+"t": "Selain beberapa bagian ginjal di atas, ginjal terdiri dari sekitar 1 juta nefron per ginjalnya. Nefron sendiri merupakan unit struktural dan fungsional terkecil pada ginjal. Nefron terbagi ke bagian ginjal yaitu pada koreteks renal dan medula renal. Bentuk dan struktur nefron dapat dilihat pada gambar 2.7 berikut ini: Arteri Aferen Arteri Aferen merubakan pembuluh darah yang berfungsi untuk membawa darah dari luar ginjal memasuki glomerulus yang menjadi tempat awal penyaringan darah. Arteri eferen juga membawa darah yang telah difiltrasi di glomerolus menuju pembuluh peritubular. Kapsul Bowman Kapsul bowman merupakan bagian yang berbentuk seperti kantong yang di dalamnya terdapat glomerulus. Kedua organel ini membentuk kesatuan yang disebut badan malphigi. Kapsul bowman berfungsi untuk menampung hasil penyaringan yang dilakukan pada glomerulus dalam bentuk urin primer yang nantinya akan dialirkan ke bagian lain pada nefron. Glomerulus Glomerulus merupakan tempat terjadinya penyaringan atau filtrasi darah. Beberapa molekul yang disaring seperti garam, air, glukosa, dan urea, sedangkan sel darah dan protein tetap dalam darah.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-62",
+"src": "tinjauan",
+"h": "Nefron",
+"t": "Tubulus Kontortus Proksimal Merupakan tempat terjadinya proses reabsorbsi atau penyerapan kembali zat-zat seperti air, glukosa, asam amino, dan ion Na⁺, K⁺, Cl⁻, HCO₃⁻. Lengkung Henle (Ansa Henle) Lengkung henle merupakan bagian nefron yang memiliki ciri khas yaitu berbentuk huruf U. Bagian ini berfungsi untuk menyerap kembali atau reabsorbsi air dan natrium klorida pada urin untuk menghemat pengeluaran air dari dalam tubuh dan menghasilkan urin yang lebih pekat dan mengandung lebih banyak zat metabolisme. Inilah mengapa ginjal menjadi organ yang mengatur jumlah cairan dan elektrolit tubuh. Lengkung henle terdiri atas beberapa bagian yang memiliki fungsinya masing masing, yaitu: a. Cabang Desenden Tipis. Cabang ini bersifat permeabel yang berarti pada bagian ini sangat mudah menyerap air sehingga menyebabkan kandungan urea dan natrium pada urin semakin pekat. b. Cabang Asenden Tipis. Berbeda dengan cabang desenden tipis, cabang asenden tipis ini tidak menyerap air. Dikarenakan urin yang melewati bagian ini memiliki kandungan natrium klorida yang pekat sehingga pada bagian ini hanya menyerap kembali ion natrium dan klorida. c. Cabang Asenden Tebal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-63",
+"src": "tinjauan",
+"h": "Nefron",
+"t": "Pada bagian ini dilakukan kembali penyerapan nutrisi jika tubuh masih memerlukannya. Jika tidak maka nutrisi yang tersisa akan terbawa bersama urin ke tahap terakhir proses pembentukan urin di tubulus kontrus distal. Tubulus Kontortus Distal Tubulus kontortus distal atau dapat disebut dengan TKD merupakan bagian dari nefron yang juga berfungsi dalam penyerapan atau reabsorbsi dan juga sebagai tahap akhir penyempurnaan komposisi urin. Selain itu, TKD berfungsi untuk mensekresi zat-zat sisa metabolisme atau racun ke dalam tubulus, mengatur pH darah serta berkontribusi dalam tahap pengenceran urin.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-64",
+"src": "tinjauan",
+"h": "Duktus Kolektivus (Tubulus Pengumpul)",
+"t": "Duktus kolektivus merupakan bagian terakhir pada nefron sebelum nantinya urin yang sudah diproses disalurkan ke pelvis renalis dan ke ureter. Pada bagian ini berfugnsi untuk mengatur keseimbangan air, elektrolit, dan pH tubuh. 8. Pembuluh Peritubuler & Vena Renalis Pembuluh peritubuler dan vena renalis secara garis besar berfungsi untuk menyerap kembali zat-zat yang telah direabsorpsi untuk dikembalikan ke sirkulasi darah. Tidak hanya itu saja, terdapat beberapa fungsi lain pembuluh peritubuler dan vena renalis yaitu sebagai berikut:",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-65",
+"src": "tinjauan",
+"h": "Pembuluh Peritubuler",
+"t": "Pembuluh dara peritubuler merupakan jaringan kapiler halus yang berada di sekeliling tubulus nefron yakni di bagian tubulus kontortus proksimal, ansa henle, dan tubulus kontortus distal. Pembuluh ini memiliki beberapa fungsi yaitu untuk menyerap kembali atau reabsorpsi air, glukosa, asam amino, ion, dan filtrat urin pada tubulus ke dalam darah, mengangkut zat sisa dari darah ke tubulus, dan membantu mempertahankan tekanan osmotik antara darah dan cairan tubuh.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-66",
+"src": "tinjauan",
+"h": "Vena Renalis",
+"t": "Merupakan pembuluh darah besar yang membawa darah keluar dari ginjal menuju vena cava inferior. Darah yang dialirkan merupakan darah yang sudah melalui proses pada ginjal seperti proses filtrasi, reabsorpsi, dan sekresi. Selain itu, dikarenakan darah yang kembali ke tubuh telah diproses pada ginjal maka vena renalis berperan dalam homeostasis yaitu membantu menjaga keseimbangan tubuh dengan mengalirkan darah yang sudah disaring oleh ginjal.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-67",
+"src": "tinjauan",
+"h": "Filtrasi (Penyaringan)",
+"t": "Proses awal ekskresi yaitu tahap penyaringan, darah dari arteri aferen masuk ke glomerulus yang berada di dalam kapsul bowman dengan tekanan tinggi. Di sini terjadi penyaringan zat-zat kecil seperi air, ion (Na⁺, Cl⁻, K⁺), glukosa, asam amino, dan urea. Sedangkan zat besar seperti sel darah dan protein tidak disaring. Hasil akhir dari proses awal ini adalah urin primer (filtrat glomerulus).",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-68",
+"src": "tinjauan",
+"h": "Reabsorbsi (Penyerapan Kembali)",
+"t": "Pada tahap ini urin primer hasil dari filtrasi dilakukan proses reabsorpsi atau penyerapan kembali zat-zat pada urin primer ke darah melalui pembuluh darah peritubuler yang masih diperlukan tubuh seperti air, glukosa, garam, dan asam amino. Proses ini terjadi di sepanjang tubulus kontortus proksimal, lengkung Henle, dan tubuus kontortus distal. Hasil akhir proses ini adalah urin sekunder.",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-69",
+"src": "tinjauan",
+"h": "",
+"t": "Tahap selanjutnya adalah ekskresi atau pengeluaran zat-zat sisa dan berbahaya bagi tubuh yang sudah tidak diperlukan tubuh seperti ion H⁺, K⁺, NH₄⁺, dan obat-obatan yang akan dikeluarkan langsung dari darah ke tubulus. Proses ini berfungsi untuk mengatur pH darah dan membuang zat sisa. Tahapan ekskresi ini dilakukan terutama di tubulus kontortus distal dan sebagaian tubulus kolektivus. Hasil akhir dari proses ini adalah urin sesungguhnya (mengandung urea, garam, air, racun, ion H⁺). Ekskresi Urin Urin sesungguhnya atau hasil akhir dari proses ekskresi ginjal pada masing-masing nefron disalurkan ke duktus kolektivus lalu ke pelvis renalis. Dari pelvis renalis akan disalurkan ke ureter lalu masuk ke kandung kemih dan nantinya akan keluar dari uretra saat buang air kecil",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-70",
+"src": "tinjauan",
+"h": "Sekresi (Augmentasi)",
+"t": "Unity Unity merupakan software yang digunakan dalam pengembangan aplikasi 2D, 3D, Virtual Reality (VR), dan Augmented Reality (AR) (Bahtiar, 2024). Software ini memiliki kemampuan yang fleksibel serta mendukung berbagai platform sehingga memungkinkan untuk membangun aplikasi yang dapat digunakan di berbagai sistem operasi seperti Android, iOS, Windows, Web, dan yang lainnya. Unity mendukung baha pemrograman C# dan menyediakan fiturfitur yang dapat membantu mengelola objek 2D maupun 3D, audio, animasi, serta interaksi user. Selain itu, Unity mendukung integrasi dengan penambahan plugin dan framework dari pihak ketiga seperti Vuforia, ARCore, ARKit, dan lainnya yang dapat mempermudah pengembangan pembuatan aplikasi. Logo software Unity dapat dilihat pada gambar 2.8 di bawah ini:",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-71",
+"src": "tinjauan",
+"h": "Sekresi (Augmentasi)",
+"t": "EasyAR EasyAR merupakan salah satu Software Development Kit (SDK) yang dapat digunakan dalam mengembangkan Augmented Reality (AR). SDK ini menyediakan beberapa fitur seperti image Tracking atau pelacakan gambar, pelacak gambar 3D, pengenalan Markerless AR, dan pendeteksi lingkungan secara real-time (Saepulrohman, M.Si dkk., 2023). EasyAR ini dapat digunakan pada Unity sebagai sebuah package atau plugin yang berisi aset, script, dan library pendukung yang nantinya user dapat menggunakannya dalam mengembangkan aplikasi AR yang responsif, interaktif, dan kompatibel dengan berbagai perangkat Android dan iOS. 2.7",
+"o": [
+"ginjal"
+]
+},
+{
+"id": "tinjauan-72",
+"src": "tinjauan",
+"h": "",
+"t": "Blender Blender merupakan sebuah software yang biasa digunakan untuk membuat dan mengolah objek grafis 3D, hal ini termasuk dalam pemodelan (modeling), rigging, animasi, simulasi, rendering, compositing, motion Tracking, serta video editing dan pengembangan permainan (game development) (Rahmat dan Noviyanti, 2021). Blender digunakan dikarenakan memiliki beberapa keunggulan yaitu software yang gratis, fleksibel, dan kompatibel lintas platform. Blender ini dilengkapi dengan engine rendering seperti Eevee dan Cycles sehingga mampu menghasilkan visualisasi objek digital yang realistis serta interaktif. Selain itu Blender juga mendukung scripting menggunakan Python sehingga user dapat mengembangkan fitur yang diinginkan dan melakukan otomatisasi. Logo software Blender dapat dilihat pada gambar 2.9 di bawah ini:",
+"o": []
+},
+{
+"id": "tinjauan-73",
+"src": "tinjauan",
+"h": "",
+"t": "Metode Waterfall Metode Waterfall merupakan salah satu metode pengembangan sistem yang menekankan pada bagian sistematis proses pengembangan yang artinya setiap tahap pada metode ini harus dilakukan secara berurutan dari awal hingga akhir yang diibaratkan seperti air terjun (Suharni dkk., 2023). Pada metode ini terdapat lima tahapan yaitu:",
+"o": []
+}
+]
+}

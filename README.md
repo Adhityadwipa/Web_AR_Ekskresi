@@ -30,6 +30,12 @@ pertanyaan seperti *"apa fungsinya?"* langsung dijawab sesuai organ/bagian yang 
 - **Mode AI** (opsional): jika server diberi `ANTHROPIC_API_KEY`, jawaban dihasilkan Claude (streaming) dengan catatan konteks 3D dan materi yang sama sebagai referensi. Bila AI gagal, otomatis kembali ke mode offline.
 - Tombol jenjang **SMP / SMA** mengatur kedalaman jawaban. Input suara (Bahasa Indonesia) bila browser mendukung.
 
+**Basis pengetahuan dari buku & modul**
+- `src/data/corpus.json` berisi ±175 potongan materi sistem ekskresi yang diekstrak dari modul Sistem Ekskresi pada Manusia, modul Biologi XI KD 3.9, Buku IPA Kelas VIII & VII, dan materi tinjauan pustaka (soal latihan, kata pengantar, dan bagian di luar topik dibuang).
+- Mode offline mencari potongan paling relevan (BM25) untuk menambah penjelasan, menjawab istilah khusus (mis. *detoksifikasi*, *ADH*, *hemodialisis*), dan menyebut sumbernya. Mode AI memakai seluruh korpus sebagai rujukan.
+- Chatbot mengingat alur percakapan: *"terus?"*, *"contohnya?"*, *"masih bingung"* melanjutkan topik sebelumnya; *"kalau hati?"* memakai jenis pertanyaan sebelumnya untuk organ lain.
+- Membangun ulang korpus dari PDF: `python3 tools/build_corpus.py <folder-pdf>` (butuh `pdftotext`).
+
 **AR**
 - **WebXR immersive-ar** (Android Chrome, dsb.): deteksi permukaan, ketuk untuk menaruh organ, ubah ukuran, dan chat tetap bisa dibuka di atas tampilan AR.
 - **Mode kamera** sebagai cadangan (iPhone/laptop): model 3D di atas video kamera dengan titik bidik context-aware.

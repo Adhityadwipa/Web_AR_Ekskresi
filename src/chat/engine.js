@@ -3,6 +3,7 @@
 // yang sedang diamati pengguna (dipilih, atau dibidik kamera di mode AR).
 import { ORGANS, PARTS, MODELS, GENERAL, SUBSTANCES } from '../data/knowledge.js';
 import { observedPart } from '../state.js';
+import { search, snippet, SOURCES, rareTerms, tokenize, nextChunk } from './retrieval.js';
 
 export const norm = (s) =>
   s.toLowerCase()
@@ -122,6 +123,12 @@ const SLANG = {
 const STOP = new Set('yang dan atau apa itu ini dengan untuk dari ke di pada saja bisa ada tidak kalau jadi juga sih dong kak aku saya kamu mau tolong coba gitu lagi tahu banget kok deh sama lebih paling cara kita kami mereka dia sudah udah belum masih harus boleh punya buat bikin kayak seperti contoh terus tapi namun karena sebab akibat agar supaya biar'.split(' '));
 
 let VOCAB = null;
+let KNOWN = null;
+/** Bentuk dasar (stem) kosakata yang sudah ditangani materi ringkas. */
+function knownStems() {
+  if (!KNOWN) KNOWN = new Set(vocab().flatMap((w) => tokenize(w)));
+  return KNOWN;
+}
 function vocab() {
   if (VOCAB) return VOCAB;
   const words = new Set();
@@ -174,6 +181,18 @@ export function fixQuery(question) {
   return { text: out.join(' '), fixes };
 }
 
+// kata penanda pertanyaan lanjutan
+const FOLLOW = ['terus', 'trus', 'lalu', 'lanjut', 'lanjutkan', 'selanjutnya', 'jelaskan lagi', 'lebih detail', 'lebih lengkap', 'lebih jelas', 'detailnya', 'maksudnya', 'contohnya', 'contoh', 'kok bisa', 'kenapa begitu', 'kenapa bisa', 'yang tadi', 'itu tadi', 'lagi dong', 'oh gitu', 'gimana lagi', 'apa lagi', 'masih bingung', 'belum paham', 'kurang paham', 'ga paham', 'tidak paham'];
+
+/** Potongan buku → teks jawaban dengan sumber. */
+function fromBook(h, asExtra = false) {
+  const src = SOURCES[h.src]?.title || 'buku';
+  // kalimat pengantar daftar ("…sebagai berikut.") → sambung dengan potongan berikutnya
+  if (/(berikut|antara lain|yaitu)[.:]?\s*$/i.test(h.t)) { const n = nextChunk(h.id); if (n) h = { ...h, t: `${h.t} ${n.t}` }; }
+  const head = asExtra ? `📚 **Penjelasan tambahan${h.h ? ` — ${h.h}` : ''}**` : `📖 **${h.h || 'Dari buku'}**`;
+  return `${head}\n${snippet(h.t, asExtra ? 75 : 110)}\n*— ${src}*`;
+}
+
 const OPEN = {
   part: ['Oke, ini dia! 😄', 'Siap, kita bahas bagian ini ya 👇', 'Nah, bagian ini menarik nih ✨', 'Yuk kenalan sama bagian ini 🔍'],
   nama: ['Oh, itu yang lagi kamu lihat! 👀', 'Ketebak! 😄'],
@@ -184,6 +203,7 @@ const OPEN = {
   substance: ['Oke, soal zat ini ya 🧪'],
   compare: ['Biar kebayang, kita bandingin ya ⚖️'],
   general: ['Oke, kita mulai dari gambaran besarnya ya 🧠'],
+  book: ['Aku cek di buku dulu ya… ketemu! 📚', 'Nah, ini ada di materi bukunya 👇'],
 };
 const CLOSE = [
   'Masih ada yang bikin penasaran? Tanya aja 😉',
@@ -202,7 +222,7 @@ function friendly(r, fixed, c) {
     if (kind.startsWith('organ:') && r.organ && Math.random() < 0.5) o += ` ${EMO[r.organ] || ''}`;
     text = `${o}\n\n${text}`;
   }
-  if (['part', 'organ', 'substance', 'compare', 'general'].some((k) => kind.startsWith(k)) && Math.random() < 0.55) text += `\n\n${pick(CLOSE)}`;
+  if (['part', 'organ', 'substance', 'compare', 'general', 'book', 'deeper'].some((k) => kind.startsWith(k)) && Math.random() < 0.6) text += `\n\n${pick(CLOSE)}`;
   if (fixed.fixes.length && !['grade', 'greet', 'thanks'].includes(kind)) {
     const f = fixed.fixes.slice(0, 2).map(([, b]) => `“${b}”`).join(', ');
     text = `*(Aku anggap maksudmu ${f} ya 😉)*\n\n${text}`;
@@ -211,13 +231,94 @@ function friendly(r, fixed, c) {
 }
 
 export class LocalEngine {
-  constructor() { this.quiz = null; this.asked = new Set(); }
+  constructor() { this.quiz = null; this.asked = new Set(); this.mem = { shown: new Set() }; }
 
-  /** Jawaban + gaya bicara santai ala teman belajar (+ pemahaman typo/singkatan). */
+  /**
+   * Jawaban + gaya bicara santai ala teman belajar (+ pemahaman typo/singkatan),
+   * mengingat alur percakapan, dan diperkaya penjelasan dari buku/modul (korpus).
+   */
   answer(question, c) {
     const fixed = fixQuery(question);
-    const r = this._answer(fixed.text, c);
+    let text = fixed.text;
+    const r0 = resolve(text, c);
+    const mem = this.mem;
+    const words = text.split(' ').length;
+
+    // 1) Pertanyaan lanjutan ("terus?", "jelasin lagi", "contohnya?") → lanjutkan topik sebelumnya
+    const follow = FOLLOW.some((f) => has(text, f)) && words <= 7 && !r0.organs.length && !r0.part;
+    if (follow && mem.target && !this.quiz) return friendly(this.deeper(text, c), fixed, c);
+
+    // 2) "kalau ginjal?" (sebut organ/bagian lain tanpa kata tanya) → pakai jenis pertanyaan sebelumnya
+    if (mem.intent && !r0.intents.length && (r0.organs.length || r0.part) && words <= 5 && INTENTS[mem.intent]) {
+      text = `${text} ${INTENTS[mem.intent][0]}`;
+    }
+
+    // 3) Istilah khusus yang tidak ada di materi ringkas (mis. detoksifikasi, ADH, ESWL) → jawab langsung dari buku
+    if (!this.quiz && !r0.part && !/^[abcd]$/.test(text)) {
+      const rare = rareTerms(text, knownStems());
+      if (rare.length) {
+        const hits = search(`${text} ${rare.join(' ')} ${rare.join(' ')}`, { exclude: this.mem.shown, limit: 2, level: c.level }).filter((h) => h.score > 4 && rare.some((w) => h.t.toLowerCase().includes(w.slice(0, 5))));
+        if (hits.length) {
+          hits.forEach((h) => this.mem.shown.add(h.id));
+          const organ = r0.organs[0] || hits[0].o[0] || c.organ;
+          const actions = organ && organ !== ORGANS[c.organ]?.id && MODELS.some((m) => m.id === organ) && organ !== c.organ ? [{ type: 'show', model: organ, label: `Lihat model 3D ${ORGANS[organ].name}` }] : [];
+          this.mem = { ...this.mem, target: { organ, part: null }, intent: r0.intents[0] || this.mem.intent, query: text };
+          return friendly({ kind: 'book', text: hits.map((h) => fromBook(h)).join('\n\n'), actions, context: { organ, part: null, inferred: !r0.organs.length, label: ORGANS[organ]?.name } }, fixed, c);
+        }
+      }
+    }
+
+    let r = this._answer(text, c);
+    const rr = resolve(text, c);
+    r = this.enrich(r, text, rr, c);
+    if (rr.target && !['greet', 'thanks', 'offtopic', 'quiz', 'grade'].includes(r.kind)) {
+      this.mem = { ...mem, target: r.context ? { organ: r.context.organ, part: r.context.part } : rr.target, intent: rr.intents[0] || mem.intent, query: text };
+    }
     return friendly(r, fixed, c);
+  }
+
+  /** Tambahkan penjelasan dari buku/modul agar jawaban tidak terlalu singkat. */
+  enrich(r, text, rr, c) {
+    const kind = r.kind || '';
+    const t = r.context || rr.target || {};
+    const topic = [t.part && PARTS[t.part]?.name.split('(')[0], ORGANS[t.organ]?.name].filter(Boolean).join(' ');
+    const shown = this.mem.shown;
+    const wantMore = ['jelaskan', 'jelasin', 'detail', 'lengkap', 'rinci', 'terangkan', 'ceritakan'].some((w) => has(text, w));
+
+    // Pertanyaan di luar KB terstruktur tetapi ada di buku → jawab dari buku
+    if (kind === 'offtopic' || kind === 'organ:ringkas' || kind === 'organ:definisi') {
+      const hits = search(text, { organ: kind === 'offtopic' ? undefined : t.organ, exclude: shown, limit: 2, level: c.level });
+      const strong = hits.filter((h) => h.score > (kind === 'offtopic' ? 6 : 5) && h.hit >= 1);
+      if (strong.length) {
+        strong.forEach((h) => shown.add(h.id));
+        const body = strong.map((h) => fromBook(h)).join('\n\n');
+        if (kind === 'offtopic') return { ...r, kind: 'book', text: body };
+        return { ...r, text: `${body}\n\n**Singkatnya:** ${r.text.replace(/^\*\*.*?\*\*.*\n\n/, '')}` };
+      }
+      return r;
+    }
+    if (!['part', 'nama', 'substance', 'general', 'compare'].includes(kind) && !kind.startsWith('organ:')) return r;
+    const hits = search(`${text} ${topic}`, { organ: t.organ, exclude: shown, limit: wantMore ? 2 : 1, level: c.level })
+      .filter((h) => h.score > 4);
+    if (!hits.length) return r;
+    hits.forEach((h) => shown.add(h.id));
+    return { ...r, text: `${r.text}\n\n${hits.map((h) => fromBook(h, true)).join('\n\n')}` };
+  }
+
+  /** Lanjutan topik sebelumnya: penjelasan lebih dalam dari buku yang belum ditampilkan. */
+  deeper(text, c) {
+    const { target, query } = this.mem;
+    const O = ORGANS[target.organ];
+    const topic = [target.part && PARTS[target.part]?.name.split('(')[0], O?.name].filter(Boolean).join(' ');
+    const hits = search(`${query} ${topic}`, { organ: target.organ, exclude: this.mem.shown, limit: 2, level: c.level });
+    const label = contextLabel(target);
+    const context = { ...target, inferred: true, label };
+    if (!hits.length) {
+      return { kind: 'deeper', text: `Kayaknya materi soal **${label}** udah aku jelasin semua nih 😄 Mau lanjut ke topik lain? Coba tanya *penyakitnya*, *cara menjaganya*, atau ketik **kuis**!`, actions: [], context };
+    }
+    hits.forEach((h) => this.mem.shown.add(h.id));
+    const intro = has(text, 'contoh') ? 'Oke, ini contoh & penjelasan lanjutannya ya 👇' : pick(['Oke, aku lanjutin ya 👇', 'Siap, kita bahas lebih dalam 🔎', 'Lanjut! Masih soal ' + label + ' ya 😉']);
+    return { kind: 'deeper', text: `${intro}\n\n${hits.map((h) => fromBook(h)).join('\n\n')}`, actions: [], context };
   }
 
   _answer(question, c) {

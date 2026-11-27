@@ -162,7 +162,7 @@ export class Chat {
     let msg = null;
     try {
       const answer = await streamLLM({
-        history: this.history.slice(-14),
+        history: this.history.slice(-24),
         context: describeContext(c),
         onText: (full) => {
           if (!msg) { typing.remove(); msg = this.add('bot', '', { context, meta: true }); this.history.pop(); }
